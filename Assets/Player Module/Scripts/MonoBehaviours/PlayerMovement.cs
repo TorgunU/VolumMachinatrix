@@ -66,6 +66,15 @@ public class PlayerMovement : MonoBehaviour
             scaledMoveSpeed = _movingSpeed * Time.fixedDeltaTime;
         }
 
-        _rigidbody2D.MovePosition(_rigidbody2D.position + _inputDirection.normalized * scaledMoveSpeed);
+        float legsAngle = _legsRotaionLimiter.GetLegsRoationAngle();
+      
+        Vector2 legsDirection = new Vector2(Mathf.Cos(legsAngle * Mathf.Deg2Rad), Mathf.Cos(legsAngle * Mathf.Deg2Rad)).normalized;
+        Vector2 moveDirection = Vector2.Scale(legsDirection, _inputDirection.normalized);
+
+        Debug.Log(moveDirection);
+        Debug.DrawRay(transform.position, legsDirection, Color.black);
+        Debug.DrawRay(transform.position, moveDirection, Color.green);
+
+        _rigidbody2D.MovePosition(_rigidbody2D.position + moveDirection * scaledMoveSpeed);
     }
 }
