@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,17 +11,17 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerInput _playerInput;
     private Rigidbody2D _rigidbody2D;
-    private ITorsoRotaionLimiter _torsoRotaionLimiter;
-    private Vector2 _direction;
-    private Vector2 _move;
+    private ILegRotaionLimiter _legsRotaionLimiter;
+    private Vector2 _inputDirection;
 
+    public float Speed { get => _movingSpeed; private set => _movingSpeed = value; }
 
     private void Awake()
     {
         _playerInput = GetComponent<KeyboardMouseInput>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
 
-        _torsoRotaionLimiter = GetComponentInChildren<ITorsoRotaionLimiter>();
+        _legsRotaionLimiter = GetComponentInChildren<ILegRotaionLimiter>();
     }
 
     private void Start()
@@ -31,26 +32,25 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody2D.gravityScale = 0;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         SetDirection();
+        RotateLegs();
         Move();
     }
 
-    public float Speed { get => _movingSpeed; private set => _movingSpeed = value; }
-
     private void SetDirection()
     {
-        _direction = _playerInput.GetMovementDirection();
-        _torsoRotaionLimiter.CheckTorsoAngleLimit(_direction);
+        _inputDirection = _playerInput.GetMovementDirection();
+    }
+
+    private void RotateLegs()
+    {
+        _legsRotaionLimiter.Rotate(_inputDirection);
     }
 
     private void Move()
     {
-        var newDirection = new Vector2(_direction.x, _direction.y);
-
-        _move = newDirection;
-
         float scaledMoveSpeed;
 
         if(_playerInput.IsChangeOnRun())
@@ -66,6 +66,6 @@ public class PlayerMovement : MonoBehaviour
             scaledMoveSpeed = _movingSpeed * Time.fixedDeltaTime;
         }
 
-        _rigidbody2D.MovePosition(_rigidbody2D.position + _move * scaledMoveSpeed);
+        _rigidbody2D.MovePosition(_rigidbody2D.position + _inputDirection.normalized * scaledMoveSpeed);
     }
 }

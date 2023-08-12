@@ -1,10 +1,12 @@
 using DG.Tweening;
+using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Legs : MonoBehaviour, ITorsoRotaionLimiter
+public class Legs : MonoBehaviour, ILegRotaionLimiter
 {
-    private Vector2 _direction;
+    [SerializeField] private float _rotationChangeInterval;
+
     private float _minAngleRotation;
     private float _maxAngleRotation;
     private float _tresholdAngleCorrection;
@@ -14,6 +16,8 @@ public class Legs : MonoBehaviour, ITorsoRotaionLimiter
 
     private void Start()
     {
+        _rotationChangeInterval = 3f;
+
         _minAngleRotation = -90f;
         _maxAngleRotation = 90f;
         _tresholdAngleCorrection = 180f;
@@ -21,32 +25,35 @@ public class Legs : MonoBehaviour, ITorsoRotaionLimiter
         _maxAngleClamp = 75f;
     }
 
-    private void Rotate()
+    public float GetCurrentRotationAngle()
     {
-        if (_direction != Vector2.zero)
+        return transform.rotation.eulerAngles.z;
+    }
+
+    public void Rotate(Vector2 inputDirection)
+    {
+        if (inputDirection != Vector2.zero)
         {
-            float angle = Mathf.Atan2(-_direction.x, _direction.y) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(-inputDirection.x, inputDirection.y) * Mathf.Rad2Deg;
 
             if (angle < _minAngleRotation || angle > _maxAngleRotation)
             {
                 angle += _tresholdAngleCorrection;
-
             }
             else
             {
                 angle = Mathf.Clamp(angle, _minAngleClamp, _maxAngleClamp);
             }
 
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            Quaternion targetRotation = Quaternion.Euler(0f, 0f, angle);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * _rotationChangeInterval);
 
-            Debug.DrawRay(transform.position, _direction, Color.yellow);
+            Debug.DrawRay(transform.position, inputDirection, Color.yellow);
         }
     }
 
-    public void CheckTorsoAngleLimit(Vector2 torsoAngle)
+    public float GetLegsRoationAngle()
     {
-        _direction = torsoAngle;
-
-        Rotate();
+        return transform.rotation.eulerAngles.z;
     }
 }
