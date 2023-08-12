@@ -4,12 +4,7 @@ using UnityEngine.InputSystem;
 
 public abstract class PlayerInput : MonoBehaviour
 {
-    //[SerializeField] protected Camera Camera;
-
     protected InputActions InputActions;
-
-    public event Action<Vector2> OnMovementDirectionChanged;
-
 
     protected virtual void Awake()
     {
@@ -28,6 +23,6 @@ public abstract class PlayerInput : MonoBehaviour
 
     public abstract Vector2 GetMovementDirection();
     public abstract Vector2 GetLookDireciton();
-
-    protected abstract void RaiseChangedMovementDirection();
+    public abstract bool IsChangeOnRun();
+    public abstract bool IsChangedOnWalk();
 }
