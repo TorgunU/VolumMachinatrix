@@ -9,8 +9,6 @@ public sealed class KeyboardMouseInput : PlayerInput
     {
         base.Awake();
 
-        //InputActions.KeyboardMouse.Move.performed += moveDirectionContext => GetMovementDirection();
-
         InputActions.KeyboardMouse.Move.performed += moveDirectionContext => GetMovementDirection();
         InputActions.KeyboardMouse.LookDirection.performed += lookDirectionContext => GetLookDireciton();
         InputActions.KeyboardMouse.Run.performed += runContext => IsChangeOnRun();

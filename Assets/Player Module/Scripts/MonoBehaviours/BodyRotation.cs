@@ -12,7 +12,6 @@ public class BodyRotation : MonoBehaviour
     private float _previousClampedAngle;
     private Coroutine _rotateCoroutine;
     
-
     private void Awake()
     {
         _playerLook = GetComponent<PlayerLook>();
@@ -43,10 +42,6 @@ public class BodyRotation : MonoBehaviour
         }
 
         _rotateCoroutine = StartCoroutine(RotateSmoothly(angle));
-
-        //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-        //_rigidbody2D.MoveRotation(angle);
     }
 
     private float CalculateAngle()
