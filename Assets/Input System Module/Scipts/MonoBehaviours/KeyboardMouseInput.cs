@@ -12,9 +12,9 @@ public sealed class KeyboardMouseInput : PlayerInput
         //InputActions.KeyboardMouse.Move.performed += moveDirectionContext => GetMovementDirection();
 
         InputActions.KeyboardMouse.Move.performed += moveDirectionContext => GetMovementDirection();
-
         InputActions.KeyboardMouse.LookDirection.performed += lookDirectionContext => GetLookDireciton();
-
+        InputActions.KeyboardMouse.Run.performed += runContext => IsChangeOnRun();
+        InputActions.KeyboardMouse.Walk.performed += walkContext => IsChangedOnWalk();
     }
 
     public override Vector2 GetLookDireciton()
@@ -27,8 +27,13 @@ public sealed class KeyboardMouseInput : PlayerInput
         return InputActions.KeyboardMouse.Move.ReadValue<Vector2>();
     }
 
-    protected override void RaiseChangedMovementDirection()
+    public override bool IsChangeOnRun()
     {
-        //OnMovementDirectionChanged.Invoke(InputActions.KeyboardMouse.Move.ReadValue<Vector2>());
+        return InputActions.KeyboardMouse.Run.IsPressed();
+    }
+
+    public override bool IsChangedOnWalk()
+    {
+        return InputActions.KeyboardMouse.Walk.IsPressed();
     }
 }

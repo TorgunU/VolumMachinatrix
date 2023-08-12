@@ -1,17 +1,17 @@
-using System;
-using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(PlayerInput))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float _speed;
+    [SerializeField] private float _movingSpeed;
+    [SerializeField] private float _walkingSpeed;
+    [SerializeField] private float _runningSpeed;
 
     private PlayerInput _playerInput;
     private Rigidbody2D _rigidbody2D;
     private ITorsoRotaionLimiter _torsoRotaionLimiter;
     private Vector2 _direction;
-    private Vector2 _previousDirection;
     private Vector2 _move;
 
 
@@ -25,7 +25,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        _speed = 7;
+        _movingSpeed = 7;
+        _runningSpeed = 25;
+        _walkingSpeed = 2;
         _rigidbody2D.gravityScale = 0;
     }
 
@@ -35,18 +37,12 @@ public class PlayerMovement : MonoBehaviour
         Move();
     }
 
-    public float Speed { get => _speed; private set => _speed = value; }
+    public float Speed { get => _movingSpeed; private set => _movingSpeed = value; }
 
     private void SetDirection()
     {
         _direction = _playerInput.GetMovementDirection();
         _torsoRotaionLimiter.CheckTorsoAngleLimit(_direction);
-
-        //if(_direction != _previousDirection)
-        //{
-        //    _previousDirection = _direction;
-        //    _torsoRotaionLimiter.CheckTorsoAngleLimit(_direction);
-        //}
     }
 
     private void Move()
@@ -55,7 +51,20 @@ public class PlayerMovement : MonoBehaviour
 
         _move = newDirection;
 
-        float scaledMoveSpeed = _speed * Time.fixedDeltaTime;
+        float scaledMoveSpeed;
+
+        if(_playerInput.IsChangeOnRun())
+        {
+            scaledMoveSpeed = _runningSpeed * Time.fixedDeltaTime;
+        }
+        else if(_playerInput.IsChangedOnWalk())
+        {
+            scaledMoveSpeed = _walkingSpeed * Time.fixedDeltaTime;
+        }
+        else
+        {
+            scaledMoveSpeed = _movingSpeed * Time.fixedDeltaTime;
+        }
 
         _rigidbody2D.MovePosition(_rigidbody2D.position + _move * scaledMoveSpeed);
     }
