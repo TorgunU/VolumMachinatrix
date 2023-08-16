@@ -1,28 +1,31 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(PlayerInput))]
-public class PlayerMovement : MonoBehaviour, IMoveable
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _movingSpeed;
     [SerializeField] private float _walkingSpeed;
     [SerializeField] private float _runningSpeed;
 
-    private PlayerInput _playerInput;
-    private InputActionReference _movement;
+    private IMovementEvents _inputEvents;
     private Rigidbody2D _rigidbody2D;
     private ILegRotaionLimiter _legsRotaionLimiter;
-    private Vector2 _inputDirection;
+    private Vector2 _moveDirection;
+    private bool _isRunning;
+    private bool _isWalking;
 
     public float Speed { get => _movingSpeed; private set => _movingSpeed = value; }
 
+    public void Init(Rigidbody2D rigidbody2D, IMovementEvents playerInputEvents)
+    {
+        _rigidbody2D = rigidbody2D;
+        _inputEvents = playerInputEvents;
+
+        _rigidbody2D.gravityScale = 0;
+    }
+
     private void Awake()
     {
-        _playerInput = GetComponent<KeyboardMouseInput>();
-        //_rigidbody2D = GetComponent<Rigidbody2D>();
-
         _legsRotaionLimiter = GetComponentInChildren<ILegRotaionLimiter>();
     }
 
@@ -35,33 +38,33 @@ public class PlayerMovement : MonoBehaviour, IMoveable
 
     private void Update()
     {
-        SetDirection();
         RotateLegs();
         Move();
     }
 
-    public void Init(Rigidbody2D rigidbody2D, PlayerInput playerInput)
+    private void OnEnable()
     {
-        _rigidbody2D = rigidbody2D;
-        _playerInput = playerInput;
-
-        _rigidbody2D.gravityScale = 0;
+        _inputEvents.MovementDirectionUpdated += SetMoveDirection;
+        _inputEvents.WalkStateChanged += SetWalkState;
+        _inputEvents.RunStateChanged += SetRunState;
     }
 
-    public void SetDirection()
+    private void OnDisable()
     {
-        _inputDirection = _playerInput.GetMovementDirection();
+        _inputEvents.MovementDirectionUpdated -= SetMoveDirection;
+        _inputEvents.WalkStateChanged -= SetWalkState;
+        _inputEvents.RunStateChanged -= SetRunState;
     }
 
     public void Move()
     {
         float scaledMoveSpeed;
 
-        if(_playerInput.IsChangeOnRun())
+        if(_isRunning)
         {
             scaledMoveSpeed = _runningSpeed * Time.fixedDeltaTime;
         }
-        else if(_playerInput.IsChangedOnWalk())
+        else if(_isWalking)
         {
             scaledMoveSpeed = _walkingSpeed * Time.fixedDeltaTime;
         }
@@ -72,8 +75,10 @@ public class PlayerMovement : MonoBehaviour, IMoveable
 
         float legsAngle = _legsRotaionLimiter.GetLegsRoationAngle();
       
-        Vector2 legsDirection = new Vector2(Mathf.Cos(legsAngle * Mathf.Deg2Rad), Mathf.Cos(legsAngle * Mathf.Deg2Rad)).normalized;
-        Vector2 moveDirection = Vector2.Scale(legsDirection, _inputDirection.normalized);
+        Vector2 legsDirection = new Vector2(Mathf.Cos(legsAngle * Mathf.Deg2Rad), 
+            Mathf.Cos(legsAngle * Mathf.Deg2Rad)).normalized;
+
+        Vector2 moveDirection = Vector2.Scale(legsDirection, _moveDirection.normalized);
 
         //Debug.DrawRay(transform.position, legsDirection, Color.black);
         //Debug.DrawRay(transform.position, moveDirection, Color.green);
@@ -83,6 +88,23 @@ public class PlayerMovement : MonoBehaviour, IMoveable
 
     private void RotateLegs()
     {
-        _legsRotaionLimiter.Rotate(_inputDirection);
+        _legsRotaionLimiter.Rotate(_moveDirection);
+    }
+
+    private void SetMoveDirection(Vector2 moveDirection)
+    {
+        _moveDirection = moveDirection;
+
+        Debug.Log($"X: {_moveDirection.x}, Y: {_moveDirection.y} ");
+    }
+
+    private void SetRunState(bool isRunning)
+    {
+        _isRunning = isRunning;
+    }
+
+    private void SetWalkState(bool isWalking)
+    {
+        _isWalking = isWalking;
     }
 }

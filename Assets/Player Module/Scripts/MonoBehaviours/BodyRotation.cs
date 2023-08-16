@@ -11,7 +11,7 @@ public class BodyRotation : MonoBehaviour
     private float _maxAngle;
     private float _previousClampedAngle;
     private Coroutine _rotateCoroutine;
-    
+
     private void Awake()
     {
         _playerLook = GetComponent<PlayerLook>();
