@@ -1,15 +1,17 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(PlayerInput))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IMoveable
 {
     [SerializeField] private float _movingSpeed;
     [SerializeField] private float _walkingSpeed;
     [SerializeField] private float _runningSpeed;
 
     private PlayerInput _playerInput;
+    private InputActionReference _movement;
     private Rigidbody2D _rigidbody2D;
     private ILegRotaionLimiter _legsRotaionLimiter;
     private Vector2 _inputDirection;
@@ -19,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _playerInput = GetComponent<KeyboardMouseInput>();
-        _rigidbody2D = GetComponent<Rigidbody2D>();
+        //_rigidbody2D = GetComponent<Rigidbody2D>();
 
         _legsRotaionLimiter = GetComponentInChildren<ILegRotaionLimiter>();
     }
@@ -29,7 +31,6 @@ public class PlayerMovement : MonoBehaviour
         _movingSpeed = 7;
         _runningSpeed = 25;
         _walkingSpeed = 2;
-        _rigidbody2D.gravityScale = 0;
     }
 
     private void Update()
@@ -39,17 +40,20 @@ public class PlayerMovement : MonoBehaviour
         Move();
     }
 
-    private void SetDirection()
+    public void Init(Rigidbody2D rigidbody2D, PlayerInput playerInput)
+    {
+        _rigidbody2D = rigidbody2D;
+        _playerInput = playerInput;
+
+        _rigidbody2D.gravityScale = 0;
+    }
+
+    public void SetDirection()
     {
         _inputDirection = _playerInput.GetMovementDirection();
     }
 
-    private void RotateLegs()
-    {
-        _legsRotaionLimiter.Rotate(_inputDirection);
-    }
-
-    private void Move()
+    public void Move()
     {
         float scaledMoveSpeed;
 
@@ -71,10 +75,14 @@ public class PlayerMovement : MonoBehaviour
         Vector2 legsDirection = new Vector2(Mathf.Cos(legsAngle * Mathf.Deg2Rad), Mathf.Cos(legsAngle * Mathf.Deg2Rad)).normalized;
         Vector2 moveDirection = Vector2.Scale(legsDirection, _inputDirection.normalized);
 
-        Debug.Log(moveDirection);
-        Debug.DrawRay(transform.position, legsDirection, Color.black);
-        Debug.DrawRay(transform.position, moveDirection, Color.green);
+        //Debug.DrawRay(transform.position, legsDirection, Color.black);
+        //Debug.DrawRay(transform.position, moveDirection, Color.green);
 
         _rigidbody2D.MovePosition(_rigidbody2D.position + moveDirection * scaledMoveSpeed);
+    }
+
+    private void RotateLegs()
+    {
+        _legsRotaionLimiter.Rotate(_inputDirection);
     }
 }

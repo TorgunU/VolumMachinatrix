@@ -65,8 +65,26 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Run"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""83bf6ec7-b1a3-4b18-8388-c70c54fa105b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Button"",
+                    ""id"": ""b3bd0923-43dd-4e2c-a64d-2ecd8553b517"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""257eb8c3-aa69-426e-83c5-9bbf3a1d926b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -172,6 +190,28 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e3a5ad46-b3a1-4b96-8d53-0d997fbbdaac"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e57461ba-b11f-4da1-b4fe-0ac8158650c8"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -202,6 +242,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_KeyboardMouse_LookDirection = m_KeyboardMouse.FindAction("LookDirection", throwIfNotFound: true);
         m_KeyboardMouse_Walk = m_KeyboardMouse.FindAction("Walk", throwIfNotFound: true);
         m_KeyboardMouse_Run = m_KeyboardMouse.FindAction("Run", throwIfNotFound: true);
+        m_KeyboardMouse_Aim = m_KeyboardMouse.FindAction("Aim", throwIfNotFound: true);
+        m_KeyboardMouse_Attack = m_KeyboardMouse.FindAction("Attack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -268,6 +310,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_KeyboardMouse_LookDirection;
     private readonly InputAction m_KeyboardMouse_Walk;
     private readonly InputAction m_KeyboardMouse_Run;
+    private readonly InputAction m_KeyboardMouse_Aim;
+    private readonly InputAction m_KeyboardMouse_Attack;
     public struct KeyboardMouseActions
     {
         private @InputActions m_Wrapper;
@@ -277,6 +321,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @LookDirection => m_Wrapper.m_KeyboardMouse_LookDirection;
         public InputAction @Walk => m_Wrapper.m_KeyboardMouse_Walk;
         public InputAction @Run => m_Wrapper.m_KeyboardMouse_Run;
+        public InputAction @Aim => m_Wrapper.m_KeyboardMouse_Aim;
+        public InputAction @Attack => m_Wrapper.m_KeyboardMouse_Attack;
         public InputActionMap Get() { return m_Wrapper.m_KeyboardMouse; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -301,6 +347,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Run.started += instance.OnRun;
             @Run.performed += instance.OnRun;
             @Run.canceled += instance.OnRun;
+            @Aim.started += instance.OnAim;
+            @Aim.performed += instance.OnAim;
+            @Aim.canceled += instance.OnAim;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
         }
 
         private void UnregisterCallbacks(IKeyboardMouseActions instance)
@@ -320,6 +372,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Run.started -= instance.OnRun;
             @Run.performed -= instance.OnRun;
             @Run.canceled -= instance.OnRun;
+            @Aim.started -= instance.OnAim;
+            @Aim.performed -= instance.OnAim;
+            @Aim.canceled -= instance.OnAim;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
         }
 
         public void RemoveCallbacks(IKeyboardMouseActions instance)
@@ -353,5 +411,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnLookDirection(InputAction.CallbackContext context);
         void OnWalk(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
     }
 }

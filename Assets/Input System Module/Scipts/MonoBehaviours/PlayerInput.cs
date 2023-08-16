@@ -6,9 +6,13 @@ public abstract class PlayerInput : MonoBehaviour
 {
     protected InputActions InputActions;
 
+    protected InputActionReference AttackAction;
+
+
     protected virtual void Awake()
     {
         InputActions = new InputActions();
+
     }
 
     protected virtual void OnEnable()
