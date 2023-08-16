@@ -7,8 +7,8 @@ using UnityEngine.LowLevel;
 public class Player : MonoBehaviour
 {
     private IMovementEvents _movementsInput;
-    private IAttackSource _attacksInput;
     private ILookDirectionSource _lookDirectionInput;
+    private IAttackSource _attacksInput;
     private Rigidbody2D _rigidbody2D;
     private PlayerMovement _playerMovement;
     private PlayerLook _playerLook;
@@ -16,8 +16,8 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _movementsInput = GetComponent<PlayerInput>();
-        _attacksInput = GetComponent<PlayerInput>();
         _lookDirectionInput = GetComponent<PlayerInput>();
+        _attacksInput = GetComponent<PlayerInput>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _playerMovement = GetComponent<PlayerMovement>();
 
@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
         _playerMovement.Init(_rigidbody2D, _movementsInput);
         _playerLook.Init(_lookDirectionInput);
 
-        _attacksInput.OnAttackPressed += OutputAttackMessage;
+        _attacksInput.AttackPressed += OutputAttackMessage;
     }
 
     private void OutputAttackMessage(bool isAttack)

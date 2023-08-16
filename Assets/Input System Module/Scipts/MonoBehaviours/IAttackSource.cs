@@ -5,5 +5,5 @@ using UnityEngine;
 
 public interface IAttackSource 
 {
-    public event Action<bool> OnAttackPressed;
+    public event Action<bool> AttackPressed;
 }

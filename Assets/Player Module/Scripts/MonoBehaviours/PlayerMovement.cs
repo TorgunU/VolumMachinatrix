@@ -34,19 +34,16 @@ public class PlayerMovement : MonoBehaviour
         _movingSpeed = 7;
         _runningSpeed = 25;
         _walkingSpeed = 2;
+
+        _inputEvents.MovementDirectionUpdated += SetMoveDirection;
+        _inputEvents.WalkStateChanged += SetWalkState;
+        _inputEvents.RunStateChanged += SetRunState;
     }
 
     private void Update()
     {
         RotateLegs();
         Move();
-    }
-
-    private void OnEnable()
-    {
-        _inputEvents.MovementDirectionUpdated += SetMoveDirection;
-        _inputEvents.WalkStateChanged += SetWalkState;
-        _inputEvents.RunStateChanged += SetRunState;
     }
 
     private void OnDisable()
@@ -94,8 +91,6 @@ public class PlayerMovement : MonoBehaviour
     private void SetMoveDirection(Vector2 moveDirection)
     {
         _moveDirection = moveDirection;
-
-        Debug.Log($"X: {_moveDirection.x}, Y: {_moveDirection.y} ");
     }
 
     private void SetRunState(bool isRunning)

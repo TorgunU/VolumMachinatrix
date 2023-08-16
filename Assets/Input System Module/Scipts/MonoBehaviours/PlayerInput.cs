@@ -8,7 +8,7 @@ public abstract class PlayerInput : MonoBehaviour,
     protected InputActions InputActions;
     protected Vector2 MovemenDirection;
 
-    public abstract event Action<bool> OnAttackPressed;
+    public abstract event Action<bool> AttackPressed;
     public abstract event Action<bool> RunStateChanged;
     public abstract event Action<bool> WalkStateChanged;
     public abstract event Action<Vector2> MovementDirectionUpdated;
@@ -17,6 +17,19 @@ public abstract class PlayerInput : MonoBehaviour,
     protected virtual void Awake()
     {
         InputActions = new InputActions();
+
+        InputActions.KeyboardMouse.Move.performed += moveDirectionContext => RaiseMovementDirection(moveDirectionContext);
+        InputActions.KeyboardMouse.Move.canceled += moveDirectionContext => RaiseMovementDirection(moveDirectionContext);
+
+        InputActions.KeyboardMouse.LookDirection.performed += lookDirectionContext => RaiseLookDireciton(lookDirectionContext);
+
+        InputActions.KeyboardMouse.Run.performed += runContext => RaiseRunState(runContext);
+        InputActions.KeyboardMouse.Run.canceled += runContext => RaiseRunState(runContext);
+
+        InputActions.KeyboardMouse.Attack.performed += attackContext => RaiseAttackPressed(attackContext);
+
+        InputActions.KeyboardMouse.Walk.performed += walkContext => RaiseWalkState(walkContext);
+        InputActions.KeyboardMouse.Walk.canceled += walkContext => RaiseWalkState(walkContext);
     }
 
     protected virtual void OnEnable()
