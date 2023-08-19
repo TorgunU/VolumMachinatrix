@@ -4,36 +4,36 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.LowLevel;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IAttackeable
 {
     private IMovementEvents _movementsInput;
-    private ILookDirectionSource _lookDirectionInput;
-    private IAttackSource _attacksInput;
+    private ILookDirectionEvents _lookDirectionInput;
+    private IAttackEvents _attacksInput;
     private Rigidbody2D _rigidbody2D;
-    private PlayerMovement _playerMovement;
-    private PlayerLook _playerLook;
+    private PlayerMovement _movement;
+    private PlayerLook _look;
+    private PlayerAttack _attack;
 
     private void Awake()
     {
+        _rigidbody2D = GetComponent<Rigidbody2D>();
         _movementsInput = GetComponent<PlayerInput>();
         _lookDirectionInput = GetComponent<PlayerInput>();
         _attacksInput = GetComponent<PlayerInput>();
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        _playerMovement = GetComponent<PlayerMovement>();
+        _movement = GetComponent<PlayerMovement>();
+        _attack = GetComponent<PlayerAttack>();
 
-        _playerLook = GetComponentInChildren<PlayerLook>();
+        _look = GetComponentInChildren<PlayerLook>();
 
-        _playerMovement.Init(_rigidbody2D, _movementsInput);
-        _playerLook.Init(_lookDirectionInput);
+        _movement.Init(_rigidbody2D, _movementsInput);
+        _look.Init(_lookDirectionInput);
 
-        _attacksInput.AttackPressed += OutputAttackMessage;
+        _attacksInput.AttackPressed += Attack;
     }
 
-    private void OutputAttackMessage(bool isAttack)
+    public void Attack()
     {
-        if(isAttack)
-        {
-            Debug.Log("Attack!!!");
-        }
+        Debug.Log("Player.Attack Нажата!");
+        _attack.TryAttack();
     }
 }

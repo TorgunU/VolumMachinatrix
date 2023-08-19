@@ -8,7 +8,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [SerializeField] protected CreatureConfig CreatureInitializeSO;
 
     protected SpriteRenderer _spriteRenderer;
-    protected Sprite _sprite;
 
     protected virtual void Start()
     {
@@ -19,8 +18,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
-        _sprite = CreatureInitializeSO.Sprite;
-        _spriteRenderer.sprite = _sprite;
+        _spriteRenderer.sprite = CreatureInitializeSO.Sprite;
 
         Health = CreatureInitializeSO.Health;
     }

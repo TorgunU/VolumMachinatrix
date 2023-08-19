@@ -3,12 +3,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public abstract class PlayerInput : MonoBehaviour, 
-    IMovementEvents, ILookDirectionSource, IAttackSource
+    IMovementEvents, ILookDirectionEvents, IAttackEvents
 {
     protected InputActions InputActions;
     protected Vector2 MovemenDirection;
 
-    public abstract event Action<bool> AttackPressed;
+    public abstract event Action AttackPressed;
     public abstract event Action<bool> RunStateChanged;
     public abstract event Action<bool> WalkStateChanged;
     public abstract event Action<Vector2> MovementDirectionUpdated;

@@ -7,12 +7,12 @@ public class PlayerLook : MonoBehaviour
 {
     [SerializeField] private Camera _camera;
 
-    private ILookDirectionSource _lookDirectionSource;
+    private ILookDirectionEvents _lookDirectionSource;
     private Vector2 _mousePosition;
 
     public Vector2 MousePosition { get => _mousePosition; private set => _mousePosition = value; }
 
-    public void Init(ILookDirectionSource lookDirectionSource)
+    public void Init(ILookDirectionEvents lookDirectionSource)
     {
         _lookDirectionSource = lookDirectionSource;
         _lookDirectionSource.LookDirectionUpdated += OnPointerPositionUpdated;

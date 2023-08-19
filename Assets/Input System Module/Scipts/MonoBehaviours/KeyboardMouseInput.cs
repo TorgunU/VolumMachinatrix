@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public sealed class KeyboardMouseInput : PlayerInput
 {
-    public override event Action<bool> AttackPressed;
+    public override event Action AttackPressed;
     public override event Action<bool> RunStateChanged;
     public override event Action<bool> WalkStateChanged;
     public override event Action<Vector2> MovementDirectionUpdated;
@@ -29,19 +29,20 @@ public sealed class KeyboardMouseInput : PlayerInput
 
     protected override void RaiseAttackPressed(InputAction.CallbackContext attackContext)
     {
-        AttackPressed?.Invoke(attackContext.action.IsPressed());
+        if (attackContext.performed)
+        {
+            AttackPressed?.Invoke();
+        }
     }
 
     protected override void RaiseLookDireciton(InputAction.CallbackContext lookDirectiontContext)
     {
         Vector2 vector = lookDirectiontContext.action.ReadValue<Vector2>();
-        Debug.Log($"X: {vector.x}, Y: {vector.y} ");
         LookDirectionUpdated.Invoke(lookDirectiontContext.action.ReadValue<Vector2>());
     }
 
     protected override void RaiseRunState(InputAction.CallbackContext runContext)
     {
-
         RunStateChanged?.Invoke(runContext.action.IsPressed());
     }
 
