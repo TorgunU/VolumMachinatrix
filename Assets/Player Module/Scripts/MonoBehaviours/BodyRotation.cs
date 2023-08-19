@@ -7,19 +7,14 @@ public class BodyRotation : MonoBehaviour
     [SerializeField] private float _rotationChangeInterval;
 
     private PlayerLook _playerLook;
-    private float _minAngle;
-    private float _maxAngle;
-    private float _previousClampedAngle;
+    [SerializeField] private Legs _legs;
     private Coroutine _rotateCoroutine;
-    
+
     private void Awake()
     {
         _playerLook = GetComponent<PlayerLook>();
 
         _rotationChangeInterval = 0.5f;
-
-        _minAngle = -75f;
-        _maxAngle = 75f;
     }
 
     private void FixedUpdate()
@@ -31,12 +26,7 @@ public class BodyRotation : MonoBehaviour
     {
         float angle = CalculateAngle();
 
-        if (CheckAngleOnThresholds(ref angle) == false)
-        {
-            return;
-        }
-
-        if(_rotateCoroutine != null)
+        if (_rotateCoroutine != null)
         {
             StopCoroutine(_rotateCoroutine);
         }
@@ -50,23 +40,8 @@ public class BodyRotation : MonoBehaviour
         Vector2 facindDirection = _playerLook.MousePosition - tranformPosition;
 
         float angle = Mathf.Atan2(-facindDirection.x, facindDirection.y) * Mathf.Rad2Deg;
+
         return angle;
-    }
-
-    private bool CheckAngleOnThresholds(ref float angle)
-    {
-        if (angle != _previousClampedAngle &&
-            (angle < _minAngle || angle > _maxAngle))
-        {
-            angle = Mathf.Clamp(angle, _minAngle, _maxAngle);
-            _previousClampedAngle = angle;
-        }
-        else if (angle == _previousClampedAngle)
-        {
-            return false;
-        }
-
-        return true;
     }
 
     private IEnumerator RotateSmoothly(float targetAngle)
@@ -78,6 +53,8 @@ public class BodyRotation : MonoBehaviour
         {
             float angle = Mathf.LerpAngle(startAngle, targetAngle, elapsedTime / _rotationChangeInterval);
             transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
+            _legs.Rotate(angle);
 
             elapsedTime += Time.deltaTime;
             yield return null;

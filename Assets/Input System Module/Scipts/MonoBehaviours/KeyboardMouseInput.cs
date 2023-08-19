@@ -1,37 +1,53 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public sealed class KeyboardMouseInput : PlayerInput
 {
-    protected override void Awake()
-    {
-        base.Awake();
+    public override event Action AttackPressed;
+    public override event Action<bool> RunStateChanged;
+    public override event Action<bool> WalkStateChanged;
+    public override event Action<Vector2> MovementDirectionUpdated;
+    public override event Action<Vector2> LookDirectionUpdated;
 
-        InputActions.KeyboardMouse.Move.performed += moveDirectionContext => GetMovementDirection();
-        InputActions.KeyboardMouse.LookDirection.performed += lookDirectionContext => GetLookDireciton();
-        InputActions.KeyboardMouse.Run.performed += runContext => IsChangeOnRun();
-        InputActions.KeyboardMouse.Walk.performed += walkContext => IsChangedOnWalk();
+    protected override void RaiseMovementDirection(InputAction.CallbackContext movementContext)
+    {
+        MovemenDirection = movementContext.action.ReadValue<Vector2>();
+
+        if (movementContext.performed)
+        {
+            MovementDirectionUpdated?.Invoke(MovemenDirection);
+        }
+        else if (movementContext.canceled)
+        {
+            MovementDirectionUpdated?.Invoke(Vector2.zero);
+        }
     }
 
-    public override Vector2 GetLookDireciton()
+    protected override void RaiseAttackPressed(InputAction.CallbackContext attackContext)
     {
-        return InputActions.KeyboardMouse.LookDirection.ReadValue<Vector2>();
+        if (attackContext.performed)
+        {
+            AttackPressed?.Invoke();
+        }
     }
 
-    public override Vector2 GetMovementDirection()
+    protected override void RaiseLookDireciton(InputAction.CallbackContext lookDirectiontContext)
     {
-        return InputActions.KeyboardMouse.Move.ReadValue<Vector2>();
+        Vector2 vector = lookDirectiontContext.action.ReadValue<Vector2>();
+        LookDirectionUpdated.Invoke(lookDirectiontContext.action.ReadValue<Vector2>());
     }
 
-    public override bool IsChangeOnRun()
+    protected override void RaiseRunState(InputAction.CallbackContext runContext)
     {
-        return InputActions.KeyboardMouse.Run.IsPressed();
+        RunStateChanged?.Invoke(runContext.action.IsPressed());
     }
 
-    public override bool IsChangedOnWalk()
+    protected override void RaiseWalkState(InputAction.CallbackContext walkContext)
     {
-        return InputActions.KeyboardMouse.Walk.IsPressed();
+        WalkStateChanged?.Invoke(walkContext.action.IsPressed());
     }
 }

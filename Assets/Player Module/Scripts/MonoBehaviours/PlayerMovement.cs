@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(PlayerInput))]
@@ -9,55 +7,55 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _walkingSpeed;
     [SerializeField] private float _runningSpeed;
 
-    private PlayerInput _playerInput;
+    private IMovementEvents _inputEvents;
     private Rigidbody2D _rigidbody2D;
-    private ILegRotaionLimiter _legsRotaionLimiter;
-    private Vector2 _inputDirection;
+    private Vector2 _moveDirection;
+    private bool _isRunning;
+    private bool _isWalking;
 
     public float Speed { get => _movingSpeed; private set => _movingSpeed = value; }
 
-    private void Awake()
+    public void Init(Rigidbody2D rigidbody2D, IMovementEvents playerInputEvents)
     {
-        _playerInput = GetComponent<KeyboardMouseInput>();
-        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _rigidbody2D = rigidbody2D;
+        _inputEvents = playerInputEvents;
 
-        _legsRotaionLimiter = GetComponentInChildren<ILegRotaionLimiter>();
+        _rigidbody2D.gravityScale = 0;
     }
+
 
     private void Start()
     {
         _movingSpeed = 7;
         _runningSpeed = 25;
         _walkingSpeed = 2;
-        _rigidbody2D.gravityScale = 0;
+
+        _inputEvents.MovementDirectionUpdated += SetMoveDirection;
+        _inputEvents.WalkStateChanged += SetWalkState;
+        _inputEvents.RunStateChanged += SetRunState;
     }
 
     private void Update()
     {
-        SetDirection();
-        RotateLegs();
         Move();
     }
 
-    private void SetDirection()
+    private void OnDisable()
     {
-        _inputDirection = _playerInput.GetMovementDirection();
+        _inputEvents.MovementDirectionUpdated -= SetMoveDirection;
+        _inputEvents.WalkStateChanged -= SetWalkState;
+        _inputEvents.RunStateChanged -= SetRunState;
     }
 
-    private void RotateLegs()
-    {
-        _legsRotaionLimiter.Rotate(_inputDirection);
-    }
-
-    private void Move()
+    public void Move()
     {
         float scaledMoveSpeed;
 
-        if(_playerInput.IsChangeOnRun())
+        if(_isRunning)
         {
             scaledMoveSpeed = _runningSpeed * Time.fixedDeltaTime;
         }
-        else if(_playerInput.IsChangedOnWalk())
+        else if(_isWalking)
         {
             scaledMoveSpeed = _walkingSpeed * Time.fixedDeltaTime;
         }
@@ -66,6 +64,21 @@ public class PlayerMovement : MonoBehaviour
             scaledMoveSpeed = _movingSpeed * Time.fixedDeltaTime;
         }
 
-        _rigidbody2D.MovePosition(_rigidbody2D.position + _inputDirection.normalized * scaledMoveSpeed);
+        _rigidbody2D.MovePosition(_rigidbody2D.position + _moveDirection * scaledMoveSpeed);
+    }
+
+    private void SetMoveDirection(Vector2 moveDirection)
+    {
+        _moveDirection = moveDirection;
+    }
+
+    private void SetRunState(bool isRunning)
+    {
+        _isRunning = isRunning;
+    }
+
+    private void SetWalkState(bool isWalking)
+    {
+        _isWalking = isWalking;
     }
 }
