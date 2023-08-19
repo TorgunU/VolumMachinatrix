@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
 
     private IMovementEvents _inputEvents;
     private Rigidbody2D _rigidbody2D;
-    private ILegRotaionLimiter _legsRotaionLimiter;
     private Vector2 _moveDirection;
     private bool _isRunning;
     private bool _isWalking;
@@ -24,10 +23,6 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody2D.gravityScale = 0;
     }
 
-    private void Awake()
-    {
-        _legsRotaionLimiter = GetComponentInChildren<ILegRotaionLimiter>();
-    }
 
     private void Start()
     {
@@ -42,7 +37,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        RotateLegs();
         Move();
     }
 
@@ -70,22 +64,7 @@ public class PlayerMovement : MonoBehaviour
             scaledMoveSpeed = _movingSpeed * Time.fixedDeltaTime;
         }
 
-        float legsAngle = _legsRotaionLimiter.GetLegsRoationAngle();
-      
-        Vector2 legsDirection = new Vector2(Mathf.Cos(legsAngle * Mathf.Deg2Rad), 
-            Mathf.Cos(legsAngle * Mathf.Deg2Rad)).normalized;
-
-        Vector2 moveDirection = Vector2.Scale(legsDirection, _moveDirection.normalized);
-
-        //Debug.DrawRay(transform.position, legsDirection, Color.black);
-        //Debug.DrawRay(transform.position, moveDirection, Color.green);
-
-        _rigidbody2D.MovePosition(_rigidbody2D.position + moveDirection * scaledMoveSpeed);
-    }
-
-    private void RotateLegs()
-    {
-        _legsRotaionLimiter.Rotate(_moveDirection);
+        _rigidbody2D.MovePosition(_rigidbody2D.position + _moveDirection * scaledMoveSpeed);
     }
 
     private void SetMoveDirection(Vector2 moveDirection)

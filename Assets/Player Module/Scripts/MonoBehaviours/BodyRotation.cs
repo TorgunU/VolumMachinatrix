@@ -7,6 +7,7 @@ public class BodyRotation : MonoBehaviour
     [SerializeField] private float _rotationChangeInterval;
 
     private PlayerLook _playerLook;
+    [SerializeField] private Legs _legs;
     private Coroutine _rotateCoroutine;
 
     private void Awake()
@@ -40,8 +41,6 @@ public class BodyRotation : MonoBehaviour
 
         float angle = Mathf.Atan2(-facindDirection.x, facindDirection.y) * Mathf.Rad2Deg;
 
-        Debug.Log(angle);
-
         return angle;
     }
 
@@ -55,7 +54,7 @@ public class BodyRotation : MonoBehaviour
             float angle = Mathf.LerpAngle(startAngle, targetAngle, elapsedTime / _rotationChangeInterval);
             transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
-            
+            _legs.Rotate(angle);
 
             elapsedTime += Time.deltaTime;
             yield return null;
