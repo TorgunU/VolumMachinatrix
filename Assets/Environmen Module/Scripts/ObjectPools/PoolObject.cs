@@ -5,17 +5,17 @@ using UnityEngine;
 public abstract class PoolObject<T> where T : MonoBehaviour
 {
     protected T Prefab;
-    protected Transform RevertTransform;
+    protected Transform PoolHierarhyTransform;
     protected int MinCapacity;
     protected int MaxCapacity;
     protected bool IsAutoExpand;
     protected int ExpandCopacity;
     protected List<T> PoolObjects;
 
-    public PoolObject(T prefab, Transform revertTransform, int minCapacity, int maxCapacity)
+    public PoolObject(T prefab, int minCapacity, int maxCapacity)
     {
         Prefab = prefab;
-        RevertTransform = revertTransform;
+        //PoolHierarhyTransform = poolHierarhyTransform;
         MinCapacity = minCapacity;
         MaxCapacity = maxCapacity;
         IsAutoExpand = false;
@@ -24,9 +24,9 @@ public abstract class PoolObject<T> where T : MonoBehaviour
         CreatePool();
     }
 
-    public PoolObject(T prefab, Transform revertTransform, int minCapacity, int maxCapacity,
+    public PoolObject(T prefab, int minCapacity, int maxCapacity,
         bool isAutoExpand, int expandCopacity)
-        : this(prefab, revertTransform, minCapacity, maxCapacity)
+        : this(prefab, minCapacity, maxCapacity)
     {
         IsAutoExpand = isAutoExpand;
         ExpandCopacity = expandCopacity;

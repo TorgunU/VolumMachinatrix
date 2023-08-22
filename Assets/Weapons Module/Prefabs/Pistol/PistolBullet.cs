@@ -11,12 +11,13 @@ public class PistolBullet : Bullet
 
     public override void Fire()
     {
-        var flyingCorutine = StartCoroutine(Flying());
+        StartCoroutine(Flying());
     }
 
-    public override void RevertConfig(Transform revertTransform)
+    public override void RevertFields()
     {
-        transform.position = revertTransform.position;
+        transform.position = new Vector2(0,0);
+        StopCoroutine(Flying());
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision)
@@ -24,8 +25,6 @@ public class PistolBullet : Bullet
         if (collision.collider.TryGetComponent(out IDamageable damageable))
         {
             damageable.TakeDamage(BulletConfig.DamageValue);
-
-            // animator controoler.
 
             Collided.Invoke(this);
         }
@@ -42,7 +41,7 @@ public class PistolBullet : Bullet
             Vector3 newPosition = transform.position + transform.up * (BulletConfig.SpeedShot * Time.deltaTime);
             transform.position = newPosition;
 
-            return gameObject != null;
+            return true;
         });
     }
 }

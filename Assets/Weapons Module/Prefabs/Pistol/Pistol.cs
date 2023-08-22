@@ -20,6 +20,8 @@ public class Pistol : RangeWeapon
     {
         if(PoolBullets.TryGetElement(out Bullet bullet))
         {
+            bullet.transform.position = FireTrasform.transform.position;
+            bullet.transform.rotation = FireTrasform.transform.rotation;
             bullet.Fire();
         }
     }

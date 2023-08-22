@@ -5,8 +5,8 @@ using UnityEngine;
 public abstract class RangeWeapon : Weapon, IWeaponShootable
 {
     [SerializeField] protected BulletConfig BulletConfig;
-    //[SerializeField] protected Bullet Bullet;
-    [SerializeField] protected Transform BulletFireTransform;
+    [SerializeField] protected Transform BulletFireHierarchyPool;
+    [SerializeField] protected Transform FireTrasform;
 
     protected PoolBullet<Bullet> PoolBullets;
 
@@ -14,7 +14,7 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable
     {
         IsAttackCooldowned = true;
 
-        PoolBullets = new PoolBullet<Bullet>(BulletConfig.Bullet, BulletFireTransform,
+        PoolBullets = new PoolBullet<Bullet>(BulletConfig.Bullet,
             9, 18, true, 20);
     }
 

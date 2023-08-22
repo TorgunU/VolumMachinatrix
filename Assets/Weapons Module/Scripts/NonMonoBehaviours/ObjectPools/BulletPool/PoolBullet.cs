@@ -7,13 +7,13 @@ using UnityEngine.Pool;
 
 public class PoolBullet<T> : PoolObject<T> where T : Bullet
 {
-    public PoolBullet(T prefab, Transform hierarchyPosition, int minCapacity, int maxCapacity)
-        : base(prefab, hierarchyPosition, minCapacity, maxCapacity)
+    public PoolBullet(T prefab, int minCapacity, int maxCapacity)
+        : base(prefab, minCapacity, maxCapacity)
     { }
 
-    public PoolBullet(T prefab, Transform hierarchyPosition, int minCapacity, int maxCapacity,
+    public PoolBullet(T prefab, int minCapacity, int maxCapacity,
         bool isAutoExpand, int expandCopacity)
-        : base(prefab, hierarchyPosition, minCapacity, maxCapacity,
+        : base(prefab, minCapacity, maxCapacity,
             isAutoExpand, expandCopacity)
     { }
 
@@ -57,15 +57,21 @@ public class PoolBullet<T> : PoolObject<T> where T : Bullet
         return false;
     }
 
+    public void Release(Bullet pooledBullet)
+    {
+        pooledBullet.RevertFields();
+        pooledBullet.gameObject.SetActive(false);
+    }
+
     public override void Release(T polledObject)
     {
-        polledObject.RevertConfig(RevertTransform);
+        polledObject.RevertFields();
         polledObject.gameObject.SetActive(false); 
     }
 
     protected override T CreateElement(bool isActiveByDefault = false)
     {
-        var createdObject = GameObject.Instantiate(Prefab, RevertTransform);
+        var createdObject = GameObject.Instantiate(Prefab);
         createdObject.gameObject.SetActive(isActiveByDefault);
 
         PoolObjects.Add(createdObject);
@@ -82,11 +88,5 @@ public class PoolBullet<T> : PoolObject<T> where T : Bullet
         {
             CreateElement(false);
         }
-    }
-
-    public void Release(Bullet pooledBullet)
-    {
-        pooledBullet.RevertConfig(RevertTransform);
-        pooledBullet.gameObject.SetActive(false);
     }
 }
