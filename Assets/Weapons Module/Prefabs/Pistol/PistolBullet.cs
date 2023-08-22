@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,32 +7,31 @@ using UnityEngine.UIElements;
 
 public class PistolBullet : Bullet
 {
-    private void Start()
+    public override event Action<Bullet> Collided;
+
+    public override void Fire()
     {
-        Fire();
+        StartCoroutine(Flying());
+    }
+
+    public override void RevertFields()
+    {
+        transform.position = new Vector2(0,0);
+        StopCoroutine(Flying());
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        IDamageable damageable;
-
-        if (collision.collider.TryGetComponent(out damageable))
+        if (collision.collider.TryGetComponent(out IDamageable damageable))
         {
             damageable.TakeDamage(BulletConfig.DamageValue);
 
-            // animator controoler.
-
-            Destroy(gameObject);
+            Collided.Invoke(this);
         }
         else if (collision.collider.TryGetComponent(out LevelEnvironment levelEnvironment))
         {
-            Destroy(gameObject);
+            Collided.Invoke(this);
         }
-    }
-
-    protected override void Fire()
-    {
-        StartCoroutine(Flying());
     }
 
     private IEnumerator Flying()
@@ -41,7 +41,7 @@ public class PistolBullet : Bullet
             Vector3 newPosition = transform.position + transform.up * (BulletConfig.SpeedShot * Time.deltaTime);
             transform.position = newPosition;
 
-            return gameObject != null;
+            return true;
         });
     }
 }

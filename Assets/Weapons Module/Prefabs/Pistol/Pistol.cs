@@ -6,7 +6,7 @@ public class Pistol : RangeWeapon
 {
     public override void Shoot()
     {
-        CreateBullet();
+        PoolBullet();
     }
 
     public override IEnumerator CalculatingAttackDelay()
@@ -16,8 +16,13 @@ public class Pistol : RangeWeapon
         IsAttackCooldowned = true;
     }
 
-    private void CreateBullet()
+    protected override void PoolBullet()
     {
-        Instantiate(BulletConfig.BulletPrefab, BulletFireTransform.position, BulletFireTransform.rotation);
+        if(PoolBullets.TryGetElement(out Bullet bullet))
+        {
+            bullet.transform.position = FireTrasform.transform.position;
+            bullet.transform.rotation = FireTrasform.transform.rotation;
+            bullet.Fire();
+        }
     }
 }
