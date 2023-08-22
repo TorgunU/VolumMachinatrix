@@ -1,11 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public abstract class Bullet : MonoBehaviour
 {
     [SerializeField] protected BulletConfig BulletConfig;
 
+    public abstract event Action<Bullet> Collided;
+
     protected abstract void OnCollisionEnter2D(Collision2D collision);
-    protected abstract void Fire();
+
+    public abstract void RevertConfig(Transform transform);
+    public abstract void Fire();
 }

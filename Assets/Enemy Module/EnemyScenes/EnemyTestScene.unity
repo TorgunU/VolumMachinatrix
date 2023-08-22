@@ -928,6 +928,10 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 8150235326317009600}
+    - target: {fileID: 8813551709813037211, guid: 6dd4454cb0c919047bb1b027d7a14eeb, type: 3}
+      propertyPath: m_Lens.OrthographicSize
+      value: 18.62
+      objectReference: {fileID: 0}
     - target: {fileID: 9135266370809909798, guid: 6dd4454cb0c919047bb1b027d7a14eeb, type: 3}
       propertyPath: m_Name
       value: Virtual Camera
@@ -945,6 +949,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3477497045026463668, guid: 3b805cdb821e14143927385abcb85680, type: 3}
+      propertyPath: far clip plane
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477497045026463668, guid: 3b805cdb821e14143927385abcb85680, type: 3}
+      propertyPath: near clip plane
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477497045026463668, guid: 3b805cdb821e14143927385abcb85680, type: 3}
+      propertyPath: orthographic size
+      value: 18.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477497045026463668, guid: 3b805cdb821e14143927385abcb85680, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477497045026463668, guid: 3b805cdb821e14143927385abcb85680, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477497045026463668, guid: 3b805cdb821e14143927385abcb85680, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6216266844956386317, guid: 3b805cdb821e14143927385abcb85680, type: 3}
       propertyPath: m_LocalPosition.x
       value: -22.07

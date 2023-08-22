@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,32 +7,32 @@ using UnityEngine.UIElements;
 
 public class PistolBullet : Bullet
 {
-    private void Start()
+    public override event Action<Bullet> Collided;
+
+    public override void Fire()
     {
-        Fire();
+        var flyingCorutine = StartCoroutine(Flying());
+    }
+
+    public override void RevertConfig(Transform revertTransform)
+    {
+        transform.position = revertTransform.position;
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        IDamageable damageable;
-
-        if (collision.collider.TryGetComponent(out damageable))
+        if (collision.collider.TryGetComponent(out IDamageable damageable))
         {
             damageable.TakeDamage(BulletConfig.DamageValue);
 
             // animator controoler.
 
-            Destroy(gameObject);
+            Collided.Invoke(this);
         }
         else if (collision.collider.TryGetComponent(out LevelEnvironment levelEnvironment))
         {
-            Destroy(gameObject);
+            Collided.Invoke(this);
         }
-    }
-
-    protected override void Fire()
-    {
-        StartCoroutine(Flying());
     }
 
     private IEnumerator Flying()

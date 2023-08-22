@@ -5,11 +5,17 @@ using UnityEngine;
 public abstract class RangeWeapon : Weapon, IWeaponShootable
 {
     [SerializeField] protected BulletConfig BulletConfig;
+    //[SerializeField] protected Bullet Bullet;
     [SerializeField] protected Transform BulletFireTransform;
+
+    protected PoolBullet<Bullet> PoolBullets;
 
     protected virtual void Start()
     {
         IsAttackCooldowned = true;
+
+        PoolBullets = new PoolBullet<Bullet>(BulletConfig.Bullet, BulletFireTransform,
+            9, 18, true, 20);
     }
 
     public override void Attack()
@@ -27,4 +33,6 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable
     }
 
     public abstract void Shoot();
+
+    protected abstract void PoolBullet();
 }
