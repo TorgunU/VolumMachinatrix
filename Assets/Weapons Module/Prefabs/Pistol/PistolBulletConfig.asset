@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletPrefab: {fileID: 7407025716313208378, guid: 3edbe01219aac69498030b1ef4fc78b0, type: 3}
   _damageValue: 25
-  _speedShot: 15
+  _speedShot: 15.1
   _name: 9mm Bullet
   _id: 541

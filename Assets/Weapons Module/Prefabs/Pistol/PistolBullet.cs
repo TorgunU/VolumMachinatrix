@@ -15,14 +15,15 @@ public class PistolBullet : Bullet
     {
         IDamageable damageable;
 
-        //if (collision.collider.gameObject.layer != BulletConfig.IngoredLayer)
-        //{
         if (collision.collider.TryGetComponent(out damageable))
         {
             damageable.TakeDamage(BulletConfig.DamageValue);
+
+            // animator controoler.
+
             Destroy(gameObject);
         }
-        else if (collision.collider.TryGetComponent(out LevelEnvironment levelBorder))
+        else if (collision.collider.TryGetComponent(out LevelEnvironment levelEnvironment))
         {
             Destroy(gameObject);
         }
@@ -37,7 +38,6 @@ public class PistolBullet : Bullet
     {
         yield return new WaitWhile(() =>
         {
-
             Vector3 newPosition = transform.position + transform.up * (BulletConfig.SpeedShot * Time.deltaTime);
             transform.position = newPosition;
 

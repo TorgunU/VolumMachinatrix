@@ -5,7 +5,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "WeaponConfig",
     menuName = "WeaponConfig/BulletConfig/ New PistolBulletSO", order = 52)]
-public class PistolBulletSO : BulletSO
+public class PistolBulletSO : BulletConfig
 {
     [SerializeField] private string _id;
 

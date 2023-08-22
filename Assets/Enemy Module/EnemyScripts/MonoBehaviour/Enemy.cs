@@ -24,6 +24,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     }
 
     public abstract void Die();
-    public abstract bool IsHealthTresholdExceeded();
+    public abstract bool IsHealthThresholdExceeded();
     public abstract void TakeDamage(float damage);
 }

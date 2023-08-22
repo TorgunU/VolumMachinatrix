@@ -5,9 +5,9 @@ using UnityEngine;
 public class BodyRotation : MonoBehaviour
 {
     [SerializeField] private float _rotationChangeInterval;
+    [SerializeField] private Legs _legs;
 
     private PlayerLook _playerLook;
-    [SerializeField] private Legs _legs;
     private Coroutine _rotateCoroutine;
 
     private void Awake()

@@ -65,6 +65,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _rigidbody2D.MovePosition(_rigidbody2D.position + _moveDirection * scaledMoveSpeed);
+
+        Debug.DrawRay(transform.position, _moveDirection, Color.white);
     }
 
     private void SetMoveDirection(Vector2 moveDirection)

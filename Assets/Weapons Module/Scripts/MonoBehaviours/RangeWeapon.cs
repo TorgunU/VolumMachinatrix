@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class RangeWeapon : Weapon, IWeaponShootable
 {
-    [SerializeField] protected BulletSO BulletConfig;
+    [SerializeField] protected BulletConfig BulletConfig;
     [SerializeField] protected Transform BulletFireTransform;
 
     protected virtual void Start()

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3438282821844100648}
   - component: {fileID: 2395701488410198517}
   - component: {fileID: 1896555619557746445}
-  - component: {fileID: -8327097575745434484}
+  - component: {fileID: 5364237727672054203}
   m_Layer: 0
   m_Name: PistolBullet
   m_TagString: Untagged
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletConfig: {fileID: 11400000, guid: 327b779382229df4a8d00b388039afe3, type: 2}
---- !u!50 &-8327097575745434484
+--- !u!50 &5364237727672054203
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -169,6 +169,6 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 0
+  m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0

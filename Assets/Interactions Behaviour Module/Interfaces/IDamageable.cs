@@ -5,6 +5,6 @@ using UnityEngine;
 public interface IDamageable
 {
     public void TakeDamage(float damage);
-    public bool IsHealthTresholdExceeded();
+    public bool IsHealthThresholdExceeded();
     public void Die();
 }

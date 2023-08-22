@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "WeaponConfig",
     menuName = "WeaponConfig/BulletConfig/ New BulletConfig", order = 51)]
-public abstract class BulletSO : ScriptableObject
+public abstract class BulletConfig : ScriptableObject
 {
     [SerializeField] private GameObject _bulletPrefab;
     //[SerializeField] private LayerMask _ingoredLayer;

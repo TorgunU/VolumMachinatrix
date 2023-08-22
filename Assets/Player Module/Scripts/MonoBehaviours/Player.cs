@@ -33,7 +33,8 @@ public class Player : MonoBehaviour, IAttackeable
 
     public void Attack()
     {
-        Debug.Log("Player.Attack Нажата!");
         _attack.TryAttack();
     }
+
+
 }
