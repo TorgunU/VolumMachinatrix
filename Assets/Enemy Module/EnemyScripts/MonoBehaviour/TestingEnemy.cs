@@ -25,7 +25,7 @@ public class TestingEnemy : Enemy
         Destroy(gameObject);
     }
 
-    public override bool IsHealthTresholdExceeded()
+    public override bool IsHealthThresholdExceeded()
     {
         if(Health >= 0)
         {

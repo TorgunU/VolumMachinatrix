@@ -4,9 +4,9 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "WeaponConfig/ New Range Weapon Config", order = 54)]
-public class RangeWeaponSO : WeaponSO
+public class RangeWeaponConfig : WeaponConfig
 {
-    [SerializeField] private BulletSO _bulletSO;
+    [SerializeField] private BulletConfig _bulletSO;
 
-    public BulletSO BulletSO { get => _bulletSO; protected set => _bulletSO = value; }
+    public BulletConfig BulletSO { get => _bulletSO; protected set => _bulletSO = value; }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour, IWeaponAttackable
 {
     [SerializeField] protected Transform WeaponPosition;
-    [SerializeField] protected WeaponSO WeaponConfig;
+    [SerializeField] protected WeaponConfig WeaponConfig;
 
     protected bool IsAttackCooldowned;
 

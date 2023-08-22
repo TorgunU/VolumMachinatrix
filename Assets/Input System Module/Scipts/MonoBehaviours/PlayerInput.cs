@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public abstract class PlayerInput : MonoBehaviour, 
+public abstract class PlayerInput : MonoBehaviour,
     IMovementEvents, ILookDirectionEvents, IAttackEvents
 {
     protected InputActions InputActions;
