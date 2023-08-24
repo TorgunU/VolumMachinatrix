@@ -7,13 +7,13 @@ using UnityEngine.Pool;
 
 public class PoolBullet<T> : PoolObject<T> where T : Bullet
 {
-    public PoolBullet(T prefab, int minCapacity, int maxCapacity)
-        : base(prefab, minCapacity, maxCapacity)
+    public PoolBullet(T prefab, int minCapacity, int maxCapacity, Transform poolHierarhyTransform)
+        : base(prefab, minCapacity, maxCapacity, poolHierarhyTransform)
     { }
 
-    public PoolBullet(T prefab, int minCapacity, int maxCapacity,
+    public PoolBullet(T prefab, int minCapacity, int maxCapacity, Transform poolHierarhyTransform,
         bool isAutoExpand, int expandCopacity)
-        : base(prefab, minCapacity, maxCapacity,
+        : base(prefab, minCapacity, maxCapacity, poolHierarhyTransform,
             isAutoExpand, expandCopacity)
     { }
 
@@ -60,18 +60,22 @@ public class PoolBullet<T> : PoolObject<T> where T : Bullet
     public void Release(Bullet pooledBullet)
     {
         pooledBullet.RevertFields();
+
+        pooledBullet.transform.position = HierarhyTransform.position;
         pooledBullet.gameObject.SetActive(false);
     }
 
     public override void Release(T polledObject)
     {
         polledObject.RevertFields();
+
+        polledObject.transform.position = HierarhyTransform.position;
         polledObject.gameObject.SetActive(false); 
     }
 
     protected override T CreateElement(bool isActiveByDefault = false)
     {
-        var createdObject = GameObject.Instantiate(Prefab);
+        var createdObject = GameObject.Instantiate(Prefab, HierarhyTransform);
         createdObject.gameObject.SetActive(isActiveByDefault);
 
         PoolObjects.Add(createdObject);

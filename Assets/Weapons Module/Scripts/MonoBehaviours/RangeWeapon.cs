@@ -14,8 +14,8 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable
     {
         IsAttackCooldowned = true;
 
-        PoolBullets = new PoolBullet<Bullet>(BulletConfig.Bullet,
-            9, 18, true, 20);
+        PoolBullets = new PoolBullet<Bullet>(BulletConfig.Bullet, 9, 18, BulletFireHierarchyPool,
+            true, 20);
     }
 
     public override void Attack()
