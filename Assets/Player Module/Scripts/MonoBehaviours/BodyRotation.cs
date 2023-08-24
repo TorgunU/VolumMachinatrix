@@ -37,7 +37,7 @@ public class BodyRotation : MonoBehaviour
     private float CalculateAngle()
     {
         Vector2 tranformPosition = new Vector2(transform.position.x, transform.position.y);
-        Vector2 facindDirection = _playerLook.MousePosition - tranformPosition;
+        Vector2 facindDirection = _playerLook.PointerPosition - tranformPosition;
 
         float angle = Mathf.Atan2(-facindDirection.x, facindDirection.y) * Mathf.Rad2Deg;
 

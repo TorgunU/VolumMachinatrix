@@ -15,6 +15,6 @@ MonoBehaviour:
   _bulletPrefab: {fileID: 7407025716313208378, guid: 3edbe01219aac69498030b1ef4fc78b0, type: 3}
   _bullet: {fileID: 1896555619557746445, guid: 3edbe01219aac69498030b1ef4fc78b0, type: 3}
   _damageValue: 25
-  _speedShot: 15.1
+  _speedShot: 80
   _name: 9mm Bullet
   _id: 541
