@@ -7,8 +7,9 @@ using UnityEngine;
 public abstract class Bullet : MonoBehaviour
 {
     [SerializeField] protected BulletConfig BulletConfig;
-
     [SerializeField] protected bool IsCollided = false;
+
+    protected float ThresholdFlyingSecond;
 
     public abstract event Action<Bullet> Collided;
 

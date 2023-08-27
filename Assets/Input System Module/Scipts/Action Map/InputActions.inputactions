@@ -25,7 +25,7 @@
                 },
                 {
                     "name": "LookDirection",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "180dce74-675b-4242-9d17-1dac9c202be4",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "New action",
+                    "type": "Value",
+                    "id": "b15c11af-cd5f-435e-829f-0eb2fde0787f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -188,6 +197,17 @@
                     "processors": "",
                     "groups": "Keyboard and Mouse",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cf7099f6-4559-48ec-91ae-9f3f51513686",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
