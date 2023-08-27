@@ -1,9 +1,14 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Diagnostics;
 
 public class PlayerAttack : MonoBehaviour
 {
+    [SerializeField] private CinemachineImpulseSource _impulseSource;
+    [SerializeField] private float _maxImpulse;
+
     protected Weapon Weapon;
 
     private void Awake()
@@ -14,5 +19,6 @@ public class PlayerAttack : MonoBehaviour
     public void TryAttack()
     {
         Weapon.Attack();
+        _impulseSource.GenerateImpulse(_maxImpulse);
     }
 }

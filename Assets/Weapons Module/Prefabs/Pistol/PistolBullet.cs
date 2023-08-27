@@ -16,7 +16,6 @@ public class PistolBullet : Bullet
 
     public override void RevertFields()
     {
-        transform.position = new Vector2(0,0);
         StopCoroutine(Flying());
     }
 

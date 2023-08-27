@@ -6,11 +6,12 @@ using UnityEngine;
 public class PlayerLook : MonoBehaviour
 {
     [SerializeField] private Camera _camera;
+    [SerializeField] private CrossHair _crossHair;
 
     private ILookDirectionEvents _lookDirectionSource;
-    private Vector2 _mousePosition;
+    private Vector2 _pointerPosiiton;
 
-    public Vector2 MousePosition { get => _mousePosition; private set => _mousePosition = value; }
+    public Vector2 PointerPosition { get => _pointerPosiiton; private set => _pointerPosiiton = value; }
 
     public void Init(ILookDirectionEvents lookDirectionSource)
     {
@@ -25,6 +26,8 @@ public class PlayerLook : MonoBehaviour
 
     private void OnPointerPositionUpdated(Vector2 pointerPoisiton)
     {
-        _mousePosition = _camera.ScreenToWorldPoint(pointerPoisiton);
+        _pointerPosiiton = _camera.ScreenToWorldPoint(pointerPoisiton);
+
+        _crossHair.GetPointerPosition(_pointerPosiiton);
     }
 }
