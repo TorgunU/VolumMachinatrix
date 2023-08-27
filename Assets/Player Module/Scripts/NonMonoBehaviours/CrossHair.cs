@@ -44,7 +44,7 @@ public class CrossHair : MonoBehaviour
         }
         else
         {
-            newScale = Mathf.MoveTowards(transform.localScale.x, _minScaleSize, Time.deltaTime * _shrinkRate);
+            newScale = Mathf.MoveTowards(transform.localScale.x, _minScaleSize, Time.deltaTime * _shrinkRate / 2);
         }
 
         transform.localScale = new Vector3(newScale, newScale, 0);
