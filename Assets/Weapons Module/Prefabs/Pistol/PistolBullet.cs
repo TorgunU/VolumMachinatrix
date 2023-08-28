@@ -44,7 +44,9 @@ public class PistolBullet : Bullet
 
         yield return new WaitWhile(() =>
         {
-            Vector3 newPosition = transform.position + transform.up * (BulletConfig.SpeedShot * Time.deltaTime);
+            Vector2 newPosition = (Vector2)transform.position + _direction 
+            * (BulletConfig.SpeedShot * Time.deltaTime);
+
             transform.position = newPosition;
 
             counter += Time.deltaTime;

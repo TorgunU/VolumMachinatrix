@@ -5,7 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class CrossHair : MonoBehaviour
+public class Crosshair : MonoBehaviour
 {
     [SerializeField] private PlayerLook _playerLook;
     [SerializeField] private Transform _playerPosition;
@@ -20,6 +20,9 @@ public class CrossHair : MonoBehaviour
 
     private Vector2 _currentPosition;
 
+    public float MinScaleSize { get => _minScaleSize; private set => _minScaleSize = value; }
+    public float MaxScaleSize { get => _maxScaleSize; private set => _maxScaleSize = value; }
+
     private void Awake()
     {
         transform.localScale = new Vector3(_minScaleSize, _minScaleSize, 0);
@@ -31,7 +34,7 @@ public class CrossHair : MonoBehaviour
     private void Update()
     {
         MovePosition(_playerLook.PointerPosition);
-        ChangeScale();
+        ChangeScaleFromDistance();
         _previousDistance = _distance;
     }
 
@@ -54,7 +57,19 @@ public class CrossHair : MonoBehaviour
         transform.position = _currentPosition;
     }
 
-    private void ChangeScale()
+    public void CalculateAttackRecoil(float attackRecoilRate)
+    {
+        float newScale = transform.localScale.x + (attackRecoilRate);
+
+        if(newScale >= _maxScaleSize)
+        {
+            newScale = _maxScaleSize;
+        }
+
+        transform.localScale = new Vector3(newScale, newScale, 0);
+    }
+
+    private void ChangeScaleFromDistance()
     {
         float distanceChange = _distance - _previousDistance;
 

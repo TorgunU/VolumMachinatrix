@@ -19,7 +19,7 @@ public class Laser : RangeCastWeapon
         DetectionStratagy.Init(WeaponConfig);
     }
 
-    public override void Shoot()
+    public override void Shoot(Vector2 aimDirection)
     {
         Detect();
     }

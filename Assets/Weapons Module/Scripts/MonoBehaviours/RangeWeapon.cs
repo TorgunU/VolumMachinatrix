@@ -13,12 +13,12 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable
             return;
         }
 
-        Shoot();
+        Shoot(Crosshair.transform.position);
 
         IsAttackCooldowned = true;
 
         StartCoroutine(CalculatingAttackDelay());
     }
 
-    public abstract void Shoot();
+    public abstract void Shoot(Vector2 aimDirection);
 }

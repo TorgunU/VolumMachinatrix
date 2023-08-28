@@ -10,6 +10,7 @@ public abstract class Bullet : MonoBehaviour
     [SerializeField] protected bool IsCollided = false;
 
     protected float ThresholdFlyingSecond;
+    protected Vector2 _direction;
 
     public abstract event Action<Bullet> Collided;
 
@@ -17,4 +18,9 @@ public abstract class Bullet : MonoBehaviour
 
     public abstract void RevertFields();
     public abstract void Fire();
+
+    public void SetDirection(Vector2 direction)
+    {
+        _direction = direction;
+    }
 }

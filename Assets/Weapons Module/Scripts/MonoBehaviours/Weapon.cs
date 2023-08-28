@@ -6,6 +6,7 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour, IWeaponAttackable
 {
     [SerializeField] protected Transform WeaponPosition;
+    [SerializeField] protected Crosshair Crosshair;
 
     protected SpriteRenderer SpriteRenderer;
     protected bool IsAttackCooldowned = true;
