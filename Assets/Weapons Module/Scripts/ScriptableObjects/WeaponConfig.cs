@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "WeaponConfig",
     menuName = "WeaponConfig/ New WeaponConfig", order = 54)]
-public abstract class WeaponConfig : ScriptableObject
+public class WeaponConfig : ScriptableObject
 {
     [SerializeField] private Sprite _sprite;
     [SerializeField] private float _damageValue;

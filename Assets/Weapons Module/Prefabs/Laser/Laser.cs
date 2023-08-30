@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Laser : RangeCastWeapon
 {
@@ -19,9 +20,23 @@ public class Laser : RangeCastWeapon
         DetectionStratagy.Init(WeaponConfig);
     }
 
-    public override void Shoot(Vector2 aimDirection)
+    public override void Attack()
     {
-        Detect();
+        base.Attack();
+
+        Crosshair.CalculateAttackRecoil(Random.Range(WeaponConfig.MinRecoil, WeaponConfig.MaxRecoil));
+    }
+
+    public override void Shoot(Vector2 aimPosition)
+    {
+        Vector2 aimDirection = GetNormolisedShotDirection(aimPosition);
+
+        Vector2 spreadShotDirection = CalculateSpreadShotDirection(aimDirection,
+            WeaponConfig.MinSpreadAngle, WeaponConfig.MaxSpreadAngle);
+
+        Cast(spreadShotDirection);
+
+        StartCoroutine(PlayShotEffect());
     }
 
     public override IEnumerator CalculatingAttackDelay()
@@ -31,11 +46,9 @@ public class Laser : RangeCastWeapon
         IsAttackCooldowned = true;
     }
 
-    public override void Detect()
+    protected override void Cast(Vector2 spreadShotDirection)
     {
-        DetectionStratagy.Cast(FireTrasform.position, FireTrasform.up);
-
-        StartCoroutine(PlayShotEffect());
+        DetectionStratagy.Cast(FireTrasform.position, spreadShotDirection);
     }
 
     protected override IEnumerator PlayShotEffect()

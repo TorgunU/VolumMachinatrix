@@ -35,6 +35,4 @@ public class Player : MonoBehaviour, IAttackeable
     {
         _attack.TryAttack();
     }
-
-
 }

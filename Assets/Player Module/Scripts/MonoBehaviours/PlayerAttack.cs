@@ -6,7 +6,7 @@ using UnityEngine.Diagnostics;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] private CinemachineImpulseSource _impulseSource;
+    //[SerializeField] private CinemachineImpulseSource _impulseSource;
     [SerializeField] private float _maxImpulse;
 
     protected Weapon Weapon;
@@ -18,7 +18,10 @@ public class PlayerAttack : MonoBehaviour
 
     public void TryAttack()
     {
+        if (Weapon == null)
+            return;
+
         Weapon.Attack();
-        _impulseSource.GenerateImpulse(_maxImpulse);
+        //_impulseSource.GenerateImpulse(_maxImpulse);
     }
 }

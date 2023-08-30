@@ -16,4 +16,8 @@ MonoBehaviour:
   _damageValue: 50
   _attackFrequencyInSeconds: 2.5
   _name: Laser
+  _minRecoil: 0.16
+  _maxRecoil: 0.78
+  _minSpreadAngle: 0.25
+  _maxSpreadAngle: 0.94
   shotLenght: 15

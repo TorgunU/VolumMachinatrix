@@ -6,8 +6,6 @@ public abstract class RangeBulletWeapon : RangeWeapon
 {
     [SerializeField] protected Transform BulletFireHierarchyPool;
     [SerializeField] protected RangeBulletWeaponConfig WeaponConfig;
-    [SerializeField] protected float MinSpreadAngle = 0f;
-    [SerializeField] protected float MaxSpreadAngle = 30f;
 
     protected PoolBullet<Bullet> PoolBullets;
 
@@ -21,11 +19,10 @@ public abstract class RangeBulletWeapon : RangeWeapon
     {
         base.Attack();
 
-        Debug.Log("Calculate recoil attack");
         Crosshair.CalculateAttackRecoil(Random.Range(WeaponConfig.MinRecoil, WeaponConfig.MaxRecoil));
+        PlayStateAnimation(ShootState);
     }
 
     protected abstract bool TryPoolBullet(out Bullet bullet);
-    protected abstract void SetBulletShootTransform(Bullet bullet, Vector2 aimPosition);
-    protected abstract Vector2 CalculateSpreadShotDirection(Vector2 aimDirection);
+    protected abstract void SetBulletShootTransform(Bullet bullet, Vector2 spreadShotDirection);
 }

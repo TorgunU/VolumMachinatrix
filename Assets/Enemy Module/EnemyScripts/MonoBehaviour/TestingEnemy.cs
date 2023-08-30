@@ -37,6 +37,8 @@ public class TestingEnemy : Enemy
 
     public override void TakeDamage(float damage)
     {
+        Debug.Log("Take Damage: " + damage);
+
         Health -= damage;
     }
 }

@@ -11,7 +11,12 @@ public class Pistol : RangeBulletWeapon
             return;
         }
 
-        SetBulletShootTransform(bullet, aimPosition);
+        Vector2 aimDirection = GetNormolisedShotDirection(aimPosition);
+
+        Vector2 spreadShotDirection = CalculateSpreadShotDirection(aimDirection,
+            WeaponConfig.MinSpreadAngle, WeaponConfig.MaxSpreadAngle);
+
+        SetBulletShootTransform(bullet, spreadShotDirection);
 
         bullet.Fire();
     }
@@ -19,6 +24,8 @@ public class Pistol : RangeBulletWeapon
     public override IEnumerator CalculatingAttackDelay()
     {
         yield return new WaitForSeconds(WeaponConfig.AttackFrequencyInSeconds);
+
+        //PlayStateAnimation(IdleState);
 
         IsAttackCooldowned = true;
     }
@@ -28,35 +35,11 @@ public class Pistol : RangeBulletWeapon
         return PoolBullets.TryGetElement(out bullet);
     }
 
-    protected override void SetBulletShootTransform(Bullet bullet, Vector2 aimPosition)
+    protected override void SetBulletShootTransform(Bullet bullet, Vector2 spreadShotDirection)
     {
-        Vector2 normalizedAimDirection = (aimPosition - (Vector2)FireTrasform.position).normalized;
-
-        Vector2 spreadShotDirection = CalculateSpreadShotDirection(normalizedAimDirection);
-
         bullet.transform.position = FireTrasform.transform.position;
         bullet.transform.rotation = Quaternion.FromToRotation(Vector2.up, spreadShotDirection);
 
-        Debug.DrawRay(FireTrasform.position, spreadShotDirection, Color.red, 5);
-
         bullet.SetDirection(spreadShotDirection);
-    }
-
-    protected override Vector2 CalculateSpreadShotDirection(Vector2 aimDirection)
-    {
-        float crosshairSize = (Crosshair.transform.localScale.x - Crosshair.MinScaleSize) /
-            (Crosshair.MaxScaleSize - Crosshair.MinScaleSize);
-
-        float maxSpreadAngle = Mathf.Lerp(MinSpreadAngle, MaxSpreadAngle, crosshairSize);
-
-        float spreadOffset = Random.Range(-maxSpreadAngle, maxSpreadAngle);
-
-        float spreadAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) *
-            Mathf.Rad2Deg + spreadOffset;
-
-        Vector2 spreadShotDirection = new Vector2(Mathf.Cos(spreadAngle * Mathf.Deg2Rad),
-            Mathf.Sin(spreadAngle * Mathf.Deg2Rad)).normalized;
-
-        return spreadShotDirection;
     }
 }

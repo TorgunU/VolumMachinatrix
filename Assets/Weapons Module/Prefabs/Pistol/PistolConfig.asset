@@ -16,6 +16,8 @@ MonoBehaviour:
   _damageValue: 5
   _attackFrequencyInSeconds: 2
   _name: Pistol
-  _bulletConfig: {fileID: 11400000, guid: 327b779382229df4a8d00b388039afe3, type: 2}
   _minRecoil: 0.05
-  _maxRecoil: 0.2
+  _maxRecoil: 0.39
+  _minSpreadAngle: 0.12
+  _maxSpreadAngle: 0.63
+  _bulletConfig: {fileID: 11400000, guid: 327b779382229df4a8d00b388039afe3, type: 2}
