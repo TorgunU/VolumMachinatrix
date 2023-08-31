@@ -10,5 +10,5 @@ public abstract class RangeCastWeapon : RangeWeapon
     protected WeaponDetectionStratagy DetectionStratagy;
 
     protected abstract void Cast(Vector2 spreadShotDirection);
-    protected abstract IEnumerator PlayShotEffect();
+    protected abstract IEnumerator PlayShotEffect(Vector2 spreadShotDirection);
 }

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sprite: {fileID: -244886943, guid: f47dc42f7d3aaf24f9bbda2c53e405e3, type: 3}
   _damageValue: 5
-  _attackFrequencyInSeconds: 2
+  _attackFrequencyInSeconds: 0.9
   _name: Pistol
-  _minRecoil: 0.05
-  _maxRecoil: 0.39
-  _minSpreadAngle: 0.12
-  _maxSpreadAngle: 0.63
+  _minRecoil: 0.2
+  _maxRecoil: 0.64
+  _minSpreadAngle: 11.7
+  _maxSpreadAngle: 71.6
   _bulletConfig: {fileID: 11400000, guid: 327b779382229df4a8d00b388039afe3, type: 2}

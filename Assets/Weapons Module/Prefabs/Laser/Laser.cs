@@ -36,7 +36,7 @@ public class Laser : RangeCastWeapon
 
         Cast(spreadShotDirection);
 
-        StartCoroutine(PlayShotEffect());
+        StartCoroutine(PlayShotEffect(spreadShotDirection));
     }
 
     public override IEnumerator CalculatingAttackDelay()
@@ -51,13 +51,13 @@ public class Laser : RangeCastWeapon
         DetectionStratagy.Cast(FireTrasform.position, spreadShotDirection);
     }
 
-    protected override IEnumerator PlayShotEffect()
+    protected override IEnumerator PlayShotEffect(Vector2 spreadShotDirection)
     {
         _lineRenderer.enabled = true;
 
         _lineRenderer.transform.rotation = transform.rotation;
         _lineRenderer.SetPosition(0, FireTrasform.position);
-        _lineRenderer.SetPosition(1, FireTrasform.position + FireTrasform.up * WeaponConfig.ShotLenght);
+        _lineRenderer.SetPosition(1, FireTrasform.position + (Vector3)spreadShotDirection * WeaponConfig.ShotLenght);
 
         yield return new WaitForSeconds(0.02f);
 
