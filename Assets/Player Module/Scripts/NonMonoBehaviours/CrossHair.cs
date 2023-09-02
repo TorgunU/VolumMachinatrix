@@ -57,7 +57,7 @@ public class Crosshair : MonoBehaviour
         transform.position = _currentPosition;
     }
 
-    public void CalculateAttackRecoil(float attackRecoilRate)
+    public void IncreaseAttackRecoil(float attackRecoilRate)
     {
         float newScale = transform.localScale.x + (attackRecoilRate);
 

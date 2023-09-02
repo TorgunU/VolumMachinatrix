@@ -4,26 +4,38 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(CinemachineImpulseSource), typeof(BoxCollider2D))]
 public abstract class RangeWeapon : Weapon, IWeaponShootable
 {
     [SerializeField] protected Transform FireTrasform;
     [SerializeField] protected CinemachineImpulseSource _impulseSource;
-    [SerializeField] private float _maxCameraImpulse = 5;
 
-    public override void Attack()
+    [SerializeField] private float _impulseForce = 5;
+
+    private Coroutine _recoilRotatingCorutine;
+    private Quaternion _defaultRotation;
+    private float _angle;
+
+    private void Start()
     {
-        if (IsAttackCooldowned == false)
-        {
-            return;
-        }
+        _defaultRotation = transform.rotation;
+    }
 
-        Shoot(Crosshair.transform.position);
+    public abstract void PerformRangeAttack(Vector2 crosshairDirection);
+    protected abstract Vector2 GetSpreadShotDirection(Vector2 crosshairPosition);
+    protected abstract void IncreaseRecoilAttackToCrosshair();
 
-        IsAttackCooldowned = false;
+    public override void PerformAttack()
+    {
+        Vector2 spreadShotDirection = GetSpreadShotDirection(Crosshair.transform.position);
 
-        _impulseSource.GenerateImpulse(_maxCameraImpulse);
+        PerformRangeAttack(spreadShotDirection);
 
-        StartCoroutine(CalculatingAttackDelay());
+        _recoilRotatingCorutine = StartCoroutine(RecoilRotating(_angle));
+
+        GenereateShotRecoilEffect();
+
+        IncreaseRecoilAttackToCrosshair();
     }
 
     protected Vector2 CalculateSpreadShotDirection(Vector2 aimDirection, float minSpreadAngle,
@@ -38,6 +50,7 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable
 
         float spreadOffsetAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) *
             Mathf.Rad2Deg + spreadOffset;
+        _angle = spreadOffsetAngle;
 
         Vector2 spreadShotDirection = new Vector2(Mathf.Cos(spreadOffsetAngle * Mathf.Deg2Rad),
             Mathf.Sin(spreadOffsetAngle * Mathf.Deg2Rad)).normalized;
@@ -47,11 +60,22 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable
         return spreadShotDirection;
     }
 
-    protected Vector2 GetNormolisedShotDirection(Vector2 aimPosition)
+    protected Vector2 GetNormolisedShotDirection(Vector2 crosshairPosition)
     {
-        Vector2 aimDirection = (aimPosition - (Vector2)FireTrasform.position).normalized;
+        Vector2 aimDirection = (crosshairPosition - (Vector2)FireTrasform.position).normalized;
 
         return aimDirection;
+    }
+
+    protected IEnumerator RecoilRotating(float angle)
+    {
+        Quaternion quaternion = Quaternion.Euler(0f, 0f, angle);
+
+        Debug.Log(angle);
+
+        transform.rotation = quaternion;
+
+        yield return null;
     }
 
     protected IEnumerator RecoilRotating(Vector2 direction)
@@ -68,5 +92,13 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable
         yield return null;
     }
 
-    public abstract void Shoot(Vector2 aimPosition);
+    protected void RotateToDefaultValues()
+    {
+        transform.rotation = _defaultRotation;
+    }
+
+    protected void GenereateShotRecoilEffect()
+    {
+        _impulseSource.GenerateImpulse(_impulseForce);
+    }
 }

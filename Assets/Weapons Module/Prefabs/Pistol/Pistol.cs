@@ -5,38 +5,40 @@ using UnityEngine;
 
 public class Pistol : RangeBulletWeapon
 {
-    public override void Shoot(Vector2 aimPosition)
+    public override void PerformRangeAttack(Vector2 shotDirection)
     {
         if (TryPoolBullet(out Bullet bullet) == false)
         {
-            return;
+            throw new System.Exception("Bullet was't pulled from object pool");
         }
 
-        Vector2 aimDirection = GetNormolisedShotDirection(aimPosition);
+        SetBulletShootTransform(bullet, shotDirection);
 
-        Vector2 spreadShotDirection = CalculateSpreadShotDirection(
-            aimDirection,
-            WeaponConfig.MinSpreadAngle, 
-            WeaponConfig.MaxSpreadAngle);
+        ShootBullet(bullet);
+    }
 
-        SetBulletShootTransform(bullet, spreadShotDirection);
-
+    protected override void ShootBullet(Bullet bullet)
+    {
         bullet.Fire();
+    }
 
-        Debug.Log(spreadShotDirection);
+    protected override Vector2 GetSpreadShotDirection(Vector2 crosshairPosition)
+    {
+        Vector2 shotDirection = GetNormolisedShotDirection(crosshairPosition);
 
-        StartCoroutine(RecoilRotating(spreadShotDirection));
+        Vector2 spreadShotDirection = CalculateSpreadShotDirection(shotDirection, 
+            WeaponConfig.MinSpreadAngle, WeaponConfig.MaxSpreadAngle);
+
+        return spreadShotDirection;
     }
 
     public override IEnumerator CalculatingAttackDelay()
     {
         yield return new WaitForSeconds(WeaponConfig.AttackFrequencyInSeconds);
 
-        //PlayStateAnimation(IdleState);
-
         IsAttackCooldowned = true;
 
-        transform.rotation = new Quaternion(0, 0, 0, 0);
+        RotateToDefaultValues();
     }
 
     protected override bool TryPoolBullet(out Bullet bullet)

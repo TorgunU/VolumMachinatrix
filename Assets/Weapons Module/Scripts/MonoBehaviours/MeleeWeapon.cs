@@ -6,18 +6,10 @@ public abstract class MeleeWeapon : Weapon
 {
     [SerializeField] protected WeaponConfig WeaponConfig;
 
-    public override void Attack()
+    public override void PerformAttack()
     {
-        if (IsAttackCooldowned == false)
-        {
-            return;
-        }
-
-        Hit(Crosshair.transform.position);
-
-        IsAttackCooldowned = true;
-
-        StartCoroutine(CalculatingAttackDelay());
+        Vector2 aimPosition = Crosshair.transform.position;
+        Hit(aimPosition);
     }
 
     protected abstract void Hit(Vector2 aimPosition);

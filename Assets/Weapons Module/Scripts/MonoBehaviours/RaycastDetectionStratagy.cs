@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RaycastDetectionStratagy : WeaponDetectionStratagy
+public class RaycastDetectionStratagy : WeaponCastStratagy
 {
     public override void Cast(Vector2 firePosition, Vector2 fireDirection)
     {

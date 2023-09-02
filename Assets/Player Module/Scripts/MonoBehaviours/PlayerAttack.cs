@@ -13,7 +13,7 @@ public class PlayerAttack : MonoBehaviour
         Weapon = GetComponentInChildren<Weapon>();
     }
 
-    public void TryAttack()
+    public void Attack()
     {
         if (Weapon == null)
             return;

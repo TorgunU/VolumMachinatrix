@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
+[RequireComponent(typeof(LineRenderer))]
 public class Laser : RangeCastWeapon
 {
     [SerializeField] protected LineRenderer _lineRenderer;
@@ -13,30 +14,25 @@ public class Laser : RangeCastWeapon
         SpriteRenderer = GetComponent<SpriteRenderer>();
         SpriteRenderer.sprite = WeaponConfig.Sprite;
 
-        //_lineRenderer = GetComponentInChildren<LineRenderer>();
         _lineRenderer.enabled = false;
 
-        DetectionStratagy = new RaycastDetectionStratagy();
-        DetectionStratagy.Init(WeaponConfig);
+        CastStratagy = new RaycastDetectionStratagy();
+        CastStratagy.Init(WeaponConfig);
     }
 
-    public override void Attack()
+    protected override void Cast(Vector2 spreadShotDirection)
     {
-        base.Attack();
-
-        Crosshair.CalculateAttackRecoil(Random.Range(WeaponConfig.MinRecoil, WeaponConfig.MaxRecoil));
+        CastStratagy.Cast(FireTrasform.position, spreadShotDirection);
     }
 
-    public override void Shoot(Vector2 aimPosition)
+    protected override Vector2 GetSpreadShotDirection(Vector2 crosshairPosition)
     {
-        Vector2 aimDirection = GetNormolisedShotDirection(aimPosition);
+        Vector2 shotDirection = GetNormolisedShotDirection(crosshairPosition);
 
-        Vector2 spreadShotDirection = CalculateSpreadShotDirection(aimDirection,
+        Vector2 spreadShotDirection = CalculateSpreadShotDirection(shotDirection,
             WeaponConfig.MinSpreadAngle, WeaponConfig.MaxSpreadAngle);
 
-        Cast(spreadShotDirection);
-
-        StartCoroutine(PlayShotEffect(spreadShotDirection));
+        return spreadShotDirection;
     }
 
     public override IEnumerator CalculatingAttackDelay()
@@ -44,11 +40,8 @@ public class Laser : RangeCastWeapon
         yield return new WaitForSeconds(WeaponConfig.AttackFrequencyInSeconds);
 
         IsAttackCooldowned = true;
-    }
 
-    protected override void Cast(Vector2 spreadShotDirection)
-    {
-        DetectionStratagy.Cast(FireTrasform.position, spreadShotDirection);
+        RotateToDefaultValues();
     }
 
     protected override IEnumerator PlayShotEffect(Vector2 spreadShotDirection)

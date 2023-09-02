@@ -4,26 +4,25 @@ using UnityEngine;
 
 public class StunBatton : MeleeWeapon
 {
-    [SerializeField] private float attackLength;
     [SerializeField] protected LayerMask layerMask;
+
+    [SerializeField] private float attackLength;
 
     protected override void Hit(Vector2 aimPosition)
     {
         Vector2 attackDirection = (aimPosition - (Vector2)transform.position);
 
-        //Collider2D[] attackedColliders = Physics2D.OverlapCircleAll(transform.position, attackLength);
-
-        Collider2D[] attackedColliders = Physics2D.OverlapAreaAll((Vector2)transform.position, attackDirection, layerMask);
+        Collider2D[] attackedColliders = Physics2D.OverlapAreaAll(
+            (Vector2)transform.position, 
+            attackDirection, 
+            layerMask);
 
         foreach (Collider2D attackedCollider in attackedColliders)
         {
-            //if (((1 << attackedCollider.gameObject.layer) & layerMask) == 0)
-            //{
-                if (attackedCollider.TryGetComponent(out IDamageable damageable))
-                {
-                    damageable.TakeDamage(WeaponConfig.DamageValue);
-                }
-            //}
+            if (attackedCollider.TryGetComponent(out IDamageable damageable))
+            {
+                damageable.TakeDamage(WeaponConfig.DamageValue);
+            }
         }
     }
 
