@@ -11,12 +11,13 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable
     [SerializeField] protected CinemachineImpulseSource _impulseSource;
 
     [SerializeField] private float _impulseForce = 5;
+    protected float AngleModifier;
 
     private Coroutine _recoilRotatingCorutine;
     private Quaternion _defaultRotation;
     private float _angle;
 
-    private void Start()
+    private void Awake()
     {
         _defaultRotation = transform.rotation;
     }
@@ -31,7 +32,7 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable
 
         PerformRangeAttack(spreadShotDirection);
 
-        _recoilRotatingCorutine = StartCoroutine(RecoilRotating(_angle));
+        _recoilRotatingCorutine = StartCoroutine(RecoilRotating(_angle, AngleModifier));
 
         GenereateShotRecoilEffect();
 
@@ -78,16 +79,13 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable
         yield return null;
     }
 
-    protected IEnumerator RecoilRotating(Vector2 direction)
+    protected IEnumerator RecoilRotating(float angle, float angleModifier)
     {
-        float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion quaternion = Quaternion.Euler(0f, 0f, angle + angleModifier);
 
-        targetAngle -= 90;
+        Debug.Log(angle);
 
-        transform.eulerAngles = new Vector3(
-            transform.eulerAngles.x,
-            transform.eulerAngles.y,
-            targetAngle);
+        transform.rotation = quaternion;
 
         yield return null;
     }

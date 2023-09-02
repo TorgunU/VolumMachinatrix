@@ -18,8 +18,7 @@ public abstract class RangeBulletWeapon : RangeWeapon
     {
         Animator = GetComponent<Animator>();
 
-        SpriteRenderer = GetComponent<SpriteRenderer>();
-        SpriteRenderer.sprite = WeaponConfig.Sprite;
+        WeaponSprite.SetSprite(WeaponConfig.Sprite);
     }
 
     protected virtual void Start()

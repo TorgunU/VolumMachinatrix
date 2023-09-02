@@ -1,18 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
-[RequireComponent(typeof(LineRenderer))]
 public class Laser : RangeCastWeapon
 {
     [SerializeField] protected LineRenderer _lineRenderer;
 
     protected virtual void Awake()
     {
-        SpriteRenderer = GetComponent<SpriteRenderer>();
-        SpriteRenderer.sprite = WeaponConfig.Sprite;
+        WeaponSprite.SetSprite(WeaponConfig.Sprite);
 
         _lineRenderer.enabled = false;
 

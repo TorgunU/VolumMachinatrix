@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class Pistol : RangeBulletWeapon
 {
+    protected override void Start()
+    {
+        base.Start();
+        AngleModifier = -90;
+    }
+
     public override void PerformRangeAttack(Vector2 shotDirection)
     {
         if (TryPoolBullet(out Bullet bullet) == false)

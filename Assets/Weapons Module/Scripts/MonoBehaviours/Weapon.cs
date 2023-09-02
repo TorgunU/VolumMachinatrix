@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-
-[RequireComponent(typeof(SpriteRenderer))]
 public abstract class Weapon : MonoBehaviour, IWeaponAttackable
 {
     [SerializeField] protected Crosshair Crosshair;
+    [SerializeField] protected WeaponSprite WeaponSprite;
 
-    protected SpriteRenderer SpriteRenderer;
     protected bool IsAttackCooldowned = true;
 
     private Coroutine _attackDelayCorutine;
