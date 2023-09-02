@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
+[RequireComponent(typeof(LineRenderer))]
 public class Laser : RangeCastWeapon
 {
     [SerializeField] protected LineRenderer _lineRenderer;
@@ -12,16 +14,25 @@ public class Laser : RangeCastWeapon
         SpriteRenderer = GetComponent<SpriteRenderer>();
         SpriteRenderer.sprite = WeaponConfig.Sprite;
 
-        //_lineRenderer = GetComponentInChildren<LineRenderer>();
         _lineRenderer.enabled = false;
 
-        DetectionStratagy = new RaycastDetectionStratagy();
-        DetectionStratagy.Init(WeaponConfig);
+        CastStratagy = new RaycastDetectionStratagy();
+        CastStratagy.Init(WeaponConfig);
     }
 
-    public override void Shoot()
+    protected override void Cast(Vector2 spreadShotDirection)
     {
-        Detect();
+        CastStratagy.Cast(FireTrasform.position, spreadShotDirection);
+    }
+
+    protected override Vector2 GetSpreadShotDirection(Vector2 crosshairPosition)
+    {
+        Vector2 shotDirection = GetNormolisedShotDirection(crosshairPosition);
+
+        Vector2 spreadShotDirection = CalculateSpreadShotDirection(shotDirection,
+            WeaponConfig.MinSpreadAngle, WeaponConfig.MaxSpreadAngle);
+
+        return spreadShotDirection;
     }
 
     public override IEnumerator CalculatingAttackDelay()
@@ -29,22 +40,17 @@ public class Laser : RangeCastWeapon
         yield return new WaitForSeconds(WeaponConfig.AttackFrequencyInSeconds);
 
         IsAttackCooldowned = true;
+
+        RotateToDefaultValues();
     }
 
-    public override void Detect()
-    {
-        DetectionStratagy.Cast(FireTrasform.position, FireTrasform.up);
-
-        StartCoroutine(PlayShotEffect());
-    }
-
-    protected override IEnumerator PlayShotEffect()
+    protected override IEnumerator PlayShotEffect(Vector2 spreadShotDirection)
     {
         _lineRenderer.enabled = true;
 
         _lineRenderer.transform.rotation = transform.rotation;
         _lineRenderer.SetPosition(0, FireTrasform.position);
-        _lineRenderer.SetPosition(1, FireTrasform.position + FireTrasform.up * WeaponConfig.ShotLenght);
+        _lineRenderer.SetPosition(1, FireTrasform.position + (Vector3)spreadShotDirection * WeaponConfig.ShotLenght);
 
         yield return new WaitForSeconds(0.02f);
 

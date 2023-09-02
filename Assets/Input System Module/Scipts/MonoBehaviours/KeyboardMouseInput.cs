@@ -11,7 +11,7 @@ public sealed class KeyboardMouseInput : PlayerInput
     public override event Action<bool> RunStateChanged;
     public override event Action<bool> WalkStateChanged;
     public override event Action<Vector2> MovementDirectionUpdated;
-    public override event Action<Vector2> LookDirectionUpdated;
+    //public override event Action<Vector2> LookDirectionUpdated;
 
     protected override void RaiseMovementDirection(InputAction.CallbackContext movementContext)
     {
@@ -35,11 +35,11 @@ public sealed class KeyboardMouseInput : PlayerInput
         }
     }
 
-    protected override void RaiseLookDireciton(InputAction.CallbackContext lookDirectiontContext)
-    {
-        Vector2 vector = lookDirectiontContext.action.ReadValue<Vector2>();
-        LookDirectionUpdated.Invoke(lookDirectiontContext.action.ReadValue<Vector2>());
-    }
+    //protected override void RaiseLookDireciton(InputAction.CallbackContext lookDirectiontContext)
+    //{
+    //    Vector2 worldPosition = lookDirectiontContext.action.ReadValue<Vector2>();
+    //    LookDirectionUpdated?.Invoke(worldPosition);
+    //}
 
     protected override void RaiseRunState(InputAction.CallbackContext runContext)
     {

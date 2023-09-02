@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb90c6b05ebc6854ea60de5da919106b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletConfig: {fileID: 11400000, guid: 327b779382229df4a8d00b388039afe3, type: 2}
+  BulletConfig: {fileID: 11400000, guid: 4cbd3baf389bd1b4380dc06a6a4aa2bd, type: 2}
   IsCollided: 0
 --- !u!50 &5364237727672054203
 Rigidbody2D:
@@ -172,4 +172,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4

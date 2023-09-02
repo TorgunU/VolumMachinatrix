@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sprite: {fileID: 21300000, guid: c1915181417b99046b5663b619c8c1b2, type: 3}
   _damageValue: 50
-  _attackFrequencyInSeconds: 2.5
+  _attackFrequencyInSeconds: 2.2
   _name: Laser
+  _minRecoil: 0.16
+  _maxRecoil: 0.78
+  _minSpreadAngle: 0.25
+  _maxSpreadAngle: 0.94
   shotLenght: 15

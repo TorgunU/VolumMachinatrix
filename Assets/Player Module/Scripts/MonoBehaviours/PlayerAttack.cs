@@ -6,9 +6,6 @@ using UnityEngine.Diagnostics;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] private CinemachineImpulseSource _impulseSource;
-    [SerializeField] private float _maxImpulse;
-
     protected Weapon Weapon;
 
     private void Awake()
@@ -16,9 +13,11 @@ public class PlayerAttack : MonoBehaviour
         Weapon = GetComponentInChildren<Weapon>();
     }
 
-    public void TryAttack()
+    public void Attack()
     {
+        if (Weapon == null)
+            return;
+
         Weapon.Attack();
-        _impulseSource.GenerateImpulse(_maxImpulse);
     }
 }

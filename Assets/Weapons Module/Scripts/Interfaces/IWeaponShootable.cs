@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IWeaponShootable : IWeaponAttackable
 {
-    public abstract void Shoot();
+    public abstract void PerformRangeAttack(Vector2 aimDirection);
 }

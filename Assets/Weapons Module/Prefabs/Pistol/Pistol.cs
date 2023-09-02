@@ -1,12 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using UnityEngine;
 
 public class Pistol : RangeBulletWeapon
 {
-    public override void Shoot()
+    public override void PerformRangeAttack(Vector2 shotDirection)
     {
-        PoolBullet();
+        if (TryPoolBullet(out Bullet bullet) == false)
+        {
+            throw new System.Exception("Bullet was't pulled from object pool");
+        }
+
+        SetBulletShootTransform(bullet, shotDirection);
+
+        ShootBullet(bullet);
+    }
+
+    protected override void ShootBullet(Bullet bullet)
+    {
+        bullet.Fire();
+    }
+
+    protected override Vector2 GetSpreadShotDirection(Vector2 crosshairPosition)
+    {
+        Vector2 shotDirection = GetNormolisedShotDirection(crosshairPosition);
+
+        Vector2 spreadShotDirection = CalculateSpreadShotDirection(shotDirection, 
+            WeaponConfig.MinSpreadAngle, WeaponConfig.MaxSpreadAngle);
+
+        return spreadShotDirection;
     }
 
     public override IEnumerator CalculatingAttackDelay()
@@ -14,15 +37,20 @@ public class Pistol : RangeBulletWeapon
         yield return new WaitForSeconds(WeaponConfig.AttackFrequencyInSeconds);
 
         IsAttackCooldowned = true;
+
+        RotateToDefaultValues();
     }
 
-    protected override void PoolBullet()
+    protected override bool TryPoolBullet(out Bullet bullet)
     {
-        if(PoolBullets.TryGetElement(out Bullet bullet))
-        {
-            bullet.transform.position = FireTrasform.transform.position;
-            bullet.transform.rotation = FireTrasform.transform.rotation;
-            bullet.Fire();
-        }
+        return PoolBullets.TryGetElement(out bullet);
+    }
+
+    protected override void SetBulletShootTransform(Bullet bullet, Vector2 spreadShotDirection)
+    {
+        bullet.transform.position = FireTrasform.transform.position;
+        bullet.transform.rotation = Quaternion.FromToRotation(Vector2.up, spreadShotDirection);
+
+        bullet.SetDirection(spreadShotDirection);
     }
 }

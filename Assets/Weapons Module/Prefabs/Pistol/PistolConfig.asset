@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e588de141167cb4ead20a4987febdbf, type: 3}
   m_Name: PistolConfig
   m_EditorClassIdentifier: 
-  _sprite: {fileID: -244886943, guid: f47dc42f7d3aaf24f9bbda2c53e405e3, type: 3}
+  _sprite: {fileID: 21300000, guid: a505eb9f28564bc4ebf4f42a2fd6f5c8, type: 3}
   _damageValue: 5
-  _attackFrequencyInSeconds: 2
+  _attackFrequencyInSeconds: 0.44
   _name: Pistol
+  _minRecoil: 0.2
+  _maxRecoil: 0.64
+  _minSpreadAngle: 8.6
+  _maxSpreadAngle: 40.6
   _bulletConfig: {fileID: 11400000, guid: 327b779382229df4a8d00b388039afe3, type: 2}

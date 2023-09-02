@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e588de141167cb4ead20a4987febdbf, type: 3}
+  m_Name: PistolConfig 1
+  m_EditorClassIdentifier: 
+  _sprite: {fileID: 21300000, guid: 67c936256f317fa48b2718e2d0555153, type: 3}
+  _damageValue: 5
+  _attackFrequencyInSeconds: 0.44
+  _name: Pistol
+  _minRecoil: 0.2
+  _maxRecoil: 0.64
+  _minSpreadAngle: 8.6
+  _maxSpreadAngle: 40.6
+  _bulletConfig: {fileID: 11400000, guid: 327b779382229df4a8d00b388039afe3, type: 2}
