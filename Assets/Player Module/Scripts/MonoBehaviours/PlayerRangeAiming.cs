@@ -11,6 +11,8 @@ public class PlayerRangeAiming : IAimable, IDisposable
     [SerializeField] private float _walkingDebuff = -0.1f;
     [SerializeField] private float _runningDebuff = -0.5f;
 
+    [SerializeField] private float _stayingBuff = 0.2f;
+
     private IAimingEvents _aimingInput;
     private Crosshair _crosshair;
     private RangeWeaponConfig _rangeWeaponConfig;
@@ -27,6 +29,8 @@ public class PlayerRangeAiming : IAimable, IDisposable
         _aimingInput.AimHolded += ChangeAimState;
         _playerSpeed.SpeedChanged += OnSpeedChanged;
 
+        _movementModifier = _stayingBuff;
+
         InjectRangeWeaponConfig(rangeWeaponConfig);
     }
 
@@ -38,9 +42,9 @@ public class PlayerRangeAiming : IAimable, IDisposable
 
     public void OnSpeedChanged(float speed)
     {
-        if (speed == 0)
+        if (Mathf.Approximately(speed, 0))
         {
-            _movementModifier = 0;
+            _movementModifier = _stayingBuff;
         }
         else if (speed < _playerSpeed.WalkingSpeed)
         {
@@ -76,7 +80,7 @@ public class PlayerRangeAiming : IAimable, IDisposable
 
     public void StopAim()
     {
-        _crosshair.AimModifier = 0;
+        _crosshair.AimModifier = _stayingBuff;
     }
 
     public void Dispose()
