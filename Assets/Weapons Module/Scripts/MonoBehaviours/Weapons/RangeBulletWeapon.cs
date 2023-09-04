@@ -1,3 +1,4 @@
+using Cinemachine.Editor;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,20 +15,17 @@ public abstract class RangeBulletWeapon : RangeWeapon
     protected const string IdleState = "Idle";
     protected const string ShootState = "Shoot";
 
-    private void Awake()
+    protected void Awake()
     {
         Animator = GetComponent<Animator>();
+
+        PoolBullets = new PoolBullet<Bullet>(WeaponConfig.BulletConfig.Bullet, 9, 18,
+            BulletFireHierarchyPool, true, 20);
 
         WeaponSprite.SetSprite(WeaponConfig.Sprite);
     }
 
-    protected virtual void Start()
-    {
-        PoolBullets = new PoolBullet<Bullet>(WeaponConfig.BulletConfig.Bullet, 9, 18,
-            BulletFireHierarchyPool, true, 20);
-    }
-
-    public override void PerformAttack()
+    protected override void PerformAttack()
     {
         base.PerformAttack();
 
@@ -41,10 +39,18 @@ public abstract class RangeBulletWeapon : RangeWeapon
 
     protected virtual void PlayStateAnimation(string stateAnimationName)
     {
+        if (Animator == null)
+        {
+            Debug.LogWarning("Animator is null");
+            return;
+        }
+
         Animator.Play(stateAnimationName);
     }
 
     protected abstract bool TryPoolBullet(out Bullet bullet);
     protected abstract void ShootBullet(Bullet bullet);
     protected abstract void SetBulletShootTransform(Bullet bullet, Vector2 spreadShotDirection);
+
+    public override RangeWeaponConfig RangeWeaponConfig => WeaponConfig;
 }

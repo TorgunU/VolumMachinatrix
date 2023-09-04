@@ -6,7 +6,7 @@ public abstract class MeleeWeapon : Weapon
 {
     [SerializeField] protected WeaponConfig WeaponConfig;
 
-    public override void PerformAttack()
+    protected override void PerformAttack()
     {
         Vector2 aimPosition = Crosshair.transform.position;
         Hit(aimPosition);

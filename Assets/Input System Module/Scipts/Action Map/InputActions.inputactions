@@ -52,12 +52,12 @@
                 },
                 {
                     "name": "Aim",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "b3bd0923-43dd-4e2c-a64d-2ecd8553b517",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Attack",
@@ -159,7 +159,7 @@
                 {
                     "name": "",
                     "id": "90bdf45f-a918-4b86-8299-970d47fae21f",
-                    "path": "<Keyboard>/leftAlt",
+                    "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",

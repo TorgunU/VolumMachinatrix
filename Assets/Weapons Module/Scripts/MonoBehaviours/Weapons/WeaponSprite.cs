@@ -16,7 +16,7 @@ public class WeaponSprite : MonoBehaviour
     public void SetSprite(Sprite sprite)
     {
         if (sprite == null)
-            throw new Exception("Sprite is null");
+            Debug.LogError("Sprite is null");
 
         SpriteRenderer.sprite = sprite;
     }

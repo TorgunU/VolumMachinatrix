@@ -8,36 +8,12 @@ using UnityEngine;
 public abstract class RangeWeapon : Weapon, IWeaponShootable
 {
     [SerializeField] protected Transform FireTrasform;
-    [SerializeField] protected CinemachineImpulseSource _impulseSource;
-
+    [SerializeField] protected CinemachineImpulseSource ImpulseSource;
     [SerializeField] private float _impulseForce = 5;
-    protected float AngleModifier;
+    [SerializeField] protected float AngleModifier;
 
-    private Coroutine _recoilRotatingCorutine;
-    private Quaternion _defaultRotation;
+    private Quaternion _defaultRotation = new Quaternion(0,0,0,0);
     private float _angle;
-
-    private void Awake()
-    {
-        _defaultRotation = transform.rotation;
-    }
-
-    public abstract void PerformRangeAttack(Vector2 crosshairDirection);
-    protected abstract Vector2 GetSpreadShotDirection(Vector2 crosshairPosition);
-    protected abstract void IncreaseRecoilAttackToCrosshair();
-
-    public override void PerformAttack()
-    {
-        Vector2 spreadShotDirection = GetSpreadShotDirection(Crosshair.transform.position);
-
-        PerformRangeAttack(spreadShotDirection);
-
-        _recoilRotatingCorutine = StartCoroutine(RecoilRotating(_angle, AngleModifier));
-
-        GenereateShotRecoilEffect();
-
-        IncreaseRecoilAttackToCrosshair();
-    }
 
     protected Vector2 CalculateSpreadShotDirection(Vector2 aimDirection, float minSpreadAngle,
     float maxSpreadAngle)
@@ -68,26 +44,11 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable
         return aimDirection;
     }
 
-    protected IEnumerator RecoilRotating(float angle)
-    {
-        Quaternion quaternion = Quaternion.Euler(0f, 0f, angle);
-
-        Debug.Log(angle);
-
-        transform.rotation = quaternion;
-
-        yield return null;
-    }
-
-    protected IEnumerator RecoilRotating(float angle, float angleModifier)
+    protected void RecoilRotating(float angle, float angleModifier)
     {
         Quaternion quaternion = Quaternion.Euler(0f, 0f, angle + angleModifier);
 
-        Debug.Log(angle);
-
         transform.rotation = quaternion;
-
-        yield return null;
     }
 
     protected void RotateToDefaultValues()
@@ -97,6 +58,26 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable
 
     protected void GenereateShotRecoilEffect()
     {
-        _impulseSource.GenerateImpulse(_impulseForce);
+        ImpulseSource.GenerateImpulse(_impulseForce);
     }
+
+    protected override void PerformAttack()
+    {
+        Vector2 spreadShotDirection = GetSpreadShotDirection(Crosshair.transform.position);
+
+        PerformRangeAttack(spreadShotDirection);
+
+        RecoilRotating(_angle, AngleModifier);
+
+        GenereateShotRecoilEffect();
+
+        IncreaseRecoilAttackToCrosshair();
+    }
+
+    public abstract void PerformRangeAttack(Vector2 crosshairDirection);
+
+    protected abstract Vector2 GetSpreadShotDirection(Vector2 crosshairPosition);
+    protected abstract void IncreaseRecoilAttackToCrosshair();
+
+    public abstract RangeWeaponConfig RangeWeaponConfig { get; }
 }

@@ -12,9 +12,6 @@ public abstract class Weapon : MonoBehaviour, IWeaponAttackable
 
     private Coroutine _attackDelayCorutine;
 
-    public abstract void PerformAttack();
-    public abstract IEnumerator CalculatingAttackDelay();
-
     public void Attack()
     {
         if (IsAttackCooldowned == false)
@@ -28,4 +25,8 @@ public abstract class Weapon : MonoBehaviour, IWeaponAttackable
 
         _attackDelayCorutine = StartCoroutine(CalculatingAttackDelay());
     }
+
+    public abstract IEnumerator CalculatingAttackDelay();
+
+    protected abstract void PerformAttack();
 }

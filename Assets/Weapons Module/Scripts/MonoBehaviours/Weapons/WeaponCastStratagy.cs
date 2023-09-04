@@ -12,5 +12,4 @@ public abstract class WeaponCastStratagy
     }
 
     public abstract void Cast(Vector2 firePosition, Vector2 fireDirection);
-
 }

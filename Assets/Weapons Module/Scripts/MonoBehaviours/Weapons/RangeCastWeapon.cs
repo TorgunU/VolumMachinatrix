@@ -9,9 +9,6 @@ public abstract class RangeCastWeapon : RangeWeapon
 
     protected WeaponCastStratagy CastStratagy;
 
-    protected abstract void Cast(Vector2 spreadShotDirection);
-    protected abstract IEnumerator PlayShotEffect(Vector2 spreadShotDirection);
-
     public override void PerformRangeAttack(Vector2 crosshairDirection)
     {
         Cast(crosshairDirection);
@@ -23,4 +20,9 @@ public abstract class RangeCastWeapon : RangeWeapon
     {
         Crosshair.IncreaseAttackRecoil(Random.Range(WeaponConfig.MinRecoil, WeaponConfig.MaxRecoil));
     }
+
+    protected abstract void Cast(Vector2 spreadShotDirection);
+    protected abstract IEnumerator PlayShotEffect(Vector2 spreadShotDirection);
+
+    public override RangeWeaponConfig RangeWeaponConfig => WeaponConfig;
 }

@@ -5,7 +5,7 @@ public class Laser : RangeCastWeapon
 {
     [SerializeField] protected LineRenderer _lineRenderer;
 
-    protected virtual void Awake()
+    protected void Awake()
     {
         WeaponSprite.SetSprite(WeaponConfig.Sprite);
 

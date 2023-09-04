@@ -17,6 +17,14 @@ public class PoolBullet<T> : PoolObject<T> where T : Bullet
             isAutoExpand, expandCopacity)
     { }
 
+    public void Release(Bullet pooledBullet)
+    {
+        pooledBullet.RevertFields();
+
+        pooledBullet.transform.position = HierarhyTransform.position;
+        pooledBullet.gameObject.SetActive(false);
+    }
+
     public override T GetFreeElement()
     {
         if (TryGetElement(out var element))
@@ -55,14 +63,6 @@ public class PoolBullet<T> : PoolObject<T> where T : Bullet
 
         element = null;
         return false;
-    }
-
-    public void Release(Bullet pooledBullet)
-    {
-        pooledBullet.RevertFields();
-
-        pooledBullet.transform.position = HierarhyTransform.position;
-        pooledBullet.gameObject.SetActive(false);
     }
 
     public override void Release(T polledObject)

@@ -14,10 +14,10 @@ public class Crosshair : MonoBehaviour
     [SerializeField] private float _maxScaleSize;
     [SerializeField] private float _shrinkRate;
     [SerializeField] private float _expandRate;
+    [SerializeField] private float _aimModifier;
 
     private float _distance;
     private float _previousDistance;
-
     private Vector2 _currentPosition;
 
     public float MinScaleSize { get => _minScaleSize; private set => _minScaleSize = value; }
@@ -29,6 +29,8 @@ public class Crosshair : MonoBehaviour
 
         _distance = (_playerLook.PointerPosition - (Vector2)_playerPosition.position).magnitude;
         _previousDistance = _thresholdDistance;
+
+        _aimModifier = 0;
     }
 
     private void Update()
@@ -91,6 +93,12 @@ public class Crosshair : MonoBehaviour
         }
 
         float newScale = transform.localScale.x + (_expandRate * Time.deltaTime);
+
+        if(newScale > _maxScaleSize)
+        {
+            newScale = _maxScaleSize;
+        }
+
         transform.localScale = new Vector3(newScale, newScale, 0);
     }
 
@@ -101,7 +109,33 @@ public class Crosshair : MonoBehaviour
             return;
         }
 
-        float newScale = transform.localScale.x - _shrinkRate * Time.deltaTime;
+        float newScale = transform.localScale.x - (_shrinkRate + _aimModifier) * Time.deltaTime;
+
+        if (newScale < _minScaleSize)
+        {
+            newScale = _minScaleSize;
+        }
+
         transform.localScale = new Vector3(newScale, newScale, 0);
+    }
+
+    public float AimModifier
+    {
+        get => _aimModifier;
+        set
+        {
+            //if (value >= MaxScaleSize)
+            //{
+            //    _aimModifier = MaxScaleSize;
+            //    return;
+            //}
+            //else if(value < 0)
+            //{
+            //    _aimModifier = 0;
+            //    return;
+            //}
+
+            _aimModifier = value;
+        }
     }
 }
