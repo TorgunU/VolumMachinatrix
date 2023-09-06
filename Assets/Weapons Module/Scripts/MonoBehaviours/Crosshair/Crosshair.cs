@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Crosshair : MonoBehaviour
@@ -124,16 +119,16 @@ public class Crosshair : MonoBehaviour
         get => _aimModifier;
         set
         {
-            //if (value >= MaxScaleSize)
-            //{
-            //    _aimModifier = MaxScaleSize;
-            //    return;
-            //}
-            //else if(value < 0)
-            //{
-            //    _aimModifier = 0;
-            //    return;
-            //}
+            if (value >= 5)
+            {
+                _aimModifier = 5;
+                return;
+            }
+            else if (value < -5)
+            {
+                _aimModifier = 0;
+                return;
+            }
 
             _aimModifier = value;
         }

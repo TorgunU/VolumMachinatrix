@@ -16,12 +16,12 @@
                 },
                 {
                     "name": "WeaponAttack",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "000a56bb-7ef1-4026-99ef-39a2ae99746b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "LookDirection",
@@ -52,7 +52,7 @@
                 },
                 {
                     "name": "Aim",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "b3bd0923-43dd-4e2c-a64d-2ecd8553b517",
                     "expectedControlType": "Button",
                     "processors": "",
