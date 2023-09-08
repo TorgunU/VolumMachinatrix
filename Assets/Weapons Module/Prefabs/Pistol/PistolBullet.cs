@@ -1,27 +1,12 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PistolBullet : Bullet
 {
-    public override event Action<Bullet> Collided;
-
     private void Start()
     {
         ThresholdFlyingSecond = 15f;
-    }
-
-    public override void Fire()
-    {
-        StartCoroutine(Flying());
-    }
-
-    public override void RevertFields()
-    {
-        StopCoroutine(Flying());
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision)
@@ -56,4 +41,16 @@ public class PistolBullet : Bullet
 
         Collided.Invoke(this);
     }
+
+    public override void Fire()
+    {
+        StartCoroutine(Flying());
+    }
+
+    public override void RevertFields()
+    {
+        StopCoroutine(Flying());
+    }
+
+    public override event Action<Bullet> Collided;
 }

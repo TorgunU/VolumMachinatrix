@@ -1,10 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using UnityEngine;
 
 public class Pistol : RangeBulletWeapon
 {
+    protected void Start()
+    {
+        AngleModifier = 90;
+    }
+
     public override void PerformRangeAttack(Vector2 shotDirection)
     {
         if (TryPoolBullet(out Bullet bullet) == false)

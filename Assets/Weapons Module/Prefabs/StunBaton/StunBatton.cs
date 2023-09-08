@@ -5,8 +5,12 @@ using UnityEngine;
 public class StunBatton : MeleeWeapon
 {
     [SerializeField] protected LayerMask layerMask;
+    [SerializeField] protected float AttackLength;
 
-    [SerializeField] private float attackLength;
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawSphere(transform.position, AttackLength);
+    }
 
     protected override void Hit(Vector2 aimPosition)
     {
@@ -29,10 +33,5 @@ public class StunBatton : MeleeWeapon
     public override IEnumerator CalculatingAttackDelay()
     {
         yield return new WaitForSeconds(WeaponConfig.AttackFrequencyInSeconds);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawSphere(transform.position, attackLength);
     }
 }

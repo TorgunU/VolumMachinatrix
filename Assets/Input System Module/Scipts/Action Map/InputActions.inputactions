@@ -16,12 +16,12 @@
                 },
                 {
                     "name": "WeaponAttack",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "000a56bb-7ef1-4026-99ef-39a2ae99746b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "LookDirection",
@@ -57,7 +57,7 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Attack",
@@ -159,7 +159,7 @@
                 {
                     "name": "",
                     "id": "90bdf45f-a918-4b86-8299-970d47fae21f",
-                    "path": "<Keyboard>/leftAlt",
+                    "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",

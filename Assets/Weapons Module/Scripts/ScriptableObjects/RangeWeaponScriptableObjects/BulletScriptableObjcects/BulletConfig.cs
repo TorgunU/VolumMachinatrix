@@ -6,13 +6,11 @@ using UnityEngine;
     menuName = "WeaponConfig/BulletConfig/ New BulletConfig", order = 51)]
 public abstract class BulletConfig : ScriptableObject
 {
-    [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private Bullet _bullet;
     [SerializeField] private float _damageValue;
     [SerializeField] private float _speedShot;
     [SerializeField] private string _name;
 
-    public GameObject BulletPrefab { get => _bulletPrefab; protected set => _bulletPrefab = value; }
     public float DamageValue { get => _damageValue; protected set => _damageValue = value; }
     public float SpeedShot { get => _speedShot; set => _speedShot = value; }
     public string Name { get => _name; protected set => _name = value; }

@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 [CreateAssetMenu(fileName = "WeaponConfig",
     menuName = "WeaponConfig/BulletConfig/ New PistolBulletSO", order = 52)]

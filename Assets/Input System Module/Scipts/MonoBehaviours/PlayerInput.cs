@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 
 public abstract class PlayerInput : MonoBehaviour,
-    IMovementEvents, /*ILookDirectionEvents,*/ IAttackEvents
+    IMovementDirection, IMovementStateEvents, IAttackEvents, IAimingEvents
 {
     protected InputActions InputActions;
     protected Vector2 MovemenDirection;
@@ -13,28 +13,35 @@ public abstract class PlayerInput : MonoBehaviour,
     public abstract event Action<bool> RunStateChanged;
     public abstract event Action<bool> WalkStateChanged;
     public abstract event Action<Vector2> MovementDirectionUpdated;
+    public abstract event Action<bool> AimHolded;
     //public abstract event Action<Vector2> LookDirectionUpdated;
 
     protected virtual void Awake()
     {
         InputActions = new InputActions();
 
-        InputActions.KeyboardMouse.Move.performed += moveDirectionContext
-            => RaiseMovementDirection(moveDirectionContext);
-        InputActions.KeyboardMouse.Move.canceled += moveDirectionContext
-            => RaiseMovementDirection(moveDirectionContext);
+        InputActions.KeyboardMouse.Move.performed += moveDirectionContext => 
+        RaiseMovementDirection(moveDirectionContext);
+        InputActions.KeyboardMouse.Move.canceled += moveDirectionContext => 
+        RaiseMovementDirection(moveDirectionContext);
 
-        InputActions.KeyboardMouse.Run.performed += runContext => RaiseRunState(runContext);
-        InputActions.KeyboardMouse.Run.canceled += runContext => RaiseRunState(runContext);
+        InputActions.KeyboardMouse.Run.performed += runContext => 
+        RaiseRunState(runContext);
+        InputActions.KeyboardMouse.Run.canceled += runContext => 
+        RaiseRunState(runContext);
 
-        //InputActions.KeyboardMouse.LookDirection.performed += lookDirectionContext
-        //    => RaiseLookDireciton(lookDirectionContext);
+        InputActions.KeyboardMouse.Attack.performed += attackContext => 
+        RaiseAttackPressed(attackContext);
 
-        InputActions.KeyboardMouse.Attack.performed += attackContext
-            => RaiseAttackPressed(attackContext);
+        InputActions.KeyboardMouse.Aim.performed += aimContext => 
+        RaiseAimHolded(aimContext);
+        InputActions.KeyboardMouse.Aim.canceled += aimContext =>
+        RaiseAimHolded(aimContext);
 
-        InputActions.KeyboardMouse.Walk.performed += walkContext => RaiseWalkState(walkContext);
-        InputActions.KeyboardMouse.Walk.canceled += walkContext => RaiseWalkState(walkContext);
+        InputActions.KeyboardMouse.Walk.performed += walkContext => 
+        RaiseWalkState(walkContext);
+        InputActions.KeyboardMouse.Walk.canceled += walkContext => 
+        RaiseWalkState(walkContext);
     }
 
     protected virtual void OnEnable()
@@ -49,7 +56,7 @@ public abstract class PlayerInput : MonoBehaviour,
 
     protected abstract void RaiseAttackPressed(InputAction.CallbackContext attackContext);
     protected abstract void RaiseMovementDirection(InputAction.CallbackContext movementcontext);
-    //protected abstract void RaiseLookDireciton(InputAction.CallbackContext lookDirectiontContext);
+    protected abstract void RaiseAimHolded(InputAction.CallbackContext aimContext);
     protected abstract void RaiseRunState(InputAction.CallbackContext runContext);
     protected abstract void RaiseWalkState(InputAction.CallbackContext walkContext);
 }

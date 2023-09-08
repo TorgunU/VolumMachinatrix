@@ -5,5 +5,5 @@ using UnityEngine;
 public interface IMoveable
 {
     public void Move();
-    public void SetDirection();
+    public void SetDirection(Vector2 moveDirection);
 }

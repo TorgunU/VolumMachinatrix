@@ -1,86 +1,65 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(PlayerInput))]
-public class PlayerMovement : MonoBehaviour
+[RequireComponent (typeof(PlayerSpeed))]
+public class PlayerMovement : MonoBehaviour, IMoveable
 {
-    [SerializeField] private float _movingSpeed;
-    [SerializeField] private float _walkingSpeed;
-    [SerializeField] private float _runningSpeed;
-
-    private IMovementEvents _inputEvents;
+    private PlayerSpeed _playerSpeed;
+    private IMovementDirection _inputEvents;
+    private IMovementStateEvents _movementStateEvents;
     private Rigidbody2D _rigidbody2D;
     private Vector2 _moveDirection;
-    private bool _isRunning;
-    private bool _isWalking;
 
-    public float Speed { get => _movingSpeed; private set => _movingSpeed = value; }
-
-    public void Init(Rigidbody2D rigidbody2D, IMovementEvents playerInputEvents)
+    public void Init(Rigidbody2D rigidbody2D, IMovementDirection playerInputEvents, 
+        IMovementStateEvents movementStateEvents)
     {
         _rigidbody2D = rigidbody2D;
         _inputEvents = playerInputEvents;
+        _movementStateEvents = movementStateEvents;
 
         _rigidbody2D.gravityScale = 0;
+
+        _inputEvents.MovementDirectionUpdated += SetDirection;
+        _movementStateEvents.WalkStateChanged += _playerSpeed.SetWalkState;
+        _movementStateEvents.RunStateChanged += _playerSpeed.SetRunState;
     }
 
-
-    private void Start()
+    private void Awake()
     {
-        _movingSpeed = 7;
-        _runningSpeed = 25;
-        _walkingSpeed = 2;
-
-        _inputEvents.MovementDirectionUpdated += SetMoveDirection;
-        _inputEvents.WalkStateChanged += SetWalkState;
-        _inputEvents.RunStateChanged += SetRunState;
+        _playerSpeed = GetComponent<PlayerSpeed>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Move();
     }
 
     private void OnDisable()
     {
-        _inputEvents.MovementDirectionUpdated -= SetMoveDirection;
-        _inputEvents.WalkStateChanged -= SetWalkState;
-        _inputEvents.RunStateChanged -= SetRunState;
+        _inputEvents.MovementDirectionUpdated -= SetDirection;
+        _movementStateEvents.WalkStateChanged -= _playerSpeed.SetWalkState;
+        _movementStateEvents.RunStateChanged -= _playerSpeed.SetRunState;
     }
 
     public void Move()
     {
-        float scaledMoveSpeed;
+        _rigidbody2D.MovePosition(_rigidbody2D.position + _moveDirection * _playerSpeed.CurrentSpeed * Time.deltaTime);
 
-        if(_isRunning)
+        Debug.DrawRay(transform.position, _moveDirection, Color.white, 1);
+    }
+
+    public void SetDirection(Vector2 moveDirection)
+    {
+        _moveDirection = moveDirection;
+
+        if (_moveDirection == Vector2.zero)
         {
-            scaledMoveSpeed = _runningSpeed * Time.fixedDeltaTime;
-        }
-        else if(_isWalking)
-        {
-            scaledMoveSpeed = _walkingSpeed * Time.fixedDeltaTime;
+            _playerSpeed.ResetSpeeding();
         }
         else
         {
-            scaledMoveSpeed = _movingSpeed * Time.fixedDeltaTime;
+            _playerSpeed.StartMoving();
         }
-
-        _rigidbody2D.MovePosition(_rigidbody2D.position + _moveDirection * scaledMoveSpeed);
-
-        Debug.DrawRay(transform.position, _moveDirection, Color.white);
     }
 
-    private void SetMoveDirection(Vector2 moveDirection)
-    {
-        _moveDirection = moveDirection;
-    }
-
-    private void SetRunState(bool isRunning)
-    {
-        _isRunning = isRunning;
-    }
-
-    private void SetWalkState(bool isWalking)
-    {
-        _isWalking = isWalking;
-    }
+    public PlayerSpeed PlayerSpeed { get => _playerSpeed; private set => _playerSpeed = value; }
 }

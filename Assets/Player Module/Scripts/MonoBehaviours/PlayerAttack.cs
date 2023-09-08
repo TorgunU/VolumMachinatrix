@@ -1,16 +1,19 @@
-using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.Diagnostics;
 
-public class PlayerAttack : MonoBehaviour
+[Serializable]
+public class PlayerAttack : IAttackeable
 {
     protected Weapon Weapon;
 
-    private void Awake()
+    public PlayerAttack(Weapon weapon)
     {
-        Weapon = GetComponentInChildren<Weapon>();
+        Weapon = weapon;
+    }
+
+    public void InjectWeapon(Weapon weapon)
+    {
+        Weapon = weapon;
     }
 
     public void Attack()
