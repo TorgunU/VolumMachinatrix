@@ -8,6 +8,7 @@ public abstract class RangeBulletWeapon : RangeWeapon
 {
     [SerializeField] protected Transform BulletFireHierarchyPool;
     [SerializeField] protected RangeBulletWeaponConfig WeaponConfig;
+    [SerializeField] protected RangeBulletWeaponAudio WeaponAudio;
 
     protected PoolBullet<Bullet> PoolBullets;
     protected Animator Animator;
@@ -29,7 +30,9 @@ public abstract class RangeBulletWeapon : RangeWeapon
     {
         base.PerformAttack();
 
-        PlayStateAnimation(ShootState);
+        //PlayStateAnimation(ShootState);
+
+        WeaponAudio.PlayAttack();
     }
 
     protected override void IncreaseRecoilAttackToCrosshair()

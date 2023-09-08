@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class PoolObject<T> where T : MonoBehaviour
 {
-    protected T Prefab;
+    protected T Script;
     protected Transform HierarhyTransform;
     protected int MinCapacity;
     protected int MaxCapacity;
@@ -12,9 +12,9 @@ public abstract class PoolObject<T> where T : MonoBehaviour
     protected int ExpandCopacity;
     protected List<T> PoolObjects;
 
-    public PoolObject(T prefab, int minCapacity, int maxCapacity, Transform hierarhyTransform)
+    public PoolObject(T script, int minCapacity, int maxCapacity, Transform hierarhyTransform)
     {
-        Prefab = prefab;
+        Script = script;
         HierarhyTransform = hierarhyTransform;
         MinCapacity = minCapacity;
         MaxCapacity = maxCapacity;
@@ -24,14 +24,69 @@ public abstract class PoolObject<T> where T : MonoBehaviour
         CreatePool();
     }
 
-    public PoolObject(T prefab, int minCapacity, int maxCapacity, Transform hierarhyTransform,
+    public PoolObject(T script, int minCapacity, int maxCapacity, Transform hierarhyTransform,
         bool isAutoExpand, int expandCopacity)
-        : this(prefab, minCapacity, maxCapacity, hierarhyTransform)
+        : this(script, minCapacity, maxCapacity, hierarhyTransform)
     {
         IsAutoExpand = isAutoExpand;
         ExpandCopacity = expandCopacity;
 
         OnValidate();
+    }
+
+    public T GetFreeElement()
+    {
+        if (TryGetElement(out var element))
+        {
+            return element;
+        }
+
+        if (IsAutoExpand)
+        {
+            return CreateElement(true);
+        }
+
+        Debug.LogWarning($"Pool {typeof(T)} is over!");
+
+        return null;
+    }
+
+    public bool TryGetElement(out T element)
+    {
+        foreach (var pooledObject in PoolObjects)
+        {
+            if (pooledObject.gameObject.activeInHierarchy == false)
+            {
+                element = pooledObject;
+                pooledObject.gameObject.SetActive(true);
+
+                return true;
+            }
+        }
+
+        if (IsAutoExpand)
+        {
+            element = CreateElement(true);
+            return true;
+        }
+
+        element = null;
+        return false;
+    }
+
+    public void Release(T polledObject)
+    {
+        ReleaseObject(polledObject);
+    }
+
+    protected virtual void CreatePool()
+    {
+        PoolObjects = new List<T>(MinCapacity);
+
+        for (int i = 0; i < MinCapacity; i++)
+        {
+            CreateElement(false);
+        }
     }
 
     protected virtual void OnValidate()
@@ -52,10 +107,6 @@ public abstract class PoolObject<T> where T : MonoBehaviour
         }
     }
 
-    public abstract T GetFreeElement();
-    public abstract bool TryGetElement(out T element);
-    public abstract void Release(T polledObject);
-
+    protected abstract void ReleaseObject(T pooledObject);
     protected abstract T CreateElement(bool isActiveByDefault = false);
-    protected abstract void CreatePool();
 }
