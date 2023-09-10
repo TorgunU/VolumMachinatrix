@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac121a890594941459cfa21f56e9d834, type: 3}
+  m_Name: DefaultWeaponAudioConfig
+  m_EditorClassIdentifier: 
+  _weaponAttackAudio: {fileID: 4276837755914228602, guid: c2bda9700dc44254382b3a3983e7ce8f, type: 3}

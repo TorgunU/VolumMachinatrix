@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
         _aimingInput = GetComponent<PlayerInput>();
         _movementStateEvents = GetComponent<PlayerInput>();
 
-        _movement = GetComponent<PlayerMovement>();
+        _movement = GetComponentInChildren<PlayerMovement>();
         _weapon = GetComponentInChildren<Weapon>();
         _crosshair = GetComponentInChildren<Crosshair>();
 
