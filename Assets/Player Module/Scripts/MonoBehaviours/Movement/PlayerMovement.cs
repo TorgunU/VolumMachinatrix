@@ -4,13 +4,14 @@ using UnityEngine;
 [RequireComponent (typeof(PlayerSpeed))]
 public class PlayerMovement : MonoBehaviour, IMoveable
 {
-    [SerializeField] private MovementAudioSourceController MovementAudioSourceController;
+    [SerializeField] private MovementAudio MovementAudio;
 
     private IMovementDirection _inputEvents;
     private IMovementStateEvents _movementStateEvents;
     private Rigidbody2D _rigidbody2D;
     private Vector2 _moveDirection;
     private PlayerSpeed _playerSpeed;
+    private float _audioPlaybackThreshold;
 
     public void Init(Rigidbody2D rigidbody2D, IMovementDirection playerInputEvents, 
         IMovementStateEvents movementStateEvents)
@@ -29,6 +30,8 @@ public class PlayerMovement : MonoBehaviour, IMoveable
     private void Awake()
     {
         _playerSpeed = GetComponent<PlayerSpeed>();
+
+        _audioPlaybackThreshold = 1;
     }
 
     private void FixedUpdate()
@@ -81,19 +84,19 @@ public class PlayerMovement : MonoBehaviour, IMoveable
     {
         if (Mathf.Approximately(0, speed))
         {
-            return;
+            MovementAudio.StopPlaying();
         }
-        else if (speed <= _playerSpeed.WalkingSpeed)
+        else if (speed - _audioPlaybackThreshold <= _playerSpeed.WalkingSpeed)
         {
-            MovementAudioSourceController.PlayWalking();
+            //MovementAudio.PlayWalking();
         }
-        else if (speed <= _playerSpeed.MovingSpeed)
+        else if (speed - _audioPlaybackThreshold <= _playerSpeed.MovingSpeed)
         {
-            MovementAudioSourceController.PlayMoving();
+            MovementAudio.PlayMoving();
         }
         else if (speed <= _playerSpeed.RunningSpeed)
         {
-            //
+            MovementAudio.PlayRunning();
         }
     }
 

@@ -22,7 +22,7 @@ public class PlayerSpeed : MonoBehaviour
 
     private void Awake()
     {
-        _movingSpeed = 15f;
+        _movingSpeed = 16f;
         _runningSpeed = 20f;
         _walkingSpeed = 7f;
 
