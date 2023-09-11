@@ -24,5 +24,15 @@ public abstract class RangeCastWeapon : RangeWeapon
     protected abstract void Cast(Vector2 spreadShotDirection);
     protected abstract IEnumerator PlayShotEffect(Vector2 spreadShotDirection);
 
-    public override RangeWeaponConfig RangeWeaponConfig => WeaponConfig;
+    public override RangeWeaponConfig RangeWeaponConfig
+    {
+        get
+        {
+            return WeaponConfig;
+        }
+        protected set
+        {
+            WeaponConfig = (RangeRaycastWeaponConfig)value;
+        }
+    }
 }

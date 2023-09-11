@@ -69,13 +69,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "New action",
-                    "type": "Value",
-                    "id": "b15c11af-cd5f-435e-829f-0eb2fde0787f",
-                    "expectedControlType": "Vector2",
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "65f3f831-3008-4f07-ae22-025067f5b061",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -202,12 +202,12 @@
                 },
                 {
                     "name": "",
-                    "id": "cf7099f6-4559-48ec-91ae-9f3f51513686",
-                    "path": "<Mouse>/position",
+                    "id": "483844f7-7b22-4383-954f-8e611a2e90cd",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
-                    "action": "New action",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

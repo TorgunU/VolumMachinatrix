@@ -9,7 +9,11 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable
 {
     [SerializeField] protected Transform FireTrasform;
     [SerializeField] protected CinemachineImpulseSource ImpulseSource;
+
+    [SerializeField] private Transform _hierarchyPoolBullet;
     [SerializeField] private float _impulseForce = 5;
+
+    protected bool IsMagazineEmpty;
 
     private Quaternion _defaultRotation = new Quaternion(0,0,0,0);
     private float _angle;
@@ -62,6 +66,15 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable
 
     protected override void PerformAttack()
     {
+        if(IsMagazineEmpty)
+        {
+            // play audio magazineEmpty
+
+            Debug.Log("Empty");
+
+            return;
+        }
+
         Vector2 spreadShotDirection = GetSpreadShotDirection(Crosshair.transform.position);
 
         PerformRangeAttack(spreadShotDirection);
@@ -78,5 +91,7 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable
     protected abstract Vector2 GetSpreadShotDirection(Vector2 crosshairPosition);
     protected abstract void IncreaseRecoilAttackToCrosshair();
 
-    public abstract RangeWeaponConfig RangeWeaponConfig { get; }
+    public abstract RangeWeaponConfig RangeWeaponConfig { get; protected set; }
+    public abstract WeaponMagazine WeaponMagazine { get; protected set; }
+    public Transform HierarchyPoolBullet { get => _hierarchyPoolBullet;}
 }

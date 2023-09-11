@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bullet: {fileID: 1896555619557746445, guid: 3edbe01219aac69498030b1ef4fc78b0, type: 3}
   _damageValue: 25
-  _speedShot: 50
+  _speedShot: 5
   _name: 9mm Bullet
   _id: 541

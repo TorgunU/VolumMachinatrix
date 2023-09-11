@@ -10,7 +10,7 @@ public abstract class PoolObject<T> where T : MonoBehaviour
     protected int MaxCapacity;
     protected bool IsAutoExpand;
     protected int ExpandCopacity;
-    protected List<T> PoolObjects;
+    private List<T> poolObjects;
 
     public PoolObject(T script, int minCapacity, int maxCapacity, Transform hierarhyTransform)
     {
@@ -53,7 +53,7 @@ public abstract class PoolObject<T> where T : MonoBehaviour
 
     public bool TryGetElement(out T element)
     {
-        foreach (var pooledObject in PoolObjects)
+        foreach (var pooledObject in poolObjects)
         {
             if (pooledObject.gameObject.activeInHierarchy == false)
             {
@@ -81,7 +81,7 @@ public abstract class PoolObject<T> where T : MonoBehaviour
 
     protected virtual void CreatePool()
     {
-        PoolObjects = new List<T>(MinCapacity);
+        poolObjects = new List<T>(MinCapacity);
 
         for (int i = 0; i < MinCapacity; i++)
         {
@@ -109,4 +109,6 @@ public abstract class PoolObject<T> where T : MonoBehaviour
 
     protected abstract void ReleaseObject(T pooledObject);
     protected abstract T CreateElement(bool isActiveByDefault = false);
+
+    public List<T> PoolObjects { get => poolObjects; }
 }

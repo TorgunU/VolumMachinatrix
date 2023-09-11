@@ -1,9 +1,12 @@
 using System.Collections;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class Laser : RangeCastWeapon
 {
     [SerializeField] protected LineRenderer _lineRenderer;
+
+    protected LaserMagazine Magazine;
 
     protected void Awake()
     {
@@ -13,10 +16,14 @@ public class Laser : RangeCastWeapon
 
         CastStratagy = new RaycastDetectionStratagy();
         CastStratagy.Init(WeaponConfig);
+
+        Magazine = new LaserMagazine(10);
     }
 
     protected override void Cast(Vector2 spreadShotDirection)
     {
+        Magazine.ReduceShots();
+
         CastStratagy.Cast(FireTrasform.position, spreadShotDirection);
     }
 
@@ -50,5 +57,11 @@ public class Laser : RangeCastWeapon
         yield return new WaitForSeconds(0.02f);
 
         _lineRenderer.enabled = false;
+    }
+
+    public override WeaponMagazine WeaponMagazine
+    {
+        get { return Magazine; }
+        protected set { Magazine = (LaserMagazine)value; }
     }
 }

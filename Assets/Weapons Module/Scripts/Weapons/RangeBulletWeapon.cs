@@ -6,23 +6,22 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public abstract class RangeBulletWeapon : RangeWeapon
 {
-    [SerializeField] protected Transform HierarchyPoolBullet;
     [SerializeField] protected RangeBulletWeaponConfig WeaponConfig;
     [SerializeField] protected RangeBulletWeaponAudio WeaponAudio;
+    [SerializeField] protected BulletMagazine Magazine;
 
-    protected BulletMagazine BulletMagazine;
-    protected Animator Animator;
+    //protected Animator Animator;
 
     protected const string IdleState = "Idle";
     protected const string ShootState = "Shoot";
 
     protected void Awake()
     {
-        Animator = GetComponent<Animator>();
-
-        BulletMagazine = new BulletMagazine(WeaponConfig.BulletConfig, HierarchyPoolBullet);
+        //Animator = GetComponent<Animator>();
 
         WeaponSprite.SetSprite(WeaponConfig.Sprite);
+
+        Magazine = new PistolMagazine(10, WeaponConfig.BulletConfig, HierarchyPoolBullet);
     }
 
     protected override void PerformAttack()
@@ -39,19 +38,28 @@ public abstract class RangeBulletWeapon : RangeWeapon
         Crosshair.IncreaseAttackRecoil(Random.Range(WeaponConfig.MinRecoil, WeaponConfig.MaxRecoil));
     }
 
-    protected virtual void PlayStateAnimation(string stateAnimationName)
-    {
-        if (Animator == null)
-        {
-            Debug.LogWarning("Animator is null");
-            return;
-        }
+    //protected virtual void PlayStateAnimation(string stateAnimationName)
+    //{
+    //    if (Animator == null)
+    //    {
+    //        Debug.LogWarning("Animator is null");
+    //        return;
+    //    }
 
-        Animator.Play(stateAnimationName);
-    }
+    //    Animator.Play(stateAnimationName);
+    //}
 
     protected abstract void ShootBullet(Bullet bullet);
     protected abstract void SetBulletFlyTransofrm(Bullet bullet, Vector2 spreadShotDirection);
 
-    public override RangeWeaponConfig RangeWeaponConfig => WeaponConfig;
+    public override RangeWeaponConfig RangeWeaponConfig
+    {
+        get { return WeaponConfig; }
+        protected set { WeaponConfig = (RangeBulletWeaponConfig)value; }
+    }
+    public override WeaponMagazine WeaponMagazine
+    {
+        get { return Magazine; }
+        protected set { Magazine = (BulletMagazine)value; }
+    }
 }

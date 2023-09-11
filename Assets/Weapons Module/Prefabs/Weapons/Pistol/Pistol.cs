@@ -6,11 +6,17 @@ public class Pistol : RangeBulletWeapon
     protected void Start()
     {
         WeaponSprite.AngleRotationModifier = -90;
+
+        //BulletMagazine = new PistolMagazine(10, WeaponConfig.BulletConfig, HierarchyPoolBullet);
     }
 
     public override void PerformRangeAttack(Vector2 shotDirection)
     {
-        Bullet bullet = BulletMagazine.GetBullet();
+        if(Magazine.TryGetBullet(out Bullet bullet) == false)
+        {
+            IsMagazineEmpty = true;
+            return;
+        }
 
         SetBulletFlyTransofrm(bullet, shotDirection);
 

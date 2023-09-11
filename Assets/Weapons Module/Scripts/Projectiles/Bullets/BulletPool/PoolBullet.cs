@@ -22,14 +22,12 @@ public class PoolBullet<T> : PoolObject<T> where T : Bullet
         pooledObject.RevertFields();
 
         pooledObject.transform.position = HierarhyTransform.position;
-        //pooledObject.transform.localScale = Script.transform.localScale;
         pooledObject.gameObject.SetActive(false); 
     }
 
     protected override T CreateElement(bool isActiveByDefault = false)
     {
         var createdObject = GameObject.Instantiate(Script, HierarhyTransform);
-        //createdObject.transform.localScale = Script.transform.localScale;
 
         createdObject.gameObject.SetActive(isActiveByDefault);
 
