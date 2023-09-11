@@ -10,6 +10,11 @@ public abstract class Bullet : MonoBehaviour
     protected float Damage;
     protected Vector2 _direction;
 
+    private void Awake()
+    {
+        ThresholdFlyingSecond = 15f;
+    }
+
     protected abstract void OnCollisionEnter2D(Collision2D collision);
 
     public void SetFlyDirection(Vector2 direction)

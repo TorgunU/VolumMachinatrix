@@ -1,6 +1,7 @@
 using Cinemachine.Editor;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Odbc;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -24,30 +25,24 @@ public abstract class RangeBulletWeapon : RangeWeapon
         Magazine = new PistolMagazine(10, WeaponConfig.BulletConfig, HierarchyPoolBullet);
     }
 
-    protected override void PerformAttack()
-    {
-        base.PerformAttack();
-
-        //PlayStateAnimation(ShootState);
-
-        WeaponAudio.PlayAttack();
-    }
-
     protected override void IncreaseRecoilAttackToCrosshair()
     {
         Crosshair.IncreaseAttackRecoil(Random.Range(WeaponConfig.MinRecoil, WeaponConfig.MaxRecoil));
     }
 
-    //protected virtual void PlayStateAnimation(string stateAnimationName)
-    //{
-    //    if (Animator == null)
-    //    {
-    //        Debug.LogWarning("Animator is null");
-    //        return;
-    //    }
+    protected override void PlayAttackAudio()
+    {
+        WeaponAudio.PlayAttack();
+    }
 
-    //    Animator.Play(stateAnimationName);
-    //}
+    public override void Reload()
+    {
+        // logic inventory
+
+        Debug.Log("Reload");
+
+        WeaponMagazine.Reload();
+    }
 
     protected abstract void ShootBullet(Bullet bullet);
     protected abstract void SetBulletFlyTransofrm(Bullet bullet, Vector2 spreadShotDirection);

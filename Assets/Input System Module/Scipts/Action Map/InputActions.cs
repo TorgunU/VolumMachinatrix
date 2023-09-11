@@ -37,17 +37,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""WeaponAttack"",
-                    ""type"": ""Button"",
-                    ""id"": ""000a56bb-7ef1-4026-99ef-39a2ae99746b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""LookDirection"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""180dce74-675b-4242-9d17-1dac9c202be4"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
@@ -79,12 +70,21 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""257eb8c3-aa69-426e-83c5-9bbf3a1d926b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""f071fa72-2ed2-469c-b660-1b53a3c439f2"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -149,17 +149,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""72e7cde0-7c10-40fe-9ff1-2e7d6ddab0be"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""WeaponAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""ca7d3c0c-c8d6-4825-b267-09807a389c30"",
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
@@ -172,7 +161,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""90bdf45f-a918-4b86-8299-970d47fae21f"",
-                    ""path"": ""<Keyboard>/leftAlt"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
@@ -212,6 +201,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6cec171c-f3f8-4bef-8577-7b3ea6ae4678"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -238,12 +238,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         // KeyboardMouse
         m_KeyboardMouse = asset.FindActionMap("KeyboardMouse", throwIfNotFound: true);
         m_KeyboardMouse_Move = m_KeyboardMouse.FindAction("Move", throwIfNotFound: true);
-        m_KeyboardMouse_WeaponAttack = m_KeyboardMouse.FindAction("WeaponAttack", throwIfNotFound: true);
         m_KeyboardMouse_LookDirection = m_KeyboardMouse.FindAction("LookDirection", throwIfNotFound: true);
         m_KeyboardMouse_Walk = m_KeyboardMouse.FindAction("Walk", throwIfNotFound: true);
         m_KeyboardMouse_Run = m_KeyboardMouse.FindAction("Run", throwIfNotFound: true);
         m_KeyboardMouse_Aim = m_KeyboardMouse.FindAction("Aim", throwIfNotFound: true);
         m_KeyboardMouse_Attack = m_KeyboardMouse.FindAction("Attack", throwIfNotFound: true);
+        m_KeyboardMouse_Reload = m_KeyboardMouse.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -306,23 +306,23 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_KeyboardMouse;
     private List<IKeyboardMouseActions> m_KeyboardMouseActionsCallbackInterfaces = new List<IKeyboardMouseActions>();
     private readonly InputAction m_KeyboardMouse_Move;
-    private readonly InputAction m_KeyboardMouse_WeaponAttack;
     private readonly InputAction m_KeyboardMouse_LookDirection;
     private readonly InputAction m_KeyboardMouse_Walk;
     private readonly InputAction m_KeyboardMouse_Run;
     private readonly InputAction m_KeyboardMouse_Aim;
     private readonly InputAction m_KeyboardMouse_Attack;
+    private readonly InputAction m_KeyboardMouse_Reload;
     public struct KeyboardMouseActions
     {
         private @InputActions m_Wrapper;
         public KeyboardMouseActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_KeyboardMouse_Move;
-        public InputAction @WeaponAttack => m_Wrapper.m_KeyboardMouse_WeaponAttack;
         public InputAction @LookDirection => m_Wrapper.m_KeyboardMouse_LookDirection;
         public InputAction @Walk => m_Wrapper.m_KeyboardMouse_Walk;
         public InputAction @Run => m_Wrapper.m_KeyboardMouse_Run;
         public InputAction @Aim => m_Wrapper.m_KeyboardMouse_Aim;
         public InputAction @Attack => m_Wrapper.m_KeyboardMouse_Attack;
+        public InputAction @Reload => m_Wrapper.m_KeyboardMouse_Reload;
         public InputActionMap Get() { return m_Wrapper.m_KeyboardMouse; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -335,9 +335,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @WeaponAttack.started += instance.OnWeaponAttack;
-            @WeaponAttack.performed += instance.OnWeaponAttack;
-            @WeaponAttack.canceled += instance.OnWeaponAttack;
             @LookDirection.started += instance.OnLookDirection;
             @LookDirection.performed += instance.OnLookDirection;
             @LookDirection.canceled += instance.OnLookDirection;
@@ -353,6 +350,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
+            @Reload.started += instance.OnReload;
+            @Reload.performed += instance.OnReload;
+            @Reload.canceled += instance.OnReload;
         }
 
         private void UnregisterCallbacks(IKeyboardMouseActions instance)
@@ -360,9 +360,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @WeaponAttack.started -= instance.OnWeaponAttack;
-            @WeaponAttack.performed -= instance.OnWeaponAttack;
-            @WeaponAttack.canceled -= instance.OnWeaponAttack;
             @LookDirection.started -= instance.OnLookDirection;
             @LookDirection.performed -= instance.OnLookDirection;
             @LookDirection.canceled -= instance.OnLookDirection;
@@ -378,6 +375,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
+            @Reload.started -= instance.OnReload;
+            @Reload.performed -= instance.OnReload;
+            @Reload.canceled -= instance.OnReload;
         }
 
         public void RemoveCallbacks(IKeyboardMouseActions instance)
@@ -407,11 +407,11 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     public interface IKeyboardMouseActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnWeaponAttack(InputAction.CallbackContext context);
         void OnLookDirection(InputAction.CallbackContext context);
         void OnWalk(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }

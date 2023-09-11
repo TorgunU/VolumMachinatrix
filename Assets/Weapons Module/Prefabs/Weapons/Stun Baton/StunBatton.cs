@@ -34,4 +34,11 @@ public class StunBatton : MeleeWeapon
     {
         yield return new WaitForSeconds(WeaponConfig.AttackFrequencyInSeconds);
     }
+
+    protected override void PlayAttackAudio()
+    {
+        // declare a field and relaize range cast weapon
+
+        throw new System.NotImplementedException();
+    }
 }

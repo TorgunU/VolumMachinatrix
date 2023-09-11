@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class PistolMagazine : BulletMagazine
 {
-
     public PistolMagazine(int magazineSize, BulletConfig bulletConfig, Transform hierarchyPool) :
         base(magazineSize, bulletConfig, hierarchyPool)
     { }
@@ -12,6 +13,8 @@ public class PistolMagazine : BulletMagazine
     public override void Reload()
     {
         ShotCounter = MagazineSize;
+
+        IsEmpty = false;
     }
 
     public override bool TryGetBullet(out Bullet bullet)

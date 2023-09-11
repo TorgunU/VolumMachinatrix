@@ -5,15 +5,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(CinemachineImpulseSource), typeof(BoxCollider2D))]
-public abstract class RangeWeapon : Weapon, IWeaponShootable
+public abstract class RangeWeapon : Weapon, IWeaponShootable, IWeaponReloadable
 {
     [SerializeField] protected Transform FireTrasform;
     [SerializeField] protected CinemachineImpulseSource ImpulseSource;
 
     [SerializeField] private Transform _hierarchyPoolBullet;
     [SerializeField] private float _impulseForce = 5;
-
-    protected bool IsMagazineEmpty;
 
     private Quaternion _defaultRotation = new Quaternion(0,0,0,0);
     private float _angle;
@@ -66,11 +64,13 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable
 
     protected override void PerformAttack()
     {
-        if(IsMagazineEmpty)
+        if(WeaponMagazine.IsEmpty)
         {
             // play audio magazineEmpty
 
             Debug.Log("Empty");
+
+            IsAttackCanceled = true;
 
             return;
         }
@@ -87,6 +87,7 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable
     }
 
     public abstract void PerformRangeAttack(Vector2 crosshairDirection);
+    public abstract void Reload();
 
     protected abstract Vector2 GetSpreadShotDirection(Vector2 crosshairPosition);
     protected abstract void IncreaseRecoilAttackToCrosshair();

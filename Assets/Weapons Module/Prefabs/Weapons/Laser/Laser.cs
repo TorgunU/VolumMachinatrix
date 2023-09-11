@@ -59,6 +59,11 @@ public class Laser : RangeCastWeapon
         _lineRenderer.enabled = false;
     }
 
+    public override void Reload()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override WeaponMagazine WeaponMagazine
     {
         get { return Magazine; }

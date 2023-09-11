@@ -14,7 +14,10 @@ public class Pistol : RangeBulletWeapon
     {
         if(Magazine.TryGetBullet(out Bullet bullet) == false)
         {
-            IsMagazineEmpty = true;
+            IsAttackCanceled = true;
+
+            Debug.LogWarning("Bullet wasn't pooled");
+
             return;
         }
 

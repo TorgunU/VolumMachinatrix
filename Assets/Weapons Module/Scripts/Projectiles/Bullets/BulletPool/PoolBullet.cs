@@ -12,7 +12,7 @@ public class PoolBullet<T> : PoolObject<T> where T : Bullet
             isAutoExpand, expandCopacity)
     { }
 
-    public void Release(Bullet pooledBullet)
+    public void OnReleased(Bullet pooledBullet)
     {
         ReleaseObject((T)pooledBullet);
     }
@@ -22,17 +22,18 @@ public class PoolBullet<T> : PoolObject<T> where T : Bullet
         pooledObject.RevertFields();
 
         pooledObject.transform.position = HierarhyTransform.position;
+        pooledObject.transform.rotation = HierarhyTransform.rotation;
         pooledObject.gameObject.SetActive(false); 
     }
 
     protected override T CreateElement(bool isActiveByDefault = false)
     {
         var createdObject = GameObject.Instantiate(Script, HierarhyTransform);
-
         createdObject.gameObject.SetActive(isActiveByDefault);
 
+        createdObject.Collided += OnReleased;
+
         PoolObjects.Add(createdObject);
-        createdObject.Collided += Release;
 
         return createdObject;
     }

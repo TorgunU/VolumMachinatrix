@@ -15,15 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "WeaponAttack",
-                    "type": "Value",
-                    "id": "000a56bb-7ef1-4026-99ef-39a2ae99746b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "LookDirection",
                     "type": "PassThrough",
                     "id": "180dce74-675b-4242-9d17-1dac9c202be4",
@@ -71,7 +62,7 @@
                 {
                     "name": "Reload",
                     "type": "Button",
-                    "id": "65f3f831-3008-4f07-ae22-025067f5b061",
+                    "id": "f071fa72-2ed2-469c-b660-1b53a3c439f2",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -136,17 +127,6 @@
                 },
                 {
                     "name": "",
-                    "id": "72e7cde0-7c10-40fe-9ff1-2e7d6ddab0be",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard and Mouse",
-                    "action": "WeaponAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ca7d3c0c-c8d6-4825-b267-09807a389c30",
                     "path": "<Mouse>/position",
                     "interactions": "",
@@ -202,7 +182,7 @@
                 },
                 {
                     "name": "",
-                    "id": "483844f7-7b22-4383-954f-8e611a2e90cd",
+                    "id": "6cec171c-f3f8-4bef-8577-7b3ea6ae4678",
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",

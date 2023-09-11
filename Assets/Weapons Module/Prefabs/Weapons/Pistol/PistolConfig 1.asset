@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sprite: {fileID: 21300000, guid: 310d2d0c4a78e4244acbea738f47ecf8, type: 3}
   _damageValue: 5
-  _attackFrequencyInSeconds: 0.08
+  _attackFrequencyInSeconds: 0.1
   _name: Pistol
   _minRecoil: 0.2
   _maxRecoil: 0.64
