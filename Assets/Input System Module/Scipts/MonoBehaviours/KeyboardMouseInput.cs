@@ -12,6 +12,7 @@ public sealed class KeyboardMouseInput : PlayerInput
     public override event Action<bool> WalkStateChanged;
     public override event Action<Vector2> MovementDirectionUpdated;
     public override event Action<bool> AimHolded;
+    public override event Action ReloadPressed;
     //public override event Action<Vector2> LookDirectionUpdated;
 
     protected override void RaiseMovementDirection(InputAction.CallbackContext movementContext)
@@ -33,6 +34,14 @@ public sealed class KeyboardMouseInput : PlayerInput
         if (attackContext.performed)
         {
             AttackPressed?.Invoke();
+        }
+    }
+
+    protected override void RaiseReloadPressed(InputAction.CallbackContext reloadContext)
+    {
+        if (reloadContext.performed)
+        {
+            ReloadPressed?.Invoke();
         }
     }
 

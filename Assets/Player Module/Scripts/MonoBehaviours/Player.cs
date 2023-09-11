@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     private IMovementStateEvents _movementStateEvents;
     private IAttackEvents _attacksInput;
     private IAimingEvents _aimingInput;
+    private IReloadInputEvent _reloadInput;
     private Rigidbody2D _rigidbody2D;
     private PlayerMovement _movement;
     private Weapon _weapon;
@@ -20,9 +21,10 @@ public class Player : MonoBehaviour
         _movementsInput = GetComponent<PlayerInput>();
         _attacksInput = GetComponent<PlayerInput>();
         _aimingInput = GetComponent<PlayerInput>();
+        _reloadInput = GetComponent<PlayerInput>();
         _movementStateEvents = GetComponent<PlayerInput>();
 
-        _movement = GetComponent<PlayerMovement>();
+        _movement = GetComponentInChildren<PlayerMovement>();
         _weapon = GetComponentInChildren<Weapon>();
         _crosshair = GetComponentInChildren<Crosshair>();
 
@@ -46,10 +48,12 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         _attacksInput.AttackPressed += _attack.Attack;
+        _reloadInput.ReloadPressed += _attack.Reload;
     }
 
     private void OnDisable()
     {
         _attacksInput.AttackPressed -= _attack.Attack;
+        _reloadInput.ReloadPressed -= _attack.Reload;
     }
 }

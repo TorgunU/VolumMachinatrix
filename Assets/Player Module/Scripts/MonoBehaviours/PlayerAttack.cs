@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class PlayerAttack : IAttackeable
+public class PlayerAttack : IAttackeable, IReloadable
 {
     protected Weapon Weapon;
 
@@ -22,5 +22,16 @@ public class PlayerAttack : IAttackeable
             return;
 
         Weapon.Attack();
+    }
+
+    public void Reload()
+    {
+        if (Weapon == null) 
+            return;
+
+        if (Weapon is RangeWeapon rangeWeapon == false)
+            return;
+
+        rangeWeapon.Reload();
     }
 }
