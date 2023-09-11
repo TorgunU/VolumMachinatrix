@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class Pistol : RangeBulletWeapon
 {
-    protected void Start()
+    protected override void Start()
     {
+        base.Start();
+
         WeaponSprite.AngleRotationModifier = -90;
 
         //BulletMagazine = new PistolMagazine(10, WeaponConfig.BulletConfig, HierarchyPoolBullet);

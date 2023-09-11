@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Laser : RangeCastWeapon
 {
-    [SerializeField] protected LineRenderer _lineRenderer;
+    [SerializeField] private LineRenderer _lineRenderer;
 
-    protected LaserMagazine Magazine;
+    private LaserMagazine Magazine;
 
     protected void Awake()
     {
@@ -61,7 +61,7 @@ public class Laser : RangeCastWeapon
 
     public override void Reload()
     {
-        throw new System.NotImplementedException();
+        WeaponMagazine.Reload();
     }
 
     public override WeaponMagazine WeaponMagazine

@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangeBulletWeaponAudio : WeaponAudio
+public class PoolWeaponAudio : WeaponAudio
 {
     [SerializeField] protected PoolRangeAttackAudio<RangeAttackAudio> PoolAttackAudio;
 
     [SerializeField] private Transform HierarchyPoolAttackAudio;
-
 
     private void Start()
     {
