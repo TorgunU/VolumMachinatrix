@@ -8,31 +8,24 @@ using UnityEngine;
 public abstract class RangeBulletWeapon : RangeWeapon
 {
     [SerializeField] protected RangeBulletWeaponConfig WeaponConfig;
-    [SerializeField] protected RangeBulletWeaponAudio WeaponAudio;
     [SerializeField] protected BulletMagazine Magazine;
-
-    //protected Animator Animator;
 
     protected const string IdleState = "Idle";
     protected const string ShootState = "Shoot";
 
-    protected void Awake()
+    protected virtual void Awake()
     {
-        //Animator = GetComponent<Animator>();
-
-        WeaponSprite.SetSprite(WeaponConfig.Sprite);
-
         Magazine = new PistolMagazine(10, WeaponConfig.BulletConfig, HierarchyPoolBullet);
+    }
+
+    protected virtual void Start()
+    {
+        WeaponSprite.SetSprite(WeaponConfig.Sprite);
     }
 
     protected override void IncreaseRecoilAttackToCrosshair()
     {
         Crosshair.IncreaseAttackRecoil(Random.Range(WeaponConfig.MinRecoil, WeaponConfig.MaxRecoil));
-    }
-
-    protected override void PlayAttackAudio()
-    {
-        WeaponAudio.PlayAttack();
     }
 
     public override void Reload()

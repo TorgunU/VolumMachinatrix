@@ -28,14 +28,18 @@ public class Player : MonoBehaviour
         _weapon = GetComponentInChildren<Weapon>();
         _crosshair = GetComponentInChildren<Crosshair>();
 
+        _attack = new PlayerAttack(_weapon);
+    }
+
+    private void Start()
+    {
         _movement.Init(
             _rigidbody2D,
             _movementsInput,
             _movementStateEvents);
 
-        _attack = new PlayerAttack(_weapon);
 
-        if(_weapon is RangeWeapon rangeWeapon)
+        if (_weapon is RangeWeapon rangeWeapon)
         {
             _playerRangeAiming = new PlayerRangeAiming(
                 _crosshair,

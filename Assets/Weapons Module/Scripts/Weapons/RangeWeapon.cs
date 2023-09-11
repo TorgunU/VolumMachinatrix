@@ -9,6 +9,7 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable, IWeaponReloadable
 {
     [SerializeField] protected Transform FireTrasform;
     [SerializeField] protected CinemachineImpulseSource ImpulseSource;
+    [SerializeField] protected WeaponAudio WeaponAudio;
 
     [SerializeField] private Transform _hierarchyPoolBullet;
     [SerializeField] private float _impulseForce = 5;
@@ -86,6 +87,11 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable, IWeaponReloadable
         IncreaseRecoilAttackToCrosshair();
     }
 
+    protected override void PlayAttackAudio()
+    {
+        WeaponAudio.PlayAttack();
+    }
+
     public abstract void PerformRangeAttack(Vector2 crosshairDirection);
     public abstract void Reload();
 
@@ -94,5 +100,5 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable, IWeaponReloadable
 
     public abstract RangeWeaponConfig RangeWeaponConfig { get; protected set; }
     public abstract WeaponMagazine WeaponMagazine { get; protected set; }
-    public Transform HierarchyPoolBullet { get => _hierarchyPoolBullet;}
+    protected Transform HierarchyPoolBullet { get => _hierarchyPoolBullet;}
 }

@@ -16,9 +16,10 @@ public abstract class BulletMagazine : WeaponMagazine
         BulletConfig = bulletConfig;
         _hierarchyPool = hierarchyPool;
 
-        int minPoolCapacity = magazineSize / 2;
+        int minPoolSize = magazineSize / 2;
 
-        PoolBullets = new PoolBullet<Bullet>(BulletConfig.Bullet, minPoolCapacity, MagazineSize, _hierarchyPool);
+        PoolBullets = new PoolBullet<Bullet>(BulletConfig.Bullet, minPoolSize, MagazineSize, _hierarchyPool,
+            true, 20);
     }
 
     public abstract bool TryGetBullet(out Bullet bullet);

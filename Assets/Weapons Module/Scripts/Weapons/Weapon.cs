@@ -30,6 +30,7 @@ public abstract class Weapon : MonoBehaviour, IWeaponAttackable
         }
 
         PlayAttackAudio();
+
         //PlayAttackAnimation();
 
         IsAttackCooldowned = false;

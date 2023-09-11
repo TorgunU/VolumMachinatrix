@@ -21,12 +21,6 @@ public abstract class RangeCastWeapon : RangeWeapon
         Crosshair.IncreaseAttackRecoil(Random.Range(WeaponConfig.MinRecoil, WeaponConfig.MaxRecoil));
     }
 
-    protected override void PlayAttackAudio()
-    {
-        // declare a field and relaize range cast weapon
-        throw new System.NotImplementedException();
-    }
-
     protected abstract void Cast(Vector2 spreadShotDirection);
     protected abstract IEnumerator PlayShotEffect(Vector2 spreadShotDirection);
 
