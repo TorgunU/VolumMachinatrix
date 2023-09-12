@@ -21,4 +21,5 @@ MonoBehaviour:
   _minSpreadAngle: 8.6
   _maxSpreadAngle: 40.6
   _aimModifier: 0
+  _magazineConfig: {fileID: 11400000, guid: 3441d08c5f78cbb498cd239936e8fb0c, type: 2}
   _bulletConfig: {fileID: 11400000, guid: 4cbd3baf389bd1b4380dc06a6a4aa2bd, type: 2}

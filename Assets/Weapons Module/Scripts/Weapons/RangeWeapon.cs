@@ -8,11 +8,11 @@ using UnityEngine;
 public abstract class RangeWeapon : Weapon, IWeaponShootable, IWeaponReloadable
 {
     [SerializeField] protected Transform FireTrasform;
-    [SerializeField] protected CinemachineImpulseSource ImpulseSource;
     [SerializeField] protected WeaponAudio WeaponAudio;
+    [SerializeField] protected CinemachineImpulseSource ImpulseSource;
 
-    [SerializeField] private Transform _hierarchyPoolBullet;
     [SerializeField] private float _impulseForce = 5;
+
 
     private Quaternion _defaultRotation = new Quaternion(0,0,0,0);
     private float _angle;
@@ -63,6 +63,11 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable, IWeaponReloadable
         ImpulseSource.GenerateImpulse(_impulseForce);
     }
 
+    protected virtual void Awake()
+    {
+        WeaponAudio = GetComponentInChildren<WeaponAudio>();
+    }
+
     protected override void PerformAttack()
     {
         if(WeaponMagazine.IsEmpty)
@@ -100,5 +105,4 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable, IWeaponReloadable
 
     public abstract RangeWeaponConfig RangeWeaponConfig { get; protected set; }
     public abstract WeaponMagazine WeaponMagazine { get; protected set; }
-    protected Transform HierarchyPoolBullet { get => _hierarchyPoolBullet;}
 }

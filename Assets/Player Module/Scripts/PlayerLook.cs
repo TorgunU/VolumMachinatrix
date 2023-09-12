@@ -11,6 +11,12 @@ public class PlayerLook : MonoBehaviour
 
     public Vector2 PointerPosition { get => _pointerPosition; private set => _pointerPosition = value; }
 
+    private void Awake()
+    {
+        _camera = GameObject.FindGameObjectWithTag("MainCamera").
+            GetComponent<Camera>();
+    }
+
     private void Update()
     {
         OnPointerPositionUpdated();

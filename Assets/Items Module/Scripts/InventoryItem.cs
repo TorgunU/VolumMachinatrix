@@ -1,0 +1,21 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class InventoryItem : MonoBehaviour
+{
+    [SerializeField] protected ItemConfig ItemConfig;
+
+    protected Image Image;
+
+    protected virtual void Awake()
+    {
+        Image = GetComponent<Image>();
+    }
+
+    protected virtual void Start()
+    {
+        Image.sprite = ItemConfig.Sprite;
+    }
+}

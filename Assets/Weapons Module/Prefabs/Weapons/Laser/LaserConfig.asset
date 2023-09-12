@@ -20,4 +20,6 @@ MonoBehaviour:
   _maxRecoil: 0.78
   _minSpreadAngle: 0.25
   _maxSpreadAngle: 0.94
-  shotLenght: 15
+  _aimModifier: 0.88
+  _magazineConfig: {fileID: 11400000, guid: d4e0a96cee36b3b468618f8726f581b8, type: 2}
+  _shotLenght: 5.83

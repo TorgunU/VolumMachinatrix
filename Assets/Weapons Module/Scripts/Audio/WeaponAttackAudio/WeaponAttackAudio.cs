@@ -7,4 +7,9 @@ public abstract class WeaponAttackAudio : MonoBehaviour, IAudioPlayable
     [SerializeField] protected AudioSource AudioSource;
 
     public abstract void Play();
+
+    public void Init(AudioSource audioSource)
+    {
+        AudioSource.clip = audioSource.clip;
+    }
 }

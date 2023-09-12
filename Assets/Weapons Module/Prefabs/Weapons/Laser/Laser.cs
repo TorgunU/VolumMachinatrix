@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Linq.Expressions;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public class Laser : RangeCastWeapon
@@ -8,16 +9,21 @@ public class Laser : RangeCastWeapon
 
     private LaserMagazine Magazine;
 
-    protected void Awake()
+    protected override void Awake()
     {
-        WeaponSprite.SetSprite(WeaponConfig.Sprite);
+        base.Awake();
 
         _lineRenderer.enabled = false;
 
         CastStratagy = new RaycastDetectionStratagy();
         CastStratagy.Init(WeaponConfig);
 
-        Magazine = new LaserMagazine(10);
+        Magazine = new LaserMagazine(WeaponConfig.MagazineConfig.Capacity);
+    }
+
+    protected virtual void Start()
+    {
+        WeaponSprite.SetSprite(WeaponConfig.Sprite);
     }
 
     protected override void Cast(Vector2 spreadShotDirection)
