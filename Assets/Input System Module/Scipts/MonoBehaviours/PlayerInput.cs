@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.LowLevel;
 public abstract class PlayerInput : MonoBehaviour,
     IMovementDirection, IMovementStateEvents, 
     IAttackEvents, IAimingEvents, IReloadInputEvent,
-    IInteractionEvent
+    IInteractionEvent, IItemInteractionEvents
 
 {
     protected InputActions InputActions;
@@ -19,6 +19,10 @@ public abstract class PlayerInput : MonoBehaviour,
     public abstract event Action<bool> AimHolded;
     public abstract event Action ReloadPressed;
     public abstract event Action Interacted;
+    public abstract event Action PickupPressed;
+    public abstract event Action UsePressed;
+    public abstract event Action SwitchPressed;
+
     //public abstract event Action<Vector2> LookDirectionUpdated;
 
     protected virtual void Awake()
@@ -51,6 +55,13 @@ public abstract class PlayerInput : MonoBehaviour,
         InputActions.KeyboardMouse.Walk.canceled += walkContext => 
         RaiseWalkState(walkContext);
 
+        InputActions.KeyboardMouse.PickupItem.performed += pickupItemContext =>
+        RaisePickupPressed(pickupItemContext);
+        InputActions.KeyboardMouse.PickupItem.performed += useItemContext =>
+        RaiseUsePressed(useItemContext);
+        InputActions.KeyboardMouse.SwitchItem.performed += switchItemContext =>
+        RaiseSwitchPressed(switchItemContext);
+
         InputActions.KeyboardMouse.Interaction.performed += interactionContext =>
         RaiseInteractionPressed(interactionContext);
     }
@@ -72,4 +83,7 @@ public abstract class PlayerInput : MonoBehaviour,
     protected abstract void RaiseWalkState(InputAction.CallbackContext walkContext);
     protected abstract void RaiseReloadPressed(InputAction.CallbackContext walkContext);
     protected abstract void RaiseInteractionPressed(InputAction.CallbackContext interactionContext);
+    protected abstract void RaisePickupPressed(InputAction.CallbackContext pickupContext);
+    protected abstract void RaiseUsePressed(InputAction.CallbackContext useContext);
+    protected abstract void RaiseSwitchPressed(InputAction.CallbackContext switchContext);
 }

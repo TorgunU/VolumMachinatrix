@@ -98,6 +98,33 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PickupItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""d609e091-61d6-452d-a355-d5c0d55f84ae"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""3d42328f-0229-4204-b20e-e5514721729c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""ed157e4c-4814-4d32-89a7-60fc46e01640"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -225,11 +252,44 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""4e111e2a-3609-46c7-a277-8898048f784c"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""01dbc9b7-dcb0-45a1-97ea-b2462584cad3"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""PickupItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8aba62d8-b498-4f10-97be-47bb0dd0fec8"",
+                    ""path"": ""<Keyboard>/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""SwitchItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""94a10de4-ac3e-46ee-8159-1e084d38c7fb"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""UseItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -265,6 +325,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_KeyboardMouse_Attack = m_KeyboardMouse.FindAction("Attack", throwIfNotFound: true);
         m_KeyboardMouse_Reload = m_KeyboardMouse.FindAction("Reload", throwIfNotFound: true);
         m_KeyboardMouse_Interaction = m_KeyboardMouse.FindAction("Interaction", throwIfNotFound: true);
+        m_KeyboardMouse_PickupItem = m_KeyboardMouse.FindAction("PickupItem", throwIfNotFound: true);
+        m_KeyboardMouse_SwitchItem = m_KeyboardMouse.FindAction("SwitchItem", throwIfNotFound: true);
+        m_KeyboardMouse_UseItem = m_KeyboardMouse.FindAction("UseItem", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -334,6 +397,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_KeyboardMouse_Attack;
     private readonly InputAction m_KeyboardMouse_Reload;
     private readonly InputAction m_KeyboardMouse_Interaction;
+    private readonly InputAction m_KeyboardMouse_PickupItem;
+    private readonly InputAction m_KeyboardMouse_SwitchItem;
+    private readonly InputAction m_KeyboardMouse_UseItem;
     public struct KeyboardMouseActions
     {
         private @InputActions m_Wrapper;
@@ -346,6 +412,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Attack => m_Wrapper.m_KeyboardMouse_Attack;
         public InputAction @Reload => m_Wrapper.m_KeyboardMouse_Reload;
         public InputAction @Interaction => m_Wrapper.m_KeyboardMouse_Interaction;
+        public InputAction @PickupItem => m_Wrapper.m_KeyboardMouse_PickupItem;
+        public InputAction @SwitchItem => m_Wrapper.m_KeyboardMouse_SwitchItem;
+        public InputAction @UseItem => m_Wrapper.m_KeyboardMouse_UseItem;
         public InputActionMap Get() { return m_Wrapper.m_KeyboardMouse; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -379,6 +448,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Interaction.started += instance.OnInteraction;
             @Interaction.performed += instance.OnInteraction;
             @Interaction.canceled += instance.OnInteraction;
+            @PickupItem.started += instance.OnPickupItem;
+            @PickupItem.performed += instance.OnPickupItem;
+            @PickupItem.canceled += instance.OnPickupItem;
+            @SwitchItem.started += instance.OnSwitchItem;
+            @SwitchItem.performed += instance.OnSwitchItem;
+            @SwitchItem.canceled += instance.OnSwitchItem;
+            @UseItem.started += instance.OnUseItem;
+            @UseItem.performed += instance.OnUseItem;
+            @UseItem.canceled += instance.OnUseItem;
         }
 
         private void UnregisterCallbacks(IKeyboardMouseActions instance)
@@ -407,6 +485,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Interaction.started -= instance.OnInteraction;
             @Interaction.performed -= instance.OnInteraction;
             @Interaction.canceled -= instance.OnInteraction;
+            @PickupItem.started -= instance.OnPickupItem;
+            @PickupItem.performed -= instance.OnPickupItem;
+            @PickupItem.canceled -= instance.OnPickupItem;
+            @SwitchItem.started -= instance.OnSwitchItem;
+            @SwitchItem.performed -= instance.OnSwitchItem;
+            @SwitchItem.canceled -= instance.OnSwitchItem;
+            @UseItem.started -= instance.OnUseItem;
+            @UseItem.performed -= instance.OnUseItem;
+            @UseItem.canceled -= instance.OnUseItem;
         }
 
         public void RemoveCallbacks(IKeyboardMouseActions instance)
@@ -443,5 +530,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
+        void OnPickupItem(InputAction.CallbackContext context);
+        void OnSwitchItem(InputAction.CallbackContext context);
+        void OnUseItem(InputAction.CallbackContext context);
     }
 }

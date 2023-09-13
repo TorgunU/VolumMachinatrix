@@ -8,7 +8,15 @@ public class ItemAmmo : Item
     {
         if(collision.TryGetComponent(out Player player))
         {
+            // enable UI "Puckup" and "Use"
+        }
+    }
 
+    protected override void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out Player player))
+        {
+            // disable UI "Puckup" and "Use"
         }
     }
 

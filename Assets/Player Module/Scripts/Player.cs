@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private IAimingEvents _aimingInput;
     private IReloadInputEvent _reloadInput;
     private IInteractionEvent _interactionEvent;
+    private IItemInteractionEvents _itemInteractionEvents;
     private Rigidbody2D _rigidbody2D;
     private PlayerMovement _movement;
     private Weapon _weapon;
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
         _reloadInput = GetComponent<PlayerInput>();
         _movementStateEvents = GetComponent<PlayerInput>();
         _interactionEvent = GetComponent<PlayerInput>();
+        _itemInteractionEvents = GetComponent<PlayerInput>();
 
         _movement = GetComponentInChildren<PlayerMovement>();
         _weapon = GetComponentInChildren<Weapon>();
@@ -57,13 +59,16 @@ public class Player : MonoBehaviour
     {
         _attacksInput.AttackPressed += _attack.Attack;
         _reloadInput.ReloadPressed += _attack.Reload;
-        _interactionEvent.Interacted += _interaction.TryPickupItem;
+        _itemInteractionEvents.PickupPressed += _interaction.TakeItem;
+        _itemInteractionEvents.SwitchPressed += _interaction.SwitchItem;
+        //_interactionEvent.Interacted += _interaction.TryPickupItem;
     }
 
     private void OnDisable()
     {
         _attacksInput.AttackPressed -= _attack.Attack;
         _reloadInput.ReloadPressed -= _attack.Reload;
-        _interactionEvent.Interacted -= _interaction.TryPickupItem;
+        _itemInteractionEvents.PickupPressed -= _interaction.TakeItem;
+        _itemInteractionEvents.SwitchPressed -= _interaction.SwitchItem;
     }
 }

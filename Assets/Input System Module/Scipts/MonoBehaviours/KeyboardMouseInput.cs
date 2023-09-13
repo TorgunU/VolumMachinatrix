@@ -15,6 +15,9 @@ public sealed class KeyboardMouseInput : PlayerInput
     public override event Action<bool> AimHolded;
     public override event Action ReloadPressed;
     public override event Action Interacted;
+    public override event Action PickupPressed;
+    public override event Action UsePressed;
+    public override event Action SwitchPressed;
     //public override event Action<Vector2> LookDirectionUpdated;
 
     protected override void RaiseMovementDirection(InputAction.CallbackContext movementContext)
@@ -64,6 +67,31 @@ public sealed class KeyboardMouseInput : PlayerInput
 
     protected override void RaiseInteractionPressed(InputAction.CallbackContext interactionContext)
     {
-        Interacted?.Invoke();
+        if (interactionContext.performed)
+        {
+            Interacted?.Invoke();
+        }
+    }
+
+    protected override void RaisePickupPressed(InputAction.CallbackContext pickupContext)
+    {
+        if (pickupContext.performed)
+        {
+            PickupPressed?.Invoke();
+        }
+    }
+    protected override void RaiseUsePressed(InputAction.CallbackContext useContext)
+    {
+        if (useContext.performed)
+        {
+            UsePressed?.Invoke();
+        }
+    }
+    protected override void RaiseSwitchPressed(InputAction.CallbackContext switchContext)
+    {
+        if (switchContext.performed)
+        {
+            SwitchPressed?.Invoke();
+        }
     }
 }

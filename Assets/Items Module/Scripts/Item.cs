@@ -23,6 +23,7 @@ public abstract class Item : MonoBehaviour
     }
 
     protected abstract void OnTriggerStay2D(Collider2D collision);
+    protected abstract void OnTriggerExit2D(Collider2D collision);
 
     public abstract void Use();
     public abstract void Pickup();
