@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryItem : MonoBehaviour
+public class ItemViewer : MonoBehaviour
 {
-    [SerializeField] protected ItemConfig ItemConfig;
-
     protected Image Image;
 
     protected virtual void Awake()
@@ -14,8 +12,13 @@ public class InventoryItem : MonoBehaviour
         Image = GetComponent<Image>();
     }
 
-    protected virtual void Start()
+    public void InjectSprite(Sprite sprite)
     {
-        Image.sprite = ItemConfig.Sprite;
+        Image.sprite = sprite;
+    }
+
+    public void ClearSprite()
+    {
+        Image.sprite = null;
     }
 }

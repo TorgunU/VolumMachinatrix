@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 594fb8ed78c89a24b94506ba38e5afd8, type: 3}
-  m_Name: TestDefaultItem
+  m_Name: ItemAmmoConfig
   m_EditorClassIdentifier: 
+  _label: TestAmmo
   _sprite: {fileID: 21300000, guid: f03b6b6c6028ac846b23624fb496aacf, type: 3}
   _itemType: 1
-  _interactableType: 1
-  _stackable: 1
+  _stackable: 0

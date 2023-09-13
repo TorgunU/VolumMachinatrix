@@ -1,3 +1,4 @@
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -10,10 +11,12 @@ public class Player : MonoBehaviour
     private IAttackEvents _attacksInput;
     private IAimingEvents _aimingInput;
     private IReloadInputEvent _reloadInput;
+    private IInteractionEvent _interactionEvent;
     private Rigidbody2D _rigidbody2D;
     private PlayerMovement _movement;
     private Weapon _weapon;
     private Crosshair _crosshair;
+    private PlayerInteraction _interaction;
 
     private void Awake()
     {
@@ -23,10 +26,12 @@ public class Player : MonoBehaviour
         _aimingInput = GetComponent<PlayerInput>();
         _reloadInput = GetComponent<PlayerInput>();
         _movementStateEvents = GetComponent<PlayerInput>();
+        _interactionEvent = GetComponent<PlayerInput>();
 
         _movement = GetComponentInChildren<PlayerMovement>();
         _weapon = GetComponentInChildren<Weapon>();
         _crosshair = GetComponentInChildren<Crosshair>();
+        _interaction = GetComponentInChildren<PlayerInteraction>();
 
         _attack = new PlayerAttack(_weapon);
     }
@@ -37,7 +42,6 @@ public class Player : MonoBehaviour
             _rigidbody2D,
             _movementsInput,
             _movementStateEvents);
-
 
         if (_weapon is RangeWeapon rangeWeapon)
         {
@@ -53,11 +57,13 @@ public class Player : MonoBehaviour
     {
         _attacksInput.AttackPressed += _attack.Attack;
         _reloadInput.ReloadPressed += _attack.Reload;
+        _interactionEvent.Interacted += _interaction.TryPickupItem;
     }
 
     private void OnDisable()
     {
         _attacksInput.AttackPressed -= _attack.Attack;
         _reloadInput.ReloadPressed -= _attack.Reload;
+        _interactionEvent.Interacted -= _interaction.TryPickupItem;
     }
 }

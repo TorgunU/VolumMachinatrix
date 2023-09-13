@@ -1,0 +1,521 @@
+<mxfile host="Electron" modified="2023-09-13T08:17:02.226Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.8 Chrome/114.0.5735.289 Electron/25.5.0 Safari/537.36" etag="CURdigDYaxsa8mn6SLU0" version="21.6.8" type="device">
+  <diagram name="Страница — 1" id="X3rlkVniGzwH20Ixzxbd">
+    <mxGraphModel dx="5728" dy="5605" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="0ifaBW_lCHUTX_MFbSna-60" value="&lt;font style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 13px;&quot; color=&quot;#9999ff&quot;&gt;Weapon : &lt;/font&gt;&lt;font color=&quot;#00ffff&quot; style=&quot;font-size: 13px;&quot;&gt;MonoBehaviour&lt;/font&gt;&lt;font style=&quot;font-size: 13px;&quot; color=&quot;#9999ff&quot;&gt;, &lt;/font&gt;&lt;font style=&quot;font-size: 13px;&quot; color=&quot;#ffd966&quot;&gt;IWeaponAttackable&lt;/font&gt;&lt;br&gt;---------------&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;#* Crosshair :&amp;nbsp; Crosshair&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;#* WeaponSprite :&amp;nbsp; WeaponSprite&lt;br&gt;&lt;/span&gt;# IsAttackCanceled : void&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;# IsAttackCooldowned : bool&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;- attackDelayCorutine :&amp;nbsp;Coroutine&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;font color=&quot;#ffd966&quot; style=&quot;font-size: 13px;&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;+ Attack : &lt;/span&gt;&lt;font style=&quot;font-size: 13px;&quot; color=&quot;#ffd966&quot;&gt;void&lt;br&gt;&lt;br&gt;&lt;/font&gt;&lt;font style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;+ AimModifier : get/#set&amp;nbsp;&lt;br&gt;&lt;/span&gt;&lt;br&gt;&lt;font color=&quot;#9999ff&quot;&gt;+ CalculatingAttackDelay :&amp;nbsp;&lt;/font&gt;&lt;font style=&quot;font-size: 13px;&quot; color=&quot;#ffd966&quot;&gt;IEnumerator&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#9999ff&quot;&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;#&amp;nbsp;PerformAttack : void&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;font color=&quot;#9999ff&quot;&gt;# PlayAttackAudio : void&lt;/font&gt;&lt;br&gt;&lt;/font&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="1490" y="-1260" width="340" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="0ifaBW_lCHUTX_MFbSna-102" value="&lt;font style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 13px;&quot; color=&quot;#9999ff&quot;&gt;RangeWeapon &lt;/font&gt;&lt;font style=&quot;font-size: 13px;&quot; color=&quot;#ffffff&quot;&gt;: &lt;/font&gt;&lt;font style=&quot;font-size: 13px;&quot; color=&quot;#9999ff&quot;&gt;Weapon&lt;/font&gt;&lt;font style=&quot;font-size: 13px;&quot; color=&quot;#ffffff&quot;&gt;, &lt;/font&gt;&lt;font style=&quot;font-size: 13px;&quot; color=&quot;#ffd966&quot;&gt;IWeaponShootable&amp;nbsp;&lt;/font&gt;&lt;br&gt;---------------&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;#* FireTrasform : Transform&amp;nbsp;&lt;/span&gt;&lt;br&gt;#* ImpulseSource : CinemachineImpulseSource&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;#* WeaponAudio : WeaponAudio&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;-*&amp;nbsp;_hierarchyPoolBullet : Transform&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;-* impulseForce : float&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;- defaultRotation : Quaternion&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;- angle : float&amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;br&gt;&lt;/span&gt;&lt;font style=&quot;font-size: 13px;&quot; color=&quot;#00ff80&quot;&gt;- Awake : void&lt;/font&gt;&lt;font style=&quot;font-size: 13px;&quot; color=&quot;#00ff80&quot;&gt;&lt;br&gt;&lt;br&gt;&lt;/font&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;# CalculateSpreadShotDirection : Vector2&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;# GetNormolisedShotDirection : Vector2&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;#&amp;nbsp;RecoilRotating :&amp;nbsp;IEnumerator&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;# RecoilRotating : IEnumenator&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;# RotateToDefaultValues : void&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;# GenerateShotReccoilEffect : void&lt;br&gt;&lt;/span&gt;# PlayAttackAudio : void&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;font color=&quot;#cc0000&quot;&gt;+ PerformAttack : void&lt;br&gt;&lt;/font&gt;&lt;font color=&quot;#9999ff&quot;&gt;+ PerformRangeAttack :&amp;nbsp;void&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#9999ff&quot;&gt;+ Reload : void&lt;/font&gt;&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot; color=&quot;#9999ff&quot;&gt;# GetSpreadShotDirection : Vector2&lt;br&gt;# IncreaseRecoilAttackToCrosshair : void&lt;br&gt;&lt;/font&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;+ RangeWeaponConfig : RangeWeaponConfig get/#set&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;+ WeaponMagazine :&amp;nbsp;&lt;/span&gt;WeaponMagazine get/#set&lt;br&gt;- HierarchyPoolBullet : Transform get&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="1420" y="-970" width="480" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="0ifaBW_lCHUTX_MFbSna-106" value="&lt;font color=&quot;#9999ff&quot;&gt;RangeCastWeapon : RangeWeapon&lt;br&gt;&lt;/font&gt;---------------&lt;br&gt;#* WeaponConfig : RangeRaycastWeaponConfig&lt;br&gt;# CastStratagy : WeaponCastStratagy&lt;br&gt;---------------&lt;br&gt;&lt;font color=&quot;#cc0000&quot;&gt;# PerformRangeAttack : void&lt;br&gt;# IncreaseRecoilAttackToCrosshair : void&lt;br&gt;&lt;/font&gt;&lt;font color=&quot;#9999ff&quot;&gt;# Cast : void&lt;br&gt;# PlayShotEffect : IEnumerator&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="870" y="-460" width="360" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="0ifaBW_lCHUTX_MFbSna-108" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="0ifaBW_lCHUTX_MFbSna-106" target="0ifaBW_lCHUTX_MFbSna-102" edge="1">
+          <mxGeometry x="-0.0017" width="160" relative="1" as="geometry">
+            <mxPoint x="1170" y="-480" as="sourcePoint" />
+            <mxPoint x="1275" y="-550" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0ifaBW_lCHUTX_MFbSna-109" value="&lt;font style=&quot;&quot;&gt;Laser : &lt;font color=&quot;#9999ff&quot;&gt;RangeCastWeapon&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;#* lineRenderer : LineRenderer&amp;nbsp;&lt;br&gt;---------------&lt;br&gt;&lt;font color=&quot;#cc0000&quot;&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;# Awake : void&amp;nbsp;&lt;br&gt;&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;# Case : void&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;# GetSpreadShotDirection : Vector2&lt;br&gt;&lt;/span&gt;# CalculatingAttackDelay : IEnumerator&amp;nbsp;&lt;br&gt;# PlayShotEffect : IEnumerator&lt;/font&gt;&lt;font color=&quot;#00ff80&quot;&gt;&amp;nbsp;&lt;br&gt;&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="920" y="710" width="310" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="0ifaBW_lCHUTX_MFbSna-110" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="0ifaBW_lCHUTX_MFbSna-109" target="0ifaBW_lCHUTX_MFbSna-106" edge="1">
+          <mxGeometry x="-0.0017" width="160" relative="1" as="geometry">
+            <mxPoint x="1770" y="-240" as="sourcePoint" />
+            <mxPoint x="1875" y="-310" as="targetPoint" />
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1050" y="710" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0ifaBW_lCHUTX_MFbSna-112" value="&lt;font style=&quot;&quot;&gt;&lt;font color=&quot;#9999ff&quot;&gt;RangeBulletWeapon : RangeWeapon&lt;br&gt;&lt;/font&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;#* BulletFireHierarchyPool : Transform&lt;br&gt;#* WeaponConfig : RangeBulletWeaponConfig&lt;br&gt;#* WeaponAudio : RangeBulletWeaponAudio&amp;nbsp;&lt;br&gt;# PoolBullets : PoolBullet&amp;lt;Bullet&amp;gt;&lt;br&gt;# Animator : Animator&lt;br&gt;# IdleState : const string&lt;br&gt;# ShootState : const string&lt;br&gt;---------------&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;&lt;font color=&quot;#cc0000&quot;&gt;# Awake : void&lt;/font&gt;&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;&lt;font color=&quot;#00ff80&quot;&gt;# Start : void&lt;br&gt;&lt;/font&gt;&lt;/span&gt;&lt;br&gt;&lt;font color=&quot;#cc0000&quot;&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;# PerformAttack : void&lt;/span&gt;&lt;br&gt;# IncreaseRecoilAttackToCrosshair : void&lt;br&gt;&lt;/font&gt;&lt;font color=&quot;#00ff80&quot;&gt;# PlayStateAnimation : void&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#9999ff&quot;&gt;# TryPoolBullet : bool&lt;br&gt;# ShootBullet : void&lt;br&gt;#&amp;nbsp;SetBulletShootTransform : void&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="1490" y="-450" width="366" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="0ifaBW_lCHUTX_MFbSna-114" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="0ifaBW_lCHUTX_MFbSna-112" target="0ifaBW_lCHUTX_MFbSna-102" edge="1">
+          <mxGeometry x="-0.6427" width="160" relative="1" as="geometry">
+            <mxPoint x="1930" y="-470" as="sourcePoint" />
+            <mxPoint x="1650" y="-510" as="targetPoint" />
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1673" y="-490" />
+              <mxPoint x="1660" y="-490" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0ifaBW_lCHUTX_MFbSna-115" value="&lt;font style=&quot;&quot;&gt;&lt;font color=&quot;#9999ff&quot;&gt;MeleeWeapon : Weapon&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;#* WeaponConfig : WeaponConfig&lt;br&gt;---------------&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;&lt;font color=&quot;#cc0000&quot;&gt;# PerformAttack : void&lt;/font&gt;&lt;br&gt;&lt;/span&gt;&lt;font color=&quot;#9999ff&quot;&gt;#&amp;nbsp;Hit : void&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="1990" y="-420" width="250" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="0ifaBW_lCHUTX_MFbSna-116" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="0ifaBW_lCHUTX_MFbSna-115" target="0ifaBW_lCHUTX_MFbSna-102" edge="1">
+          <mxGeometry x="-0.0017" width="160" relative="1" as="geometry">
+            <mxPoint x="1980" y="-450" as="sourcePoint" />
+            <mxPoint x="1670" y="-520" as="targetPoint" />
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="2025" y="-490" />
+              <mxPoint x="1660" y="-490" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OpGdwgeZodBjb84Wl2g6-1" value="&lt;font style=&quot;&quot;&gt;WeaponCastStratagy&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;# WeaponConfig : RangeRaycastWeaponConfig&amp;nbsp;&lt;br&gt;---------------&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;&lt;font color=&quot;#00ff80&quot;&gt;+ Init : void&lt;/font&gt;&lt;br&gt;&lt;/span&gt;&lt;font color=&quot;#9999ff&quot;&gt;+ Cast : void&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="280" y="360" width="340" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="OpGdwgeZodBjb84Wl2g6-2" value="&lt;font style=&quot;&quot;&gt;RaycastDetectionStratagy : &lt;font color=&quot;#9999ff&quot;&gt;WeaponCastStratagy&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;&lt;br&gt;---------------&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;&lt;font color=&quot;#cc0000&quot;&gt;+ Cast&lt;/font&gt;&lt;/span&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="20" y="660" width="340" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="OpGdwgeZodBjb84Wl2g6-3" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;strokeWidth=2;" parent="1" source="OpGdwgeZodBjb84Wl2g6-2" target="OpGdwgeZodBjb84Wl2g6-1" edge="1">
+          <mxGeometry x="-0.0017" width="160" relative="1" as="geometry">
+            <mxPoint x="750" y="-120" as="sourcePoint" />
+            <mxPoint x="855" y="-190" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OpGdwgeZodBjb84Wl2g6-4" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0;entryY=0.25;entryDx=0;entryDy=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;strokeWidth=2;" parent="1" source="OpGdwgeZodBjb84Wl2g6-1" target="0ifaBW_lCHUTX_MFbSna-106" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="790" y="-420" as="sourcePoint" />
+            <mxPoint x="950" y="-420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OpGdwgeZodBjb84Wl2g6-5" value="&lt;font style=&quot;&quot;&gt;Pistol : &lt;font color=&quot;#9999ff&quot;&gt;RangeBulletWeapon&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;&lt;br&gt;---------------&lt;br&gt;&lt;font color=&quot;#cc0000&quot;&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;# Start : void&lt;br&gt;&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;# PerformRangeAttack : void&lt;br&gt;&lt;/span&gt;# ShootBullet : void&lt;br&gt;#&amp;nbsp;GetSpreadShotDirection : Vector2&lt;br&gt;#&amp;nbsp;CalculatingAttackDelay : IEnumerator&lt;br&gt;#&amp;nbsp;TryPoolBullet : bool&lt;br&gt;#&amp;nbsp;SetBulletShootTransform : void&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="1510" y="710" width="320" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="OpGdwgeZodBjb84Wl2g6-6" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="OpGdwgeZodBjb84Wl2g6-5" target="0ifaBW_lCHUTX_MFbSna-112" edge="1">
+          <mxGeometry x="-0.0017" width="160" relative="1" as="geometry">
+            <mxPoint x="1860" y="-20" as="sourcePoint" />
+            <mxPoint x="1965" y="-90" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OpGdwgeZodBjb84Wl2g6-7" value="&lt;font style=&quot;&quot;&gt;&lt;font color=&quot;#9999ff&quot;&gt;Bullet : &lt;/font&gt;&lt;font color=&quot;#00ffff&quot;&gt;MonoBehaviour&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;#* BulletConfig : BulletConfig&lt;br&gt;#* IsCollided : bool&lt;br&gt;# ThresholdFlyingSecond : float&lt;br&gt;# direction : Vector2&lt;br&gt;&lt;br&gt;---------------&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;&lt;font color=&quot;#9999ff&quot;&gt;# OnCollisionEnter2D : void&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;/span&gt;+ SetDirection : void&lt;br&gt;&lt;font color=&quot;#9999ff&quot;&gt;+ RevertFields : void&lt;br&gt;+ Fire : void&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#9999ff&quot;&gt;+ Collided : event Action&amp;lt;Bullet&amp;gt;&lt;/font&gt;&amp;nbsp;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="-170" y="-360" width="290" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="OpGdwgeZodBjb84Wl2g6-8" value="&lt;font style=&quot;&quot;&gt;PistolBullet : Bullet&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;&lt;br&gt;---------------&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;- Start : void&lt;br&gt;&lt;/span&gt;&lt;font color=&quot;#cc0000&quot;&gt;# OnCollisionEnter2D : void&lt;/font&gt;&lt;br&gt;&lt;br&gt;- Flying :&amp;nbsp;&lt;span style=&quot;font-size: 13px;&quot;&gt;IEnumerator&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;font color=&quot;#cc0000&quot;&gt;+ Fire : void&lt;br&gt;+ RevertFields : void&lt;br&gt;&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#cc0000&quot;&gt;Collided :&amp;nbsp;event Action&amp;lt;Bullet&amp;gt;&amp;nbsp;&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="-850" y="470" width="310" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-1" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="OpGdwgeZodBjb84Wl2g6-8" target="OpGdwgeZodBjb84Wl2g6-7" edge="1">
+          <mxGeometry x="-0.9499" y="-10" width="160" relative="1" as="geometry">
+            <mxPoint x="-230" y="-60" as="sourcePoint" />
+            <mxPoint x="50" y="-110" as="targetPoint" />
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="-695" y="430" />
+              <mxPoint x="-25" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-4" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;strokeWidth=2;" parent="1" source="OpGdwgeZodBjb84Wl2g6-7" target="0ifaBW_lCHUTX_MFbSna-112" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="440" y="300" as="sourcePoint" />
+            <mxPoint x="600" y="300" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="160" y="-300" />
+              <mxPoint x="160" y="100" />
+              <mxPoint x="1410" y="100" />
+              <mxPoint x="1410" y="-210" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-5" value="&lt;font style=&quot;&quot;&gt;StunBatton : &lt;font color=&quot;#9999ff&quot;&gt;MeleeWeapon&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;#* layerMask : LayerMask&amp;nbsp;&lt;br&gt;#*&amp;nbsp;AttackLength : float&lt;br&gt;---------------&lt;br&gt;-&amp;nbsp;OnDrawGizmosSelected : void&lt;br&gt;&lt;font color=&quot;#cc0000&quot;&gt;# Hit : void&lt;br&gt;# CalculatingAttackDelay :&amp;nbsp;IEnumerator&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="2120" y="710" width="290" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-6" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="_jrR1g4oTXLK5RnJRTBO-5" target="0ifaBW_lCHUTX_MFbSna-115" edge="1">
+          <mxGeometry x="-0.0017" width="160" relative="1" as="geometry">
+            <mxPoint x="2240" y="-220" as="sourcePoint" />
+            <mxPoint x="2345" y="-290" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-7" value="&lt;font style=&quot;&quot;&gt;PoolBullet&amp;lt;T&amp;gt; :&lt;font color=&quot;#9999ff&quot;&gt; PoolObject&amp;lt;T&amp;gt;&lt;/font&gt; where T : Bullet&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;&lt;br&gt;---------------&lt;br&gt;+ Release : void&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#cc0000&quot;&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;+ GetFreeElement : T&lt;br&gt;&lt;/span&gt;+ TryGetElement : bool&lt;br&gt;+ Release : void&lt;br&gt;# CreateElement: T&lt;br&gt;# CreatePool : void&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="2510" y="-130" width="359" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-11" value="&lt;font style=&quot;&quot;&gt;&lt;font color=&quot;#9999ff&quot;&gt;PoolObject&amp;lt;T&amp;gt; where T : MonoBehaviour&lt;/font&gt;&lt;br&gt;---------------&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Prefab : T&lt;/span&gt;&lt;br&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;# HierarhyTransform : Tranform&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 13px; background-color: initial;&quot;&gt;# MinCapacity : int&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 13px; background-color: initial;&quot;&gt;# MaxCapacity : int&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;# IsAutoExpand : bool&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 13px; background-color: initial;&quot;&gt;# ExpandCopacity : int&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;# PoolObjects : List&amp;lt;T&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;+ GetFreeElement : T&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;#&amp;nbsp;OnValidate : void&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 12px; color: rgb(204, 0, 0);&quot;&gt;+ TryGetElement : bool&lt;/span&gt;&lt;br style=&quot;color: rgb(204, 0, 0); font-size: 12px;&quot;&gt;&lt;span style=&quot;font-size: 12px; color: rgb(204, 0, 0);&quot;&gt;+ Release : void&lt;/span&gt;&lt;br style=&quot;color: rgb(204, 0, 0); font-size: 12px;&quot;&gt;&lt;span style=&quot;font-size: 12px; color: rgb(204, 0, 0);&quot;&gt;# CreateElement: T&lt;/span&gt;&lt;br style=&quot;color: rgb(204, 0, 0); font-size: 12px;&quot;&gt;&lt;span style=&quot;font-size: 12px; color: rgb(204, 0, 0);&quot;&gt;# CreatePool : void&lt;/span&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="2481" y="-2338" width="680" height="290" as="geometry" />
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-12" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="_jrR1g4oTXLK5RnJRTBO-7" target="_jrR1g4oTXLK5RnJRTBO-11" edge="1">
+          <mxGeometry x="-0.9758" width="160" relative="1" as="geometry">
+            <mxPoint x="2480" y="-800" as="sourcePoint" />
+            <mxPoint x="2585" y="-870" as="targetPoint" />
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="2690" y="-2000" />
+              <mxPoint x="2821" y="-2000" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-13" value="&lt;font style=&quot;&quot;&gt;Crosshair&amp;nbsp;: &lt;font color=&quot;#00ffff&quot;&gt;MonoBehaviour&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;-* playerLook :&amp;nbsp;&lt;/span&gt;PlayerLook&amp;nbsp;&lt;br&gt;-* playerPosition : Transform&lt;br&gt;-* thresholdDistance : float&amp;nbsp;&lt;br&gt;-* minScaleSize : float&lt;br&gt;-* maxScaleSize : float&lt;br&gt;-* shrinkRate : float&lt;br&gt;-* expandRate : float&lt;br&gt;-* aimModifier : float&lt;br&gt;- distance : float&lt;br&gt;- previusDistance : float&lt;br&gt;- currentPosition : Vector2&amp;nbsp;&lt;br&gt;---------------&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;- Awake : void&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;- Update : void&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;+ MovePosition : void&lt;br&gt;&lt;/span&gt;+&amp;nbsp;IncreaseAttackRecoil : void&lt;br&gt;- ChangeScaleFromDistance : void&lt;br&gt;-&amp;nbsp;IncreaseScale : void&lt;br&gt;-&amp;nbsp;ReduceScale : void&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;+ AimModifier : get/-set&lt;/span&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="2040" y="-1169" width="424" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-14" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;strokeWidth=2;" parent="1" source="_jrR1g4oTXLK5RnJRTBO-13" target="0ifaBW_lCHUTX_MFbSna-60" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="2290" y="-980" as="sourcePoint" />
+            <mxPoint x="2450" y="-980" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-15" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;span style=&quot;&quot;&gt;&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot; color=&quot;#cccc00&quot;&gt;IAttackeable&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;/span&gt;-------------&lt;br&gt;+&amp;nbsp;Attack : void&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="640" y="-2310" width="173" height="89" as="geometry" />
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-17" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="_jrR1g4oTXLK5RnJRTBO-18" target="_jrR1g4oTXLK5RnJRTBO-15" edge="1">
+          <mxGeometry x="-0.0017" width="160" relative="1" as="geometry">
+            <mxPoint x="966.4999999999995" y="-1079" as="sourcePoint" />
+            <mxPoint x="1205" y="-1090" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-18" value="&lt;font style=&quot;&quot;&gt;&lt;font style=&quot;&quot; color=&quot;#cccc00&quot;&gt;&lt;b&gt;IWeaponAttackable&lt;/b&gt;&lt;br&gt;&lt;/font&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;-------------&lt;/span&gt;&lt;br&gt;+ CalculatingAttackDelay : IEnumerator&amp;nbsp;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="827" y="-1140" width="240" height="89" as="geometry" />
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-19" value="&lt;font style=&quot;&quot;&gt;&lt;font style=&quot;&quot; color=&quot;#cccc00&quot;&gt;&lt;b&gt;IWeaponShootable&lt;/b&gt;&lt;br&gt;&lt;/font&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;-------------&lt;/span&gt;&lt;br&gt;+ PerformRangeAttack: void&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="827" y="-990.5" width="240" height="89" as="geometry" />
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-20" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="_jrR1g4oTXLK5RnJRTBO-19" target="_jrR1g4oTXLK5RnJRTBO-18" edge="1">
+          <mxGeometry x="-0.0017" width="160" relative="1" as="geometry">
+            <mxPoint x="1140" y="-950.5" as="sourcePoint" />
+            <mxPoint x="1245" y="-1020.5" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-22" value="&lt;font style=&quot;&quot;&gt;WeaponConfig : &lt;font color=&quot;#ff99cc&quot;&gt;ScriptableObject&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;-* sprite : Srpite&lt;br&gt;-* damageValue : float&lt;br&gt;-* attackFrequencyInSeconds : float&lt;br&gt;-* name : string&lt;br&gt;---------------&lt;br&gt;+ Sprite : get/#set&lt;br&gt;+ DamageValue : get/#set&lt;br&gt;+ Name : get/#set&lt;br&gt;+ AttackFrequencyInSeconds : get/#set&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="-1041" y="-1169" width="370" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-23" value="&lt;font style=&quot;&quot;&gt;RangeWeaponConfig : &lt;font color=&quot;#9999ff&quot;&gt;WeaponConfig&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;-* minRecoil&lt;br&gt;-* maxRecoil&lt;br&gt;-* minSpreadAngle&lt;br&gt;-* maxSpreadAngle&lt;br&gt;---------------&lt;br&gt;+ MinRecoil : get/#set&lt;br&gt;+ MaxRecoil : get/#set&lt;br&gt;+ MinSpreadAngle : get/#set&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;+ MaxSpreadAngle : get/#set&lt;/span&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="-1006" y="-890" width="300" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-24" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="_jrR1g4oTXLK5RnJRTBO-23" target="_jrR1g4oTXLK5RnJRTBO-22" edge="1">
+          <mxGeometry x="-0.0017" width="160" relative="1" as="geometry">
+            <mxPoint x="-576" y="-220" as="sourcePoint" />
+            <mxPoint x="-471" y="-290" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-26" value="&lt;font style=&quot;&quot;&gt;RangeRaycastWeaponConfig : &lt;font color=&quot;#9999ff&quot;&gt;RangeWeaponConfig&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;-*&amp;nbsp;shotLenght : float&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;br&gt;+ ShotLenght : get&lt;br&gt;&lt;/span&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="-740" y="-610" width="350" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-27" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="_jrR1g4oTXLK5RnJRTBO-26" target="_jrR1g4oTXLK5RnJRTBO-23" edge="1">
+          <mxGeometry x="-0.0017" width="160" relative="1" as="geometry">
+            <mxPoint x="-1196" y="-170" as="sourcePoint" />
+            <mxPoint x="-1091" y="-240" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-28" value="&lt;font style=&quot;&quot;&gt;RangeBulletWeaponConfig: &lt;font color=&quot;#9999ff&quot;&gt;RangeWeaponConfig&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;-* bulletConfig: float&lt;br&gt;---------------&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;+ BulletConfig: get/#set&lt;/span&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="-1240" y="-610" width="350" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-29" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="_jrR1g4oTXLK5RnJRTBO-28" target="_jrR1g4oTXLK5RnJRTBO-23" edge="1">
+          <mxGeometry x="-0.0017" width="160" relative="1" as="geometry">
+            <mxPoint x="-516" y="-190" as="sourcePoint" />
+            <mxPoint x="-820" y="100" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-30" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;strokeWidth=2;" parent="1" source="_jrR1g4oTXLK5RnJRTBO-26" target="0ifaBW_lCHUTX_MFbSna-106" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-1060" y="-80" as="sourcePoint" />
+            <mxPoint x="-1180" y="150" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-760" y="-555" />
+              <mxPoint x="-760" y="350" />
+              <mxPoint x="830" y="350" />
+              <mxPoint x="830" y="-355" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-31" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeWidth=2;" parent="1" source="_jrR1g4oTXLK5RnJRTBO-23" target="0ifaBW_lCHUTX_MFbSna-112" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="470" y="410" as="sourcePoint" />
+            <mxPoint x="630" y="410" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-330" y="-785" />
+              <mxPoint x="-330" y="350" />
+              <mxPoint x="1410" y="350" />
+              <mxPoint x="1410" y="-210" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-33" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="_jrR1g4oTXLK5RnJRTBO-22" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-600" y="-360" as="sourcePoint" />
+            <mxPoint x="2001.000000000001" y="-290" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-240" y="-1064" />
+              <mxPoint x="-240" y="-325" />
+              <mxPoint x="-229" y="-325" />
+              <mxPoint x="-229" y="350" />
+              <mxPoint x="1961" y="350" />
+              <mxPoint x="1961" y="-290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-35" value="&lt;font style=&quot;&quot;&gt;&lt;font color=&quot;#9999ff&quot;&gt;BulletConfig &lt;/font&gt;: &lt;font color=&quot;#ff99cc&quot;&gt;ScriptableObject&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;-* bulletPrefab : GameObject&amp;nbsp;&lt;br&gt;-* bullet : Bullet&lt;br&gt;-* damageValue : float&lt;br&gt;-* speedShot : float&lt;br&gt;-* name : string&lt;br&gt;---------------&lt;br&gt;+ GameObject : get/#set&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;+ DamageValue : get/#set&lt;br&gt;+ SpeedShot : get/#set&lt;br&gt;+ Name : get/#set&lt;br&gt;+ Bullet : get/#set&lt;br&gt;&lt;/span&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="-1620" y="-520" width="330" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-39" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;strokeWidth=2;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="0ifaBW_lCHUTX_MFbSna-60" target="_jrR1g4oTXLK5RnJRTBO-18" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1140" y="-1080" as="sourcePoint" />
+            <mxPoint x="1300" y="-1080" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_jrR1g4oTXLK5RnJRTBO-40" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;strokeWidth=2;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="0ifaBW_lCHUTX_MFbSna-102" target="_jrR1g4oTXLK5RnJRTBO-19" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1230" y="-920" as="sourcePoint" />
+            <mxPoint x="1390" y="-920" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SJk3u49qaRDc-ICBjKrP-1" value="&lt;font style=&quot;&quot;&gt;&lt;font color=&quot;#9999ff&quot;&gt;WeaponAudio &lt;/font&gt;: &lt;font color=&quot;#00ffff&quot;&gt;MonoBehaviour&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;#* WeaponAudioConfig :&amp;nbsp;WeaponAudioConfig&lt;br&gt;---------------&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;&lt;font color=&quot;#9999ff&quot;&gt;PlayAttack : void&lt;/font&gt;&lt;/span&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="-2250" y="-1169" width="338" height="125" as="geometry" />
+        </mxCell>
+        <mxCell id="SJk3u49qaRDc-ICBjKrP-2" value="&lt;font style=&quot;&quot;&gt;RangeBulletWeaponAudio &lt;font color=&quot;#9999ff&quot;&gt;: WeaponAudio&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;#* PoolAttackAudio : PoolRangeAttackAudio&amp;lt;RangeAttackAudio&amp;gt;&amp;nbsp;&lt;br&gt;-* HierarchyPoolAttackAudio : Transform&lt;br&gt;---------------&lt;br&gt;Start : void&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;&lt;font color=&quot;#cc0000&quot;&gt;PlayAttack : void&lt;/font&gt;&lt;/span&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="-2600" y="-890" width="440" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="SJk3u49qaRDc-ICBjKrP-3" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="SJk3u49qaRDc-ICBjKrP-2" target="SJk3u49qaRDc-ICBjKrP-1" edge="1">
+          <mxGeometry x="-0.9117" y="-10" width="160" relative="1" as="geometry">
+            <mxPoint x="-2289" y="297" as="sourcePoint" />
+            <mxPoint x="-2184" y="227" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SJk3u49qaRDc-ICBjKrP-4" value="&lt;font style=&quot;&quot;&gt;PoolRangeAttackAudio&amp;lt;T&amp;gt; : PoolObject&amp;lt;T&amp;gt; &lt;br&gt;where T : RangeAttackAudio&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;&lt;br&gt;---------------&lt;br&gt;- OnFinishedPlaying : void&lt;br&gt;&lt;font color=&quot;#00ff80&quot;&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;# ReleaseObject : void&lt;/span&gt;&lt;br&gt;# CreateElement : T&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="-2840" y="-660" width="330" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="SJk3u49qaRDc-ICBjKrP-6" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;strokeWidth=2;" parent="1" source="SJk3u49qaRDc-ICBjKrP-4" target="SJk3u49qaRDc-ICBjKrP-2" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-2629" y="317" as="sourcePoint" />
+            <mxPoint x="-2469" y="317" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SJk3u49qaRDc-ICBjKrP-7" value="&lt;font style=&quot;&quot;&gt;RangeBulletAttackAudio:&amp;nbsp;&lt;font color=&quot;#9999ff&quot;&gt;WeaponAttackAudio&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;br&gt;&lt;/span&gt;&amp;nbsp;&lt;br&gt;---------------&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;WaitingEndAudioClip :&amp;nbsp;&lt;/span&gt;IEnumerator&amp;nbsp;&lt;br&gt;&lt;font color=&quot;#cc0000&quot;&gt;Play : void&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="-3282.5" y="190" width="315" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="InCNYrZGnjNzZv9TvjPa-3" value="&lt;font style=&quot;&quot;&gt;MovementAudio: MonoBehaviour&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;-* _walkingSource : AudioSource&amp;nbsp;&lt;br&gt;-* _movingSource : AudioSource&amp;nbsp;&lt;br&gt;-* _runningSource : AudioSource&amp;nbsp;&lt;br&gt;&lt;br&gt;- _currentPlayingSource : AudioSource&amp;nbsp;&lt;br&gt;- _defaultVolumeValue : float&amp;nbsp;&lt;br&gt;---------------&lt;br&gt;Start : void&lt;br&gt;PlayWalking : void&lt;br&gt;PlayMoving : void&lt;br&gt;PlayRunning : void&lt;br&gt;&lt;br&gt;ReducingVolume:&amp;nbsp;IEnumerator&amp;nbsp;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="-3980" y="60" width="360" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="8YKrXvF8SggtD8_-HUvy-2" value="Атака" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="-3770" y="-985.5" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8YKrXvF8SggtD8_-HUvy-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="8YKrXvF8SggtD8_-HUvy-3" target="8YKrXvF8SggtD8_-HUvy-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8YKrXvF8SggtD8_-HUvy-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="8YKrXvF8SggtD8_-HUvy-3" target="8YKrXvF8SggtD8_-HUvy-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8YKrXvF8SggtD8_-HUvy-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="8YKrXvF8SggtD8_-HUvy-3" target="8YKrXvF8SggtD8_-HUvy-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8YKrXvF8SggtD8_-HUvy-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="8YKrXvF8SggtD8_-HUvy-3" target="8YKrXvF8SggtD8_-HUvy-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8YKrXvF8SggtD8_-HUvy-3" value="Аудио оружия" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="-3570" y="-1107.5" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8YKrXvF8SggtD8_-HUvy-4" value="Перезардяка" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="-3640" y="-985.5" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8YKrXvF8SggtD8_-HUvy-5" value="Задержка атаки" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="-3500" y="-985.5" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8YKrXvF8SggtD8_-HUvy-7" value="Нет атаки" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="-3370" y="-985.5" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8YKrXvF8SggtD8_-HUvy-12" value="&lt;font style=&quot;&quot;&gt;&lt;font color=&quot;#9999ff&quot;&gt;WeaponAttackAudio&lt;/font&gt;: MonoBehaviour,&amp;nbsp;&lt;font color=&quot;#cccc00&quot;&gt;IAudioPlayable&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;#* AudioSource: AudioSource&amp;nbsp;&lt;br&gt;---------------&lt;br&gt;&lt;font color=&quot;#9999ff&quot;&gt;Play : void&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="-3325" y="20" width="400" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="8YKrXvF8SggtD8_-HUvy-13" value="&lt;font color=&quot;#cccc00&quot;&gt;«interface»&lt;br&gt;&lt;b&gt;IAudioPlayable&lt;/b&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="-3240" y="-150" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8YKrXvF8SggtD8_-HUvy-17" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;strokeWidth=2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="8YKrXvF8SggtD8_-HUvy-12" target="8YKrXvF8SggtD8_-HUvy-13" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-3000" y="-45" as="sourcePoint" />
+            <mxPoint x="-2840" y="-45" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8YKrXvF8SggtD8_-HUvy-18" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="SJk3u49qaRDc-ICBjKrP-7" target="8YKrXvF8SggtD8_-HUvy-12" edge="1">
+          <mxGeometry x="-0.0017" width="160" relative="1" as="geometry">
+            <mxPoint x="-2930" y="415" as="sourcePoint" />
+            <mxPoint x="-2825" y="345" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pEZuwgwossCMJpsBnm_i-3" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="_jrR1g4oTXLK5RnJRTBO-35" target="_jrR1g4oTXLK5RnJRTBO-28" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-1600" y="-610" as="sourcePoint" />
+            <mxPoint x="-1440" y="-610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pEZuwgwossCMJpsBnm_i-4" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="SJk3u49qaRDc-ICBjKrP-2" target="0ifaBW_lCHUTX_MFbSna-112" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-2140" y="-680" as="sourcePoint" />
+            <mxPoint x="540" y="190" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-2110" y="-795" />
+              <mxPoint x="-2110" y="350" />
+              <mxPoint x="1410" y="350" />
+              <mxPoint x="1410" y="-290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pEZuwgwossCMJpsBnm_i-8" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="SJk3u49qaRDc-ICBjKrP-7" target="SJk3u49qaRDc-ICBjKrP-4" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-2860" y="-200" as="sourcePoint" />
+            <mxPoint x="-2700" y="-200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pEZuwgwossCMJpsBnm_i-10" value="&lt;font style=&quot;&quot;&gt;&lt;font color=&quot;#9999ff&quot;&gt;BulletMagazine&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;# BulletConfig : BulletConfig&lt;br&gt;# PoolBullets : PoolBullet&amp;lt;Bullet&amp;gt;&lt;br&gt;- _hierarchyPool : Transform&amp;nbsp;&lt;br&gt;---------------&lt;br&gt;&lt;font color=&quot;#9999ff&quot;&gt;# TryGetBullet : bool&lt;br&gt;# PoolOut :&amp;nbsp;Bullet PoolOut&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;" parent="1" vertex="1">
+          <mxGeometry x="2910" y="-570" width="290" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="pEZuwgwossCMJpsBnm_i-12" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="InCNYrZGnjNzZv9TvjPa-3" target="8YKrXvF8SggtD8_-HUvy-13" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-3600" y="210" as="sourcePoint" />
+            <mxPoint x="-3320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZoJE_koAyS2-ZLp2BHaD-1" value="&lt;font style=&quot;&quot;&gt;PistolMagazine&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;&lt;br&gt;---------------&lt;br&gt;&lt;font color=&quot;#cc0000&quot;&gt;+ TryGetBullet : bool&lt;br&gt;+ Reload : void&lt;br&gt;# PoolOut :&amp;nbsp;Bullet PoolOut&lt;br&gt;+ ReduceShots: void&lt;/font&gt;&lt;br style=&quot;color: rgb(153, 153, 255);&quot;&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;" parent="1" vertex="1">
+          <mxGeometry x="2880" y="-300" width="200" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoJE_koAyS2-ZLp2BHaD-2" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="ZoJE_koAyS2-ZLp2BHaD-1" target="pEZuwgwossCMJpsBnm_i-10" edge="1">
+          <mxGeometry x="-0.0017" width="160" relative="1" as="geometry">
+            <mxPoint x="3180" y="-280" as="sourcePoint" />
+            <mxPoint x="3285" y="-350" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZoJE_koAyS2-ZLp2BHaD-5" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=1;entryY=0.75;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="ZoJE_koAyS2-ZLp2BHaD-1" target="0ifaBW_lCHUTX_MFbSna-112" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="2690" y="-280" as="sourcePoint" />
+            <mxPoint x="2850" y="-280" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2413" y="-260" />
+              <mxPoint x="2413" />
+              <mxPoint x="1856" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZoJE_koAyS2-ZLp2BHaD-7" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="_jrR1g4oTXLK5RnJRTBO-7" target="ZoJE_koAyS2-ZLp2BHaD-1" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="2930" y="-90" as="sourcePoint" />
+            <mxPoint x="3090" y="-90" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="3120" y="-25" />
+              <mxPoint x="3120" y="-230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZoJE_koAyS2-ZLp2BHaD-8" value="&lt;font style=&quot;&quot;&gt;&lt;font color=&quot;#9999ff&quot;&gt;Magazine&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;br&gt;&lt;/span&gt;- _isEmpty : bool&lt;br&gt;#* ShotCounter : int&lt;br&gt;+ MagazineSize : readonly int&amp;nbsp;&lt;br&gt;---------------&lt;br&gt;&lt;font color=&quot;#9999ff&quot;&gt;+ ReduceShots: void&lt;br&gt;+ Reload : void&lt;br&gt;&lt;/font&gt;+&amp;nbsp;IsEmpty : get/protected set&lt;br&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;" parent="1" vertex="1">
+          <mxGeometry x="2930" y="-860" width="230" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoJE_koAyS2-ZLp2BHaD-9" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="pEZuwgwossCMJpsBnm_i-10" target="ZoJE_koAyS2-ZLp2BHaD-8" edge="1">
+          <mxGeometry x="-0.7143" y="-5" width="160" relative="1" as="geometry">
+            <mxPoint x="3090" y="-590" as="sourcePoint" />
+            <mxPoint x="3195" y="-660" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="R0i72YYFA9b9RLNXX7gr-1" value="&lt;font style=&quot;&quot;&gt;LazerMagazine&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;&lt;br&gt;---------------&lt;font color=&quot;#cc0000&quot;&gt;&lt;br&gt;+ Reload : void&lt;br&gt;#&amp;nbsp;ReduceShots : void&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;" parent="1" vertex="1">
+          <mxGeometry x="3161" y="-290" width="200" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="R0i72YYFA9b9RLNXX7gr-4" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="R0i72YYFA9b9RLNXX7gr-1" target="ZoJE_koAyS2-ZLp2BHaD-8" edge="1">
+          <mxGeometry x="-0.9317" y="-9" width="160" relative="1" as="geometry">
+            <mxPoint x="3240" y="-350" as="sourcePoint" />
+            <mxPoint x="3345" y="-420" as="targetPoint" />
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="3261" y="-630" />
+              <mxPoint x="3045" y="-630" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="26bRHwA4x0FhLCs1eS31-2" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="0ifaBW_lCHUTX_MFbSna-102" target="0ifaBW_lCHUTX_MFbSna-60" edge="1">
+          <mxGeometry x="-0.3423" width="160" relative="1" as="geometry">
+            <mxPoint x="1670" y="-940" as="sourcePoint" />
+            <mxPoint x="1775" y="-1010" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="73ARaeGCTqeN8SXPjCPr-1" value="&lt;font style=&quot;&quot;&gt;SingleWeaponAudio&lt;font color=&quot;#9999ff&quot;&gt;: WeaponAudio&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;#* RangeAttackAudio AttackAudio&lt;br&gt;---------------&lt;br&gt;Awake: void&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;&lt;font color=&quot;#cc0000&quot;&gt;PlayAttack : void&lt;/font&gt;&lt;/span&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="-2090" y="-870" width="247" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="73ARaeGCTqeN8SXPjCPr-2" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="73ARaeGCTqeN8SXPjCPr-1" target="SJk3u49qaRDc-ICBjKrP-1" edge="1">
+          <mxGeometry x="-0.0017" width="160" relative="1" as="geometry">
+            <mxPoint x="-1900" y="-960" as="sourcePoint" />
+            <mxPoint x="-1795" y="-1030" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="73ARaeGCTqeN8SXPjCPr-3" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=1;entryY=0.25;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="SJk3u49qaRDc-ICBjKrP-7" target="73ARaeGCTqeN8SXPjCPr-1" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-2957" y="255" as="sourcePoint" />
+            <mxPoint x="-2830" y="-565" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-1810" y="245" />
+              <mxPoint x="-1810" y="-840" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PkWA_ToCBv6ZYigrYuB1-1" value="&lt;font style=&quot;&quot;&gt;&lt;font color=&quot;#9999ff&quot;&gt;Inventory &lt;/font&gt;: &lt;font color=&quot;#00ffff&quot;&gt;MonoBehaviour&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;-* _inventoryItems : List&amp;lt;InventoryItem&amp;gt;&amp;nbsp;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;br&gt;+ AddItem : void&lt;br&gt;+ RemoveItem : void&lt;br&gt;+ TryGetItem : bool&lt;br&gt;&lt;/span&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;" parent="1" vertex="1">
+          <mxGeometry x="2780" y="-3620" width="320" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="y9_EszWLiiQsTb1-u393-1" value="&lt;font style=&quot;&quot;&gt;InventoryViewer : MonoBehaviour&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;" parent="1" vertex="1">
+          <mxGeometry x="3890" y="-3410" width="260" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="y9_EszWLiiQsTb1-u393-4" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;Item&lt;br&gt;---------------&lt;br&gt;&lt;br&gt;---------------&lt;br&gt;+ Use : void&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;" parent="1" vertex="1">
+          <mxGeometry x="2481" y="-3110" width="180" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="y9_EszWLiiQsTb1-u393-5" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;ItemViewer&lt;br&gt;---------------&lt;br&gt;&lt;br&gt;---------------&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;" parent="1" vertex="1">
+          <mxGeometry x="3780" y="-3170" width="180" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="y9_EszWLiiQsTb1-u393-7" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0;entryY=0.25;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="y9_EszWLiiQsTb1-u393-4" target="PkWA_ToCBv6ZYigrYuB1-1" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="3340" y="-3210" as="sourcePoint" />
+            <mxPoint x="3500" y="-3210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="y9_EszWLiiQsTb1-u393-8" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0.25;entryY=1;entryDx=0;entryDy=0;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" parent="1" source="y9_EszWLiiQsTb1-u393-5" target="y9_EszWLiiQsTb1-u393-1" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="3810" y="-3240" as="sourcePoint" />
+            <mxPoint x="3970" y="-3240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Jpb0A6t766ueXhvxXDqh-1" value="&lt;font style=&quot;&quot;&gt;PlayerInventory :&amp;nbsp;&lt;font color=&quot;#9999ff&quot;&gt;Inventory&amp;nbsp;&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;-maxItems : int&amp;nbsp;&lt;br&gt;---------------&lt;br&gt;&lt;span style=&quot;font-size: 13px; background-color: initial;&quot;&gt;OnAdded :&amp;nbsp;&lt;/span&gt;event Action&lt;br&gt;&lt;span style=&quot;font-size: 13px; background-color: initial;&quot;&gt;OnRemoved :&amp;nbsp;&lt;/span&gt;&lt;/font&gt;event Action&amp;nbsp;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;" vertex="1" parent="1">
+          <mxGeometry x="3028" y="-3370" width="280" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Jpb0A6t766ueXhvxXDqh-2" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="Jpb0A6t766ueXhvxXDqh-1" target="PkWA_ToCBv6ZYigrYuB1-1">
+          <mxGeometry x="-0.0017" width="160" relative="1" as="geometry">
+            <mxPoint x="3130" y="-3400" as="sourcePoint" />
+            <mxPoint x="3235" y="-3470" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Jpb0A6t766ueXhvxXDqh-3" value="&lt;font style=&quot;&quot;&gt;&lt;font color=&quot;#9999ff&quot;&gt;ItemInteraction &lt;/font&gt;: &lt;font color=&quot;#00ffff&quot;&gt;MonoBehaviour&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;#* PickupRange : float&lt;br&gt;---------------&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;&lt;font color=&quot;#9999ff&quot;&gt;+ TryPickupItem : void&lt;/font&gt;&lt;/span&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;" vertex="1" parent="1">
+          <mxGeometry x="2500" y="-4400" width="268" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="Jpb0A6t766ueXhvxXDqh-4" value="&lt;font style=&quot;&quot;&gt;PlayerInteraction : &lt;font color=&quot;#9999ff&quot;&gt;ItemInteraction&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;---------------&lt;/span&gt;&lt;br&gt;-* Inventory : PlayerInventory&amp;nbsp;&lt;br&gt;---------------&lt;br&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;&lt;font color=&quot;#cc0000&quot;&gt;+ TryPickupItem : void&lt;/font&gt;&lt;/span&gt;&lt;br&gt;&lt;/font&gt;" style="html=1;whiteSpace=wrap;fontFamily=Lucida Console;" vertex="1" parent="1">
+          <mxGeometry x="2910" y="-3990" width="328" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Jpb0A6t766ueXhvxXDqh-5" value="Extends" style="endArrow=block;endSize=8;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="Jpb0A6t766ueXhvxXDqh-4" target="Jpb0A6t766ueXhvxXDqh-3">
+          <mxGeometry x="-0.0017" width="160" relative="1" as="geometry">
+            <mxPoint x="2930" y="-4040" as="sourcePoint" />
+            <mxPoint x="3035" y="-4110" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Jpb0A6t766ueXhvxXDqh-7" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=1;entryY=0.75;entryDx=0;entryDy=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="1" source="Jpb0A6t766ueXhvxXDqh-1" target="Jpb0A6t766ueXhvxXDqh-4">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="3180" y="-3750" as="sourcePoint" />
+            <mxPoint x="3340" y="-3750" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Jpb0A6t766ueXhvxXDqh-8" value="Player&lt;br&gt;----" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="3200" y="-4320" width="180" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="Jpb0A6t766ueXhvxXDqh-10" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="Jpb0A6t766ueXhvxXDqh-4" target="Jpb0A6t766ueXhvxXDqh-8">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="3080" y="-4100" as="sourcePoint" />
+            <mxPoint x="3240" y="-4100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

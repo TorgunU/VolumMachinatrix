@@ -6,15 +6,15 @@ using UnityEngine;
     menuName = "ScriptableObjects/Items/Default Item", order = 52)]
 public class ItemConfig : ScriptableObject
 {
+    [SerializeField] private string _label;
     [SerializeField] private Sprite _sprite;
     [SerializeField] private ItemType _itemType;
-    [SerializeField] private InteractableType _interactableType;
     [SerializeField] private bool _stackable = true;
 
+    public string Label { get => _label;}
     public Sprite Sprite { get => _sprite; }
     public ItemType ItemType { get => _itemType;}
-    public InteractableType InteractableType { get => _interactableType; }
-    public bool Stackable { get => _stackable;}
+    public bool IsStackable { get => _stackable;}
 }
 
 public enum ItemType
@@ -22,10 +22,4 @@ public enum ItemType
     Weapon,
     Ammo,
     Stimulator
-}
-
-public enum InteractableType
-{
-    Switching,
-    Using
 }

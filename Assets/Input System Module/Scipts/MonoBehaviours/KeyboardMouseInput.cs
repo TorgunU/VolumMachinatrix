@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -13,6 +14,7 @@ public sealed class KeyboardMouseInput : PlayerInput
     public override event Action<Vector2> MovementDirectionUpdated;
     public override event Action<bool> AimHolded;
     public override event Action ReloadPressed;
+    public override event Action Interacted;
     //public override event Action<Vector2> LookDirectionUpdated;
 
     protected override void RaiseMovementDirection(InputAction.CallbackContext movementContext)
@@ -58,5 +60,10 @@ public sealed class KeyboardMouseInput : PlayerInput
     protected override void RaiseWalkState(InputAction.CallbackContext walkContext)
     {
         WalkStateChanged?.Invoke(walkContext.action.IsPressed());
+    }
+
+    protected override void RaiseInteractionPressed(InputAction.CallbackContext interactionContext)
+    {
+        Interacted?.Invoke();
     }
 }

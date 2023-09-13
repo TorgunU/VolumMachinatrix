@@ -4,7 +4,10 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 
 public abstract class PlayerInput : MonoBehaviour,
-    IMovementDirection, IMovementStateEvents, IAttackEvents, IAimingEvents, IReloadInputEvent
+    IMovementDirection, IMovementStateEvents, 
+    IAttackEvents, IAimingEvents, IReloadInputEvent,
+    IInteractionEvent
+
 {
     protected InputActions InputActions;
     protected Vector2 MovemenDirection;
@@ -15,6 +18,7 @@ public abstract class PlayerInput : MonoBehaviour,
     public abstract event Action<Vector2> MovementDirectionUpdated;
     public abstract event Action<bool> AimHolded;
     public abstract event Action ReloadPressed;
+    public abstract event Action Interacted;
     //public abstract event Action<Vector2> LookDirectionUpdated;
 
     protected virtual void Awake()
@@ -46,6 +50,9 @@ public abstract class PlayerInput : MonoBehaviour,
         RaiseWalkState(walkContext);
         InputActions.KeyboardMouse.Walk.canceled += walkContext => 
         RaiseWalkState(walkContext);
+
+        InputActions.KeyboardMouse.Interaction.performed += interactionContext =>
+        RaiseInteractionPressed(interactionContext);
     }
 
     protected virtual void OnEnable()
@@ -64,4 +71,5 @@ public abstract class PlayerInput : MonoBehaviour,
     protected abstract void RaiseRunState(InputAction.CallbackContext runContext);
     protected abstract void RaiseWalkState(InputAction.CallbackContext walkContext);
     protected abstract void RaiseReloadPressed(InputAction.CallbackContext walkContext);
+    protected abstract void RaiseInteractionPressed(InputAction.CallbackContext interactionContext);
 }

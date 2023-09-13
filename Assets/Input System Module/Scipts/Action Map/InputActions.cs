@@ -89,6 +89,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interaction"",
+                    ""type"": ""Button"",
+                    ""id"": ""d1782883-6f5b-4d9c-9600-ab9dea44e77e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -212,6 +221,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e111e2a-3609-46c7-a277-8898048f784c"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -244,6 +264,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_KeyboardMouse_Aim = m_KeyboardMouse.FindAction("Aim", throwIfNotFound: true);
         m_KeyboardMouse_Attack = m_KeyboardMouse.FindAction("Attack", throwIfNotFound: true);
         m_KeyboardMouse_Reload = m_KeyboardMouse.FindAction("Reload", throwIfNotFound: true);
+        m_KeyboardMouse_Interaction = m_KeyboardMouse.FindAction("Interaction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -312,6 +333,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_KeyboardMouse_Aim;
     private readonly InputAction m_KeyboardMouse_Attack;
     private readonly InputAction m_KeyboardMouse_Reload;
+    private readonly InputAction m_KeyboardMouse_Interaction;
     public struct KeyboardMouseActions
     {
         private @InputActions m_Wrapper;
@@ -323,6 +345,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Aim => m_Wrapper.m_KeyboardMouse_Aim;
         public InputAction @Attack => m_Wrapper.m_KeyboardMouse_Attack;
         public InputAction @Reload => m_Wrapper.m_KeyboardMouse_Reload;
+        public InputAction @Interaction => m_Wrapper.m_KeyboardMouse_Interaction;
         public InputActionMap Get() { return m_Wrapper.m_KeyboardMouse; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -353,6 +376,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Reload.started += instance.OnReload;
             @Reload.performed += instance.OnReload;
             @Reload.canceled += instance.OnReload;
+            @Interaction.started += instance.OnInteraction;
+            @Interaction.performed += instance.OnInteraction;
+            @Interaction.canceled += instance.OnInteraction;
         }
 
         private void UnregisterCallbacks(IKeyboardMouseActions instance)
@@ -378,6 +404,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Reload.started -= instance.OnReload;
             @Reload.performed -= instance.OnReload;
             @Reload.canceled -= instance.OnReload;
+            @Interaction.started -= instance.OnInteraction;
+            @Interaction.performed -= instance.OnInteraction;
+            @Interaction.canceled -= instance.OnInteraction;
         }
 
         public void RemoveCallbacks(IKeyboardMouseActions instance)
@@ -413,5 +442,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnAim(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnInteraction(InputAction.CallbackContext context);
     }
 }
