@@ -13,7 +13,7 @@ public class RangeAttackAudio : WeaponAttackAudio
             return AudioSource.isPlaying;
         });
 
-        FinishedPlaying.Invoke(this);
+        //FinishedPlaying?.Invoke(this);
     }
 
     public override void Play()

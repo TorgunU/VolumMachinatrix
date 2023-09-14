@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CreatureInitializeSO", 
-    menuName = "CreatureInitializeSO/New TestEnemyInitialize", order = 54)]
+[CreateAssetMenu(fileName = "New TestEnemyInitialize",
+    menuName = "ScriptableObjects/CreatureInitializeSO/TestEnemyInitialize", order = 52)]
 public class TestEnemyConfig : CreatureConfig
 {
     [SerializeField] protected float healthBuff;

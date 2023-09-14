@@ -10,6 +10,8 @@ public class LaserMagazine : WeaponMagazine
 
     public override void Reload()
     {
+        IsEmpty = false;
+
         ShotCounter = MagazineSize;
     }
 

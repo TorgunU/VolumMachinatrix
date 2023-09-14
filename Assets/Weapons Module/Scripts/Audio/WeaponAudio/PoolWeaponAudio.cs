@@ -11,7 +11,7 @@ public class PoolWeaponAudio : WeaponAudio
     private void Start()
     {
         PoolAttackAudio = new PoolRangeAttackAudio<RangeAttackAudio>
-            ((RangeAttackAudio)WeaponAudioConfig.WeaponAttackAudio, 5, 7, HierarchyPoolAttackAudio, true, 10);
+            ((RangeAttackAudio)AudioConfig.AttackAudio, 5, 7, HierarchyPoolAttackAudio, true, 10);
     }
 
     public override void PlayAttack()

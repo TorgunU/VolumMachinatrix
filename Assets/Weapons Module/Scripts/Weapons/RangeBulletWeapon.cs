@@ -10,12 +10,17 @@ public abstract class RangeBulletWeapon : RangeWeapon
     [SerializeField] protected RangeBulletWeaponConfig WeaponConfig;
     [SerializeField] protected BulletMagazine Magazine;
 
+    [SerializeField] private Transform _hierarchyPoolBullet;
+
     protected const string IdleState = "Idle";
     protected const string ShootState = "Shoot";
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
-        Magazine = new PistolMagazine(10, WeaponConfig.BulletConfig, HierarchyPoolBullet);
+        Magazine = new PistolMagazine(
+            WeaponConfig.MagazineConfig.Capacity, 
+            WeaponConfig.BulletConfig, 
+            HierarchyPoolBullet);
     }
 
     protected virtual void Start()
@@ -50,4 +55,6 @@ public abstract class RangeBulletWeapon : RangeWeapon
         get { return Magazine; }
         protected set { Magazine = (BulletMagazine)value; }
     }
+
+    protected Transform HierarchyPoolBullet { get => _hierarchyPoolBullet; }
 }

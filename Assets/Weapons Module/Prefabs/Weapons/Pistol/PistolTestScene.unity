@@ -255,7 +255,7 @@ PrefabInstance:
     - target: {fileID: 8813551709813037211, guid: 6dd4454cb0c919047bb1b027d7a14eeb, type: 3}
       propertyPath: m_Follow
       value: 
-      objectReference: {fileID: 123357797}
+      objectReference: {fileID: 0}
     - target: {fileID: 8813551709813037211, guid: 6dd4454cb0c919047bb1b027d7a14eeb, type: 3}
       propertyPath: m_Lens.OrthographicSize
       value: 18.62
@@ -272,11 +272,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 621599828}
   m_SourcePrefab: {fileID: 100100000, guid: 6dd4454cb0c919047bb1b027d7a14eeb, type: 3}
---- !u!4 &123357797 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5487654681961746917, guid: e3a896e9c82e4254f8f9cff02a4ee1d1, type: 3}
-  m_PrefabInstance: {fileID: 1371905946}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &251666040
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -919,6 +914,10 @@ PrefabInstance:
     - target: {fileID: 6034373462684066370, guid: e3a896e9c82e4254f8f9cff02a4ee1d1, type: 3}
       propertyPath: m_Name
       value: PlayerPistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 6120473742685032682, guid: e3a896e9c82e4254f8f9cff02a4ee1d1, type: 3}
+      propertyPath: _camera
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

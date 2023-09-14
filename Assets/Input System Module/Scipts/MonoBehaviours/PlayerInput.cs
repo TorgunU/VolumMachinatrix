@@ -1,10 +1,14 @@
 using System;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 
 public abstract class PlayerInput : MonoBehaviour,
-    IMovementDirection, IMovementStateEvents, IAttackEvents, IAimingEvents, IReloadInputEvent
+    IMovementDirection, IMovementStateEvents, 
+    IAttackEvents, IAimingEvents, IReloadInputEvent,
+    IInteractionEvent, IItemInteractionEvents,
+    IInventoryManipulationEvents
 {
     protected InputActions InputActions;
     protected Vector2 MovemenDirection;
@@ -15,6 +19,13 @@ public abstract class PlayerInput : MonoBehaviour,
     public abstract event Action<Vector2> MovementDirectionUpdated;
     public abstract event Action<bool> AimHolded;
     public abstract event Action ReloadPressed;
+    public abstract event Action Interacted;
+    public abstract event Action PickupPressed;
+    public abstract event Action UsePressed;
+    public abstract event Action SwitchPressed;
+    public abstract event Action InventoryItemSelected;
+    public abstract event Action InventoryItemUnselected;
+
     //public abstract event Action<Vector2> LookDirectionUpdated;
 
     protected virtual void Awake()
@@ -46,6 +57,19 @@ public abstract class PlayerInput : MonoBehaviour,
         RaiseWalkState(walkContext);
         InputActions.KeyboardMouse.Walk.canceled += walkContext => 
         RaiseWalkState(walkContext);
+
+        InputActions.KeyboardMouse.PickupItem.performed += pickupItemContext =>
+        RaisePickupPressed(pickupItemContext);
+        InputActions.KeyboardMouse.UseItem.performed += useItemContext =>
+        RaiseUsePressed(useItemContext);
+        InputActions.KeyboardMouse.SwitchItem.performed += switchItemContext =>
+        RaiseSwitchPressed(switchItemContext);
+
+        InputActions.KeyboardMouse.Interaction.performed += interactionContext =>
+        RaiseInteractionPressed(interactionContext);
+
+        InputActions.KeyboardMouse.FirstItemSlot.performed += firstItemSlotContext =>
+        RaiseItemSelected(firstItemSlotContext);
     }
 
     protected virtual void OnEnable()
@@ -64,4 +88,10 @@ public abstract class PlayerInput : MonoBehaviour,
     protected abstract void RaiseRunState(InputAction.CallbackContext runContext);
     protected abstract void RaiseWalkState(InputAction.CallbackContext walkContext);
     protected abstract void RaiseReloadPressed(InputAction.CallbackContext walkContext);
+    protected abstract void RaiseInteractionPressed(InputAction.CallbackContext interactionContext);
+    protected abstract void RaisePickupPressed(InputAction.CallbackContext pickupContext);
+    protected abstract void RaiseUsePressed(InputAction.CallbackContext useContext);
+    protected abstract void RaiseSwitchPressed(InputAction.CallbackContext switchContext);
+    protected abstract void RaiseItemSelected(InputAction.CallbackContext selectContext);
+    protected abstract void RaiseItemUnselected(InputAction.CallbackContext unselectContext);
 }

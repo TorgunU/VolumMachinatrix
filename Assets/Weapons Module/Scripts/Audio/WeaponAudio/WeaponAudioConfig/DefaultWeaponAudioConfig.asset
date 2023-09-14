@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac121a890594941459cfa21f56e9d834, type: 3}
   m_Name: DefaultWeaponAudioConfig
   m_EditorClassIdentifier: 
-  _weaponAttackAudio: {fileID: 4276837755914228602, guid: c2bda9700dc44254382b3a3983e7ce8f, type: 3}
+  _attackAudio: {fileID: 4276837755914228602, guid: c2bda9700dc44254382b3a3983e7ce8f, type: 3}
+  _audioSource: {fileID: 2511671024564850771, guid: c2bda9700dc44254382b3a3983e7ce8f, type: 3}
