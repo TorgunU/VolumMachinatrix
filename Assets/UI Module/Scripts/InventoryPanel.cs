@@ -7,8 +7,8 @@ public class InventoryPanel : MonoBehaviour
 {
     [SerializeField] private ItemViewer _firstItemViewer;
 
-    public void OnInventoryChanged()
+    public void OnFirstItemsSlotChanged(Sprite itemSprite, int itemsCount)
     {
-
+        _firstItemViewer.UpdateViewer(itemSprite, itemsCount);
     }
 }

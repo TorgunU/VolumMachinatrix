@@ -21,5 +21,5 @@ public enum ItemType
 {
     Weapon,
     Ammo,
-    Stimulator
+    Useable
 }

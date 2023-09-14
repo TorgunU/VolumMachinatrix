@@ -1,27 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemViewer : MonoBehaviour
 {
     [SerializeField] protected Image Image;
-    [SerializeField] protected int ItemCount;
+    [SerializeField] protected TMP_Text TextItemsCount;
 
     protected virtual void Awake()
     {
         Image = GetComponent<Image>();
     }
 
-    public void Init(Sprite sprite, int itemCount)
+    public void UpdateViewer(Sprite sprite, int itemCount)
     {
         Image.sprite = sprite;
-        ItemCount = itemCount;
-    }
-
-    public void IncreaseItemCount()
-    {
-        ItemCount++;
+        TextItemsCount.text = itemCount.ToString();
     }
 
     public void ClearSprite()

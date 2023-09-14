@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
         _interaction.OnTryingAddedItem += _inventory.TryAddItem;
 
         //_inventoryManipulationEvents.InventoryItemSelected += _inve
-
+        _inventory.OnAdded += _inventoryPanel.OnFirstItemsSlotChanged;
     }
 
     private void OnDisable()
@@ -87,5 +87,7 @@ public class Player : MonoBehaviour
 
         _interaction.OnItemSelected -= _itemInteractionDisplay.OnSelected;
         _interaction.OnItemDeselected -= _itemInteractionDisplay.OnDeselected;
+
+        _inventory.OnAdded -= _inventoryPanel.OnFirstItemsSlotChanged;
     }
 }
