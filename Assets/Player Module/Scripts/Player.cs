@@ -3,8 +3,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private ItemInteractionDisplay _itemInteractionDisplay;
+    [SerializeField] private InventoryPanel _inventoryPanel;
+
     [SerializeField] private PlayerAttack _attack;
     [SerializeField] private PlayerRangeAiming _playerRangeAiming;
+    [SerializeField] private PlayerInventory _inventory;
 
     private IMovementDirection _movementsInput;
     private IMovementStateEvents _movementStateEvents;
@@ -13,6 +17,7 @@ public class Player : MonoBehaviour
     private IReloadInputEvent _reloadInput;
     private IInteractionEvent _interactionEvent;
     private IItemInteractionEvents _itemInteractionEvents;
+    private IInventoryManipulationEvents _inventoryManipulationEvents;
     private Rigidbody2D _rigidbody2D;
     private PlayerMovement _movement;
     private Weapon _weapon;
@@ -29,6 +34,7 @@ public class Player : MonoBehaviour
         _movementStateEvents = GetComponent<PlayerInput>();
         _interactionEvent = GetComponent<PlayerInput>();
         _itemInteractionEvents = GetComponent<PlayerInput>();
+        _inventoryManipulationEvents = GetComponent<PlayerInput>();
 
         _movement = GetComponentInChildren<PlayerMovement>();
         _weapon = GetComponentInChildren<Weapon>();
@@ -62,13 +68,24 @@ public class Player : MonoBehaviour
         _itemInteractionEvents.PickupPressed += _interaction.TakeItem;
         _itemInteractionEvents.SwitchPressed += _interaction.SwitchItem;
         //_interactionEvent.Interacted += _interaction.TryPickupItem;
+
+        _interaction.OnItemSelected += _itemInteractionDisplay.OnSelected;
+        _interaction.OnItemDeselected += _itemInteractionDisplay.OnDeselected;
+        _interaction.OnTryingAddedItem += _inventory.TryAddItem;
+
+        //_inventoryManipulationEvents.InventoryItemSelected += _inve
+
     }
 
     private void OnDisable()
     {
         _attacksInput.AttackPressed -= _attack.Attack;
         _reloadInput.ReloadPressed -= _attack.Reload;
+
         _itemInteractionEvents.PickupPressed -= _interaction.TakeItem;
         _itemInteractionEvents.SwitchPressed -= _interaction.SwitchItem;
+
+        _interaction.OnItemSelected -= _itemInteractionDisplay.OnSelected;
+        _interaction.OnItemDeselected -= _itemInteractionDisplay.OnDeselected;
     }
 }

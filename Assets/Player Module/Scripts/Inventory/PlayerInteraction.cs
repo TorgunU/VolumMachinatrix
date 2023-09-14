@@ -5,11 +5,9 @@ using UnityEngine;
 
 public class PlayerInteraction : ItemInteraction, IItemSwitchable
 {
-    [SerializeField] private PlayerInventory _inventory;
-    [SerializeField] private List<Item> _itemsInRange;
-
     [SerializeField] private int _currentItemIndex;
 
+    private List<Item> _itemsInRange;
 
     protected override void Awake()
     {
@@ -18,7 +16,7 @@ public class PlayerInteraction : ItemInteraction, IItemSwitchable
 
         PickupRange = 5;
 
-        _currentItemIndex = -1;
+        _currentItemIndex = 0;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -29,21 +27,29 @@ public class PlayerInteraction : ItemInteraction, IItemSwitchable
 
             _itemsInRange.Add(item);
 
-            if (_currentItemIndex == -1)
+            if (_itemsInRange.Count == 1)
             {
-                _currentItemIndex = 0;
+                OnItemSelected?.Invoke(_itemsInRange[0]);
             }
         }
-
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Item item))
         {
-            if( _itemsInRange.Contains(item))
+            if (_itemsInRange.Contains(item))
             {
                 Debug.Log($"{item.gameObject.name} exit");
+
+                if (_itemsInRange[0] == item && IsOtherItemsInRange())
+                {
+                    SwitchItem();
+                }
+                else
+                {
+                    OnItemDeselected?.Invoke();
+                }
 
                 _itemsInRange.Remove(item);
             }
@@ -52,24 +58,23 @@ public class PlayerInteraction : ItemInteraction, IItemSwitchable
 
     public override void TakeItem()
     {
-        if (_itemsInRange.Count == 0)
+        if(_itemsInRange.Count == 0)
         {
-            // play audio "there aren't objects nearby"
-
-            ResetCurrentItemIndex();
-
-            Debug.Log("Item wasn't picked up");
-
             return;
         }
-        else if(_itemsInRange[_currentItemIndex] == null)
+        else if (_itemsInRange[_currentItemIndex] == null)
         {
-            Debug.LogError($"{_itemsInRange[_currentItemIndex].gameObject.name} is null");
+            return;
         }
 
         Item currentItem = _itemsInRange[_currentItemIndex];
 
-        _inventory.AddItem(currentItem);
+        if(OnTryingAddedItem?.Invoke(currentItem) == false)
+        {
+            return;
+        }
+
+        OnItemDeselected?.Invoke();
 
         currentItem.Pickup();
 
@@ -78,29 +83,33 @@ public class PlayerInteraction : ItemInteraction, IItemSwitchable
 
     public void SwitchItem()
     {
-        if(_itemsInRange.Count == 0)
+        if(IsOtherItemsInRange() == false)
         {
-            Debug.Log("No nearby items");
-
-            ResetCurrentItemIndex();
-
             return;
         }
 
-        if(_currentItemIndex == -1)
-        {
-            _currentItemIndex = 0;
-        }
-        else
-        {
-            _currentItemIndex = (_currentItemIndex + 1) % _itemsInRange.Count;
-        }
+        OnItemDeselected?.Invoke();
+
+        _currentItemIndex = (_currentItemIndex + 1) % _itemsInRange.Count;
+
+        OnItemSelected?.Invoke(_itemsInRange[_currentItemIndex]);
 
         Debug.Log("Switched to item: " + _itemsInRange[_currentItemIndex].name);
     }
 
-    private void ResetCurrentItemIndex()
+    private bool IsOtherItemsInRange()
     {
-        _currentItemIndex = -1;
+        if (_itemsInRange.Count <= 1)
+        {
+            _currentItemIndex = 0;
+            Debug.Log("No nearby items");
+            return false;
+        }
+
+        return true;
     }
+
+    public event Func<Item, bool> OnTryingAddedItem;
+    public event Action<Item> OnItemSelected;
+    public event Action OnItemDeselected;
 }

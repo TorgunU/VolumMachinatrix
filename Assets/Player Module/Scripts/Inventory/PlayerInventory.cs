@@ -2,19 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class PlayerInventory : Inventory
 {
     protected override void Awake()
     {
-        _maxItems = 4;
-    }
+        _maxItems = 2;
 
-    public override void AddItem(Item item)
-    {
-        base.AddItem(item);
-
-        //OnAdded?.Invoke();
+        _items = new List<Item>(_maxItems);
     }
 
     public override void RemoveItem(int itemIndex)

@@ -18,7 +18,8 @@ public sealed class KeyboardMouseInput : PlayerInput
     public override event Action PickupPressed;
     public override event Action UsePressed;
     public override event Action SwitchPressed;
-    //public override event Action<Vector2> LookDirectionUpdated;
+    public override event Action InventoryItemSelected;
+    public override event Action InventoryItemUnselected;
 
     protected override void RaiseMovementDirection(InputAction.CallbackContext movementContext)
     {
@@ -93,5 +94,17 @@ public sealed class KeyboardMouseInput : PlayerInput
         {
             SwitchPressed?.Invoke();
         }
+    }
+
+    protected override void RaiseItemSelected(InputAction.CallbackContext selectContext)
+    {
+        if(selectContext.performed)
+        {
+            InventoryItemSelected?.Invoke();
+        }
+    }
+    protected override void RaiseItemUnselected(InputAction.CallbackContext unselectContext)
+    {
+        //
     }
 }

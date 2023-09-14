@@ -5,27 +5,32 @@ using UnityEngine;
 
 public abstract class Inventory : MonoBehaviour
 {
+    [SerializeField] protected List<Item> _items;
+
     [SerializeField] private Item _firstWeapon;
     [SerializeField] private Item _secondWeapon;
-    [SerializeField] private List<Item> _items;
 
     protected int _maxItems;
 
     protected abstract void Awake();
 
-    public virtual void AddItem(Item item)
+    public virtual bool TryAddItem(Item item)
     {
-        if(_items.Count > 2)
+        if (_items.Count == _maxItems)
         {
-            return;
+            Debug.Log($"Can't add more items in player inventory. " +
+                $"Current: {_items.Count}/MaxItems: {_maxItems}");
+
+            return false;
         }
 
         _items.Add(item);
+        return true;
     }
 
     public virtual void RemoveItem(int itemIndex)
     {
-        if(itemIndex >  _items.Count)
+        if(itemIndex > _items.Count)
         {
             Debug.Log("Item increase items count");
             return;
