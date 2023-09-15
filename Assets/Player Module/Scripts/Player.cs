@@ -44,6 +44,37 @@ public class Player : MonoBehaviour
         _attack = new PlayerAttack(_weapon);
     }
 
+    private void OnEnable()
+    {
+        _attacksInput.AttackPressed += _attack.Attack;
+        _reloadInput.ReloadPressed += _attack.Reload;
+        _itemInteractionEvents.PickupPressed += _interaction.TakeItem;
+        _itemInteractionEvents.DropPressed += _interaction.DropItemFromInventory;
+        _itemInteractionEvents.SwitchPressed += _interaction.SwitchItem;
+
+        _interaction.OnItemInRangeSelected += _itemInteractionDisplay.OnSelected;
+        _interaction.OnItemInRangeDeselected += _itemInteractionDisplay.OnDeselected;
+        _interaction.OnTryingAddedItemInRange += _inventory.TryAddItem;
+        _interaction.OnTryingRemoveItemFromInventory += _inventory.RemoveItem;
+
+        _inventoryManipulationEvents.FirstSlotItemsPressed += _inventory.OnFirstItemSlotPressed;
+    }
+
+    private void OnDisable()
+    {
+        _attacksInput.AttackPressed -= _attack.Attack;
+        _reloadInput.ReloadPressed -= _attack.Reload;
+
+        _itemInteractionEvents.PickupPressed -= _interaction.TakeItem;
+        _itemInteractionEvents.DropPressed -= _interaction.DropItemFromInventory;
+        _itemInteractionEvents.SwitchPressed -= _interaction.SwitchItem;
+
+        _interaction.OnItemInRangeSelected -= _itemInteractionDisplay.OnSelected;
+        _interaction.OnItemInRangeDeselected -= _itemInteractionDisplay.OnDeselected;
+
+        _inventory.FirstSlotItems.OnAdded -= _inventoryPanel.OnFirstItemsSlotChanged;
+    }
+
     private void Start()
     {
         _movement.Init(
@@ -59,35 +90,8 @@ public class Player : MonoBehaviour
                 _movement.PlayerSpeed,
                 rangeWeapon.RangeWeaponConfig);
         }
-    }
 
-    private void OnEnable()
-    {
-        _attacksInput.AttackPressed += _attack.Attack;
-        _reloadInput.ReloadPressed += _attack.Reload;
-        _itemInteractionEvents.PickupPressed += _interaction.TakeItem;
-        _itemInteractionEvents.SwitchPressed += _interaction.SwitchItem;
-        //_interactionEvent.Interacted += _interaction.TryPickupItem;
-
-        _interaction.OnItemSelected += _itemInteractionDisplay.OnSelected;
-        _interaction.OnItemDeselected += _itemInteractionDisplay.OnDeselected;
-        _interaction.OnTryingAddedItem += _inventory.TryAddItem;
-
-        //_inventoryManipulationEvents.InventoryItemSelected += _inve
-        _inventory.OnAdded += _inventoryPanel.OnFirstItemsSlotChanged;
-    }
-
-    private void OnDisable()
-    {
-        _attacksInput.AttackPressed -= _attack.Attack;
-        _reloadInput.ReloadPressed -= _attack.Reload;
-
-        _itemInteractionEvents.PickupPressed -= _interaction.TakeItem;
-        _itemInteractionEvents.SwitchPressed -= _interaction.SwitchItem;
-
-        _interaction.OnItemSelected -= _itemInteractionDisplay.OnSelected;
-        _interaction.OnItemDeselected -= _itemInteractionDisplay.OnDeselected;
-
-        _inventory.OnAdded -= _inventoryPanel.OnFirstItemsSlotChanged;
+        _inventory.FirstSlotItems.OnAdded += _inventoryPanel.OnFirstItemsSlotChanged;
+        // OnRemove in inventory panel
     }
 }

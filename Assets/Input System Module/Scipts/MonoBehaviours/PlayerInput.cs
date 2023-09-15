@@ -23,8 +23,8 @@ public abstract class PlayerInput : MonoBehaviour,
     public abstract event Action PickupPressed;
     public abstract event Action UsePressed;
     public abstract event Action SwitchPressed;
-    public abstract event Action InventoryItemSelected;
-    public abstract event Action InventoryItemUnselected;
+    public abstract event Action FirstSlotItemsPressed;
+    public abstract event Action DropPressed;
 
     //public abstract event Action<Vector2> LookDirectionUpdated;
 
@@ -60,6 +60,8 @@ public abstract class PlayerInput : MonoBehaviour,
 
         InputActions.KeyboardMouse.PickupItem.performed += pickupItemContext =>
         RaisePickupPressed(pickupItemContext);
+        InputActions.KeyboardMouse.DropItem.performed += dropContext =>
+        RaiseDropPressed(dropContext);
         InputActions.KeyboardMouse.UseItem.performed += useItemContext =>
         RaiseUsePressed(useItemContext);
         InputActions.KeyboardMouse.SwitchItem.performed += switchItemContext =>
@@ -69,7 +71,7 @@ public abstract class PlayerInput : MonoBehaviour,
         RaiseInteractionPressed(interactionContext);
 
         InputActions.KeyboardMouse.FirstItemSlot.performed += firstItemSlotContext =>
-        RaiseItemSelected(firstItemSlotContext);
+        RaiseFirstItemSlotPressed(firstItemSlotContext);
     }
 
     protected virtual void OnEnable()
@@ -90,8 +92,8 @@ public abstract class PlayerInput : MonoBehaviour,
     protected abstract void RaiseReloadPressed(InputAction.CallbackContext walkContext);
     protected abstract void RaiseInteractionPressed(InputAction.CallbackContext interactionContext);
     protected abstract void RaisePickupPressed(InputAction.CallbackContext pickupContext);
+    protected abstract void RaiseDropPressed(InputAction.CallbackContext dropContext);
     protected abstract void RaiseUsePressed(InputAction.CallbackContext useContext);
     protected abstract void RaiseSwitchPressed(InputAction.CallbackContext switchContext);
-    protected abstract void RaiseItemSelected(InputAction.CallbackContext selectContext);
-    protected abstract void RaiseItemUnselected(InputAction.CallbackContext unselectContext);
+    protected abstract void RaiseFirstItemSlotPressed(InputAction.CallbackContext selectContext);
 }

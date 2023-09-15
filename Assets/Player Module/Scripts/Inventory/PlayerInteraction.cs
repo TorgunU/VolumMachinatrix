@@ -14,8 +14,6 @@ public class PlayerInteraction : ItemInteraction, IItemSwitchable
         //
         _itemsInRange = new List<Item>();
 
-        PickupRange = 5;
-
         _currentItemIndex = 0;
     }
 
@@ -23,13 +21,11 @@ public class PlayerInteraction : ItemInteraction, IItemSwitchable
     {
         if (collision.TryGetComponent(out Item item))
         {
-            Debug.Log("Item finded: " + item.gameObject.name);
-
             _itemsInRange.Add(item);
 
             if (_itemsInRange.Count == 1)
             {
-                OnItemSelected?.Invoke(_itemsInRange[0]);
+                OnItemInRangeSelected?.Invoke(_itemsInRange[0]);
             }
         }
     }
@@ -40,15 +36,13 @@ public class PlayerInteraction : ItemInteraction, IItemSwitchable
         {
             if (_itemsInRange.Contains(item))
             {
-                Debug.Log($"{item.gameObject.name} exit");
-
                 if (_itemsInRange[0] == item && IsOtherItemsInRange())
                 {
                     SwitchItem();
                 }
                 else
                 {
-                    OnItemDeselected?.Invoke();
+                    OnItemInRangeDeselected?.Invoke();
                 }
 
                 _itemsInRange.Remove(item);
@@ -69,16 +63,14 @@ public class PlayerInteraction : ItemInteraction, IItemSwitchable
 
         Item currentItem = _itemsInRange[_currentItemIndex];
 
-        if(OnTryingAddedItem?.Invoke(currentItem) == false)
+        if(OnTryingAddedItemInRange?.Invoke(currentItem) == false)
         {
             return;
         }
 
-        OnItemDeselected?.Invoke();
+        OnItemInRangeDeselected?.Invoke();
 
         currentItem.Pickup();
-
-        Debug.Log("Pickup item: " + currentItem.name);
     }
 
     public void SwitchItem()
@@ -88,13 +80,26 @@ public class PlayerInteraction : ItemInteraction, IItemSwitchable
             return;
         }
 
-        OnItemDeselected?.Invoke();
+        OnItemInRangeDeselected?.Invoke();
 
         _currentItemIndex = (_currentItemIndex + 1) % _itemsInRange.Count;
 
-        OnItemSelected?.Invoke(_itemsInRange[_currentItemIndex]);
+        OnItemInRangeSelected?.Invoke(_itemsInRange[_currentItemIndex]);
+    }
 
-        Debug.Log("Switched to item: " + _itemsInRange[_currentItemIndex].name);
+    public void DropItemFromInventory()
+    {
+        Item item = OnTryingRemoveItemFromInventory?.Invoke();
+
+        if (item == null)
+        {
+            return;
+        }
+
+        item.gameObject.gameObject.SetActive(true);
+        item.transform.position = transform.position;
+
+        //OnTriggerEnter2D(item.GetComponent<Collider2D>());
     }
 
     private bool IsOtherItemsInRange()
@@ -109,7 +114,8 @@ public class PlayerInteraction : ItemInteraction, IItemSwitchable
         return true;
     }
 
-    public event Func<Item, bool> OnTryingAddedItem;
-    public event Action<Item> OnItemSelected;
-    public event Action OnItemDeselected;
+    public event Func<Item, bool> OnTryingAddedItemInRange;
+    public event Func<Item> OnTryingRemoveItemFromInventory;
+    public event Action<Item> OnItemInRangeSelected;
+    public event Action OnItemInRangeDeselected;
 }

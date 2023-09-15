@@ -134,6 +134,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DropItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""d438c693-69e2-4b2f-ae6f-6f1d32832bc3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -312,6 +321,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""FirstItemSlot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bf1f78ae-3399-47da-b07b-127e604545ee"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""DropItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -349,6 +369,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_KeyboardMouse_SwitchItem = m_KeyboardMouse.FindAction("SwitchItem", throwIfNotFound: true);
         m_KeyboardMouse_UseItem = m_KeyboardMouse.FindAction("UseItem", throwIfNotFound: true);
         m_KeyboardMouse_FirstItemSlot = m_KeyboardMouse.FindAction("FirstItemSlot", throwIfNotFound: true);
+        m_KeyboardMouse_DropItem = m_KeyboardMouse.FindAction("DropItem", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -422,6 +443,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_KeyboardMouse_SwitchItem;
     private readonly InputAction m_KeyboardMouse_UseItem;
     private readonly InputAction m_KeyboardMouse_FirstItemSlot;
+    private readonly InputAction m_KeyboardMouse_DropItem;
     public struct KeyboardMouseActions
     {
         private @InputActions m_Wrapper;
@@ -438,6 +460,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @SwitchItem => m_Wrapper.m_KeyboardMouse_SwitchItem;
         public InputAction @UseItem => m_Wrapper.m_KeyboardMouse_UseItem;
         public InputAction @FirstItemSlot => m_Wrapper.m_KeyboardMouse_FirstItemSlot;
+        public InputAction @DropItem => m_Wrapper.m_KeyboardMouse_DropItem;
         public InputActionMap Get() { return m_Wrapper.m_KeyboardMouse; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -483,6 +506,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @FirstItemSlot.started += instance.OnFirstItemSlot;
             @FirstItemSlot.performed += instance.OnFirstItemSlot;
             @FirstItemSlot.canceled += instance.OnFirstItemSlot;
+            @DropItem.started += instance.OnDropItem;
+            @DropItem.performed += instance.OnDropItem;
+            @DropItem.canceled += instance.OnDropItem;
         }
 
         private void UnregisterCallbacks(IKeyboardMouseActions instance)
@@ -523,6 +549,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @FirstItemSlot.started -= instance.OnFirstItemSlot;
             @FirstItemSlot.performed -= instance.OnFirstItemSlot;
             @FirstItemSlot.canceled -= instance.OnFirstItemSlot;
+            @DropItem.started -= instance.OnDropItem;
+            @DropItem.performed -= instance.OnDropItem;
+            @DropItem.canceled -= instance.OnDropItem;
         }
 
         public void RemoveCallbacks(IKeyboardMouseActions instance)
@@ -563,5 +592,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnSwitchItem(InputAction.CallbackContext context);
         void OnUseItem(InputAction.CallbackContext context);
         void OnFirstItemSlot(InputAction.CallbackContext context);
+        void OnDropItem(InputAction.CallbackContext context);
     }
 }

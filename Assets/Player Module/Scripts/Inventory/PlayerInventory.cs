@@ -6,16 +6,27 @@ using UnityEngine;
 
 public class PlayerInventory : Inventory
 {
-    [SerializeField] protected List<Item> _secondItemsSlot;
     [SerializeField] private Item _secondWeapon;
 
-    protected int _secondItemsSlotCapacity;
+    private SlotItems _currentSlotItems;
+
+    bool isCurrentSlotSelected;
 
     protected override void Awake()
     {
-        _firstItemsSlotCapacity = 2;
+        SlotItemsCapacity = 2;
+        FirstSlotItems = new SlotItems(SlotItemsCapacity);
 
-        _firstItemsSlot = new List<Item>(_firstItemsSlotCapacity);
+        isCurrentSlotSelected = false;
+        _currentSlotItems = FirstSlotItems;
+    }
+
+    public void OnFirstItemSlotPressed()
+    {
+        _currentSlotItems = FirstSlotItems;
+        isCurrentSlotSelected = true;
+
+        // some selected panel effects
     }
 
     public override bool TryAddItem(Item item)
@@ -28,21 +39,14 @@ public class PlayerInventory : Inventory
 
             case ItemType.Ammo:
 
-                if (TryAddInFirstItemsSlot(item))
-                {
-                    return true;
-                }
-
                 break;
 
             case ItemType.Useable:
 
-                if(TryAddInFirstItemsSlot(item))
+                if (_currentSlotItems.TryAddItem(item))
                 {
                     return true;
                 }
-
-                // try add in second
 
                 break;
         }
@@ -50,39 +54,15 @@ public class PlayerInventory : Inventory
         return false;
     }
 
-    public override void RemoveItem(int itemIndex)
-    {
-        base.RemoveItem(itemIndex);
-
-        //OnRemoved?.Invoke(itemIndex);
-    }
-
-    protected override bool TryAddInFirstItemsSlot(Item item)
-    {
-        if (_firstItemsSlot.Count == _firstItemsSlotCapacity)
+    public override Item RemoveItem()
+    {        
+        if(_currentSlotItems.TryRemoveLastItem(out Item dropableItem) == false)
         {
-            return false;
+            // play effect can't get item
+
+            return null;
         }
 
-        _firstItemsSlot.Add(item);
-
-        OnAdded?.Invoke(item.GetComponent<SpriteRenderer>().sprite, _firstItemsSlot.Count);
-        // invoke event
-
-        return true;
+        return dropableItem;
     }
-
-    //public void SwitchItemSlot(List<Item> slotItems)
-    //{
-    //    Item currentItem = (_currentItemIndex + 1) % _itemsInRange.Count;
-    //}
-
-    public override int FirstItemsSlotCapacity 
-    { 
-        get => _firstItemsSlotCapacity; 
-        protected set => _firstItemsSlotCapacity = value; 
-    }
-
-    public event Action<Sprite, int> OnAdded;
-    //public event Action<int> OnRemoved;
 }

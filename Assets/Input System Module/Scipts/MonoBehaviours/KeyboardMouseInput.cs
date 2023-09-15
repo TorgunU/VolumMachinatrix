@@ -17,9 +17,9 @@ public sealed class KeyboardMouseInput : PlayerInput
     public override event Action Interacted;
     public override event Action PickupPressed;
     public override event Action UsePressed;
+    public override event Action DropPressed;
     public override event Action SwitchPressed;
-    public override event Action InventoryItemSelected;
-    public override event Action InventoryItemUnselected;
+    public override event Action FirstSlotItemsPressed;
 
     protected override void RaiseMovementDirection(InputAction.CallbackContext movementContext)
     {
@@ -81,6 +81,7 @@ public sealed class KeyboardMouseInput : PlayerInput
             PickupPressed?.Invoke();
         }
     }
+
     protected override void RaiseUsePressed(InputAction.CallbackContext useContext)
     {
         if (useContext.performed)
@@ -88,6 +89,15 @@ public sealed class KeyboardMouseInput : PlayerInput
             UsePressed?.Invoke();
         }
     }
+
+    protected override void RaiseDropPressed(InputAction.CallbackContext dropontext)
+    {
+        if (dropontext.performed)
+        {
+            DropPressed?.Invoke();
+        }
+    }
+
     protected override void RaiseSwitchPressed(InputAction.CallbackContext switchContext)
     {
         if (switchContext.performed)
@@ -96,15 +106,11 @@ public sealed class KeyboardMouseInput : PlayerInput
         }
     }
 
-    protected override void RaiseItemSelected(InputAction.CallbackContext selectContext)
+    protected override void RaiseFirstItemSlotPressed(InputAction.CallbackContext selectContext)
     {
         if(selectContext.performed)
         {
-            InventoryItemSelected?.Invoke();
+            FirstSlotItemsPressed?.Invoke();
         }
-    }
-    protected override void RaiseItemUnselected(InputAction.CallbackContext unselectContext)
-    {
-        //
     }
 }
