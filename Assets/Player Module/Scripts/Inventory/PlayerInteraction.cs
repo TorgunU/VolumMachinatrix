@@ -7,6 +7,7 @@ public class PlayerInteraction : ItemInteraction, IItemSwitchable
 {
     [SerializeField] private int _currentItemIndex;
 
+    private Item _selectedItem;
     private List<Item> _itemsInRange;
 
     protected override void Awake()
@@ -25,7 +26,9 @@ public class PlayerInteraction : ItemInteraction, IItemSwitchable
 
             if (_itemsInRange.Count == 1)
             {
-                OnItemInRangeSelected?.Invoke(_itemsInRange[0]);
+                _selectedItem = _itemsInRange[0];
+
+                OnItemInRangeSelected?.Invoke(_selectedItem);
             }
         }
     }
@@ -36,13 +39,14 @@ public class PlayerInteraction : ItemInteraction, IItemSwitchable
         {
             if (_itemsInRange.Contains(item))
             {
-                if (_itemsInRange[0] == item && IsOtherItemsInRange())
+                if (_selectedItem == item && IsOtherItemsInRange())
                 {
                     SwitchItem();
                 }
                 else
                 {
                     OnItemInRangeDeselected?.Invoke();
+                    ClearListInRange();
                 }
 
                 _itemsInRange.Remove(item);
@@ -56,12 +60,8 @@ public class PlayerInteraction : ItemInteraction, IItemSwitchable
         {
             return;
         }
-        else if (_itemsInRange[_currentItemIndex] == null)
-        {
-            return;
-        }
 
-        Item currentItem = _itemsInRange[_currentItemIndex];
+        Item currentItem = _selectedItem;
 
         if(OnTryingAddedItemInRange?.Invoke(currentItem) == false)
         {
@@ -77,14 +77,16 @@ public class PlayerInteraction : ItemInteraction, IItemSwitchable
     {
         if(IsOtherItemsInRange() == false)
         {
+            ClearListInRange();
             return;
         }
 
         OnItemInRangeDeselected?.Invoke();
 
         _currentItemIndex = (_currentItemIndex + 1) % _itemsInRange.Count;
+        _selectedItem = _itemsInRange[_currentItemIndex];
 
-        OnItemInRangeSelected?.Invoke(_itemsInRange[_currentItemIndex]);
+        OnItemInRangeSelected?.Invoke(_selectedItem);
     }
 
     public void DropItemFromInventory()
@@ -96,22 +98,30 @@ public class PlayerInteraction : ItemInteraction, IItemSwitchable
             return;
         }
 
-        item.gameObject.gameObject.SetActive(true);
-        item.transform.position = transform.position;
+        item.transform.position = new Vector3(
+            transform.position.x,
+            transform.position.y,
+            item.transform.position.z);
 
-        //OnTriggerEnter2D(item.GetComponent<Collider2D>());
+        item.gameObject.gameObject.SetActive(true);
     }
 
     private bool IsOtherItemsInRange()
     {
         if (_itemsInRange.Count <= 1)
         {
-            _currentItemIndex = 0;
             Debug.Log("No nearby items");
             return false;
         }
 
         return true;
+    }
+
+    private void ClearListInRange()
+    {
+        //_itemsInRange.Clear();
+        _currentItemIndex = 0;
+        _selectedItem = null;
     }
 
     public event Func<Item, bool> OnTryingAddedItemInRange;

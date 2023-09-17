@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 [Serializable]
@@ -15,31 +16,48 @@ public class SlotItems
 
     public bool TryAddItem(Item item)
     {
-        if (ItemsSlot.Count == ItemsSlot.Capacity)
+        if(IsSlotReachedMax())
         {
+            Debug.Log($"Item slot's has reached max!");
             return false;
         }
 
         ItemsSlot.Add(item);
 
-        OnAdded?.Invoke(item.GetComponent<SpriteRenderer>().sprite, ItemsSlot.Count);
-        // invoke event
+        if (ItemsSlot.Count == 1)
+        {
+            OnAdded?.Invoke(item.GetComponent<SpriteRenderer>().sprite, ItemsSlot.Count);
+        }
+        else
+        {
+            OnUpdated?.Invoke(ItemsSlot.Count);
+        }
 
         return true;
     }
 
     public virtual bool TryRemoveLastItem(out Item droppableItem)
     {
-        if (ItemsSlot.Count == 0)
+        if (IsSlotEmpty())
         {
-            Debug.Log("Slot items is empty!");
+            Debug.Log($"Item slot's empty!");
 
             droppableItem = null;
             return false;
         }
 
         droppableItem = ItemsSlot[ItemsSlot.Count - 1];
+
         ItemsSlot.RemoveAt(ItemsSlot.Count - 1);
+
+        if (ItemsSlot.Count > 0)
+        {
+            OnUpdated?.Invoke(ItemsSlot.Count);
+        }
+        else
+        {
+            OnEmpty?.Invoke();
+        }
 
         return true;
     }
@@ -56,5 +74,17 @@ public class SlotItems
         return true;
     }
 
+    private bool IsSlotReachedMax()
+    {
+        return ItemsSlot.Count == ItemsSlot.Capacity;
+    }
+
+    private bool IsSlotEmpty()
+    {
+        return ItemsSlot.Count == 0;
+    }
+
     public event Action<Sprite, int> OnAdded;
+    public event Action<int> OnUpdated;
+    public event Action OnEmpty;
 }

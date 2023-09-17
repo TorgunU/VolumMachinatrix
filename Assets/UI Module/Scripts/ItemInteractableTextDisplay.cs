@@ -28,15 +28,9 @@ public class ItemInteractableTextDisplay : MonoBehaviour
 
     private void ChangePosition(Transform itemTransform)
     {
-        _pickupText.rectTransform.position = itemTransform.position + new Vector3(_distantBetweenTexts, 0, 0);
-        _useText.rectTransform.position = itemTransform.position + new Vector3(-_distantBetweenTexts, 0, 0);
-
-        //Vector3 screenPosition = Camera.main.WorldToScreenPoint(itemTransform.position);
-
-        //Vector3 pickupTextPosition = screenPosition + new Vector3(_distantBetweenTexts,0,0);
-        //Vector3 useTextPosition = screenPosition + new Vector3(-_distantBetweenTexts, 0, 0);
-
-        //_pickupText.rectTransform.position = Camera.main.ScreenToWorldPoint(pickupTextPosition);
-        //_useText.rectTransform.position = Camera.main.ScreenToWorldPoint(useTextPosition);
+        _pickupText.rectTransform.position = itemTransform.position 
+            + new Vector3(_distantBetweenTexts, 0, 0);
+        _useText.rectTransform.position = itemTransform.position 
+            + new Vector3(-_distantBetweenTexts, 0, 0);
     }
 }

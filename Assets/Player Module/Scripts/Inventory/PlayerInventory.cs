@@ -23,14 +23,29 @@ public class PlayerInventory : Inventory
 
     public void OnFirstItemSlotPressed()
     {
+        isCurrentSlotSelected = !isCurrentSlotSelected;
+
+        if (isCurrentSlotSelected == false)
+        {
+            // fade in slot panel
+            _currentSlotItems = null;
+            return;
+        }
+
         _currentSlotItems = FirstSlotItems;
-        isCurrentSlotSelected = true;
 
         // some selected panel effects
     }
 
     public override bool TryAddItem(Item item)
     {
+        if (isCurrentSlotSelected == false)
+        {
+            // fade in slot panel
+
+            return false;
+        }
+
         switch (item.ItemType)
         {
             case ItemType.Weapon:
@@ -55,8 +70,15 @@ public class PlayerInventory : Inventory
     }
 
     public override Item RemoveItem()
-    {        
-        if(_currentSlotItems.TryRemoveLastItem(out Item dropableItem) == false)
+    {
+        if (isCurrentSlotSelected == false)
+        {
+            // fade in slot panel
+
+            return null;
+        }
+
+        if (_currentSlotItems.TryRemoveLastItem(out Item dropableItem) == false)
         {
             // play effect can't get item
 

@@ -72,7 +72,9 @@ public class Player : MonoBehaviour
         _interaction.OnItemInRangeSelected -= _itemInteractionDisplay.OnSelected;
         _interaction.OnItemInRangeDeselected -= _itemInteractionDisplay.OnDeselected;
 
-        _inventory.FirstSlotItems.OnAdded -= _inventoryPanel.OnFirstItemsSlotChanged;
+        _inventory.FirstSlotItems.OnAdded -= _inventoryPanel.OnFirstSlotSetted;
+        _inventory.FirstSlotItems.OnUpdated -= _inventoryPanel.OnFirstSlotUpdated;
+        _inventory.FirstSlotItems.OnEmpty -= _inventoryPanel.OnFirstSlotResseted;
     }
 
     private void Start()
@@ -91,7 +93,10 @@ public class Player : MonoBehaviour
                 rangeWeapon.RangeWeaponConfig);
         }
 
-        _inventory.FirstSlotItems.OnAdded += _inventoryPanel.OnFirstItemsSlotChanged;
+        _inventory.FirstSlotItems.OnAdded += _inventoryPanel.OnFirstSlotSetted;
+        _inventory.FirstSlotItems.OnUpdated += _inventoryPanel.OnFirstSlotUpdated;
+        _inventory.FirstSlotItems.OnEmpty += _inventoryPanel.OnFirstSlotResseted;
+
         // OnRemove in inventory panel
     }
 }
