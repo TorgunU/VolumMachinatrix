@@ -1,13 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using TMPro;
 
 public class ItemViewer : MonoBehaviour
 {
     [SerializeField] protected Image Image;
     [SerializeField] protected TMP_Text TextCount;
+
+    [SerializeField] private float _duration = 5.0f; // Время, за которое должен измениться цвет.
+
+    [SerializeField] private float _elapsedTime = 0.0f; // Прошедшее время.
 
     protected virtual void Awake()
     {
@@ -17,6 +20,7 @@ public class ItemViewer : MonoBehaviour
     public void SetViewer(Sprite sprite, int itemCount)
     {
         Image.sprite = sprite;
+
         TextCount.text = itemCount.ToString();
     }
 
@@ -27,9 +31,14 @@ public class ItemViewer : MonoBehaviour
 
     public void ResetViewer()
     {
+        Image.color = new Color(
+            Image.color.r,
+            Image.color.g,
+            Image.color.b,
+            0);
         Image.sprite = null;
-        //Image.color = new Color(0,0,0,0);
 
         TextCount.text = string.Empty;
     }
+
 }

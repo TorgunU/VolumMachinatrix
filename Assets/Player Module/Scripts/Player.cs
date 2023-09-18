@@ -58,6 +58,10 @@ public class Player : MonoBehaviour
         _interaction.OnTryingRemoveItemFromInventory += _inventory.RemoveItem;
 
         _inventoryManipulationEvents.FirstSlotItemsPressed += _inventory.OnFirstItemSlotPressed;
+
+        _inventory.FirstSlotItems.OnAdded += _inventoryPanel.OnFirstSlotSetted;
+        _inventory.FirstSlotItems.OnUpdated += _inventoryPanel.OnFirstSlotUpdated;
+        _inventory.FirstSlotItems.OnEmpty += _inventoryPanel.OnFirstSlotResseted;
     }
 
     private void OnDisable()
