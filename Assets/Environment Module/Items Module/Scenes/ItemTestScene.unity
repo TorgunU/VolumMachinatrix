@@ -1172,8 +1172,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _firstItemViewer: {fileID: 1218089575}
   _displayTime: 5
-  _inventoryColor: {fileID: 668216298}
-  _duration: 5
+  _inventoryImage: {fileID: 668216298}
+  _waitingActionTime: 3
+  _fadeInDuration: 5
   _elapsedTime: 0
 --- !u!1 &668216296
 GameObject:

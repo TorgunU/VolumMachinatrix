@@ -9,25 +9,23 @@ public class PlayerInventory : Inventory
     [SerializeField] private Item _secondWeapon;
 
     private SlotItems _currentSlotItems;
-
-    bool isCurrentSlotSelected;
+    private bool _isCurrentSlotSelected;
 
     protected override void Awake()
     {
         SlotItemsCapacity = 2;
         FirstSlotItems = new SlotItems(SlotItemsCapacity);
 
-        isCurrentSlotSelected = false;
+        _isCurrentSlotSelected = false;
         _currentSlotItems = FirstSlotItems;
     }
 
     public void OnFirstItemSlotPressed()
     {
-        isCurrentSlotSelected = !isCurrentSlotSelected;
+        SetCurrentSlotFlag();
 
-        if (isCurrentSlotSelected == false)
-        {
-            // fade in slot panel
+        if (_isCurrentSlotSelected == false)
+        {            
             _currentSlotItems = null;
             return;
         }
@@ -39,7 +37,7 @@ public class PlayerInventory : Inventory
 
     public override bool TryAddItem(Item item)
     {
-        if (isCurrentSlotSelected == false)
+        if (_isCurrentSlotSelected == false)
         {
             // fade in slot panel
 
@@ -71,7 +69,7 @@ public class PlayerInventory : Inventory
 
     public override Item RemoveItem()
     {
-        if (isCurrentSlotSelected == false)
+        if (_isCurrentSlotSelected == false)
         {
             // fade in slot panel
 
@@ -87,4 +85,18 @@ public class PlayerInventory : Inventory
 
         return dropableItem;
     }
+
+    public void OnFadedInventoryPanel()
+    {
+        _isCurrentSlotSelected = false;
+    }
+
+    private void SetCurrentSlotFlag()
+    {
+        _isCurrentSlotSelected = !_isCurrentSlotSelected;
+
+        InventoryManipulated?.Invoke();
+    }
+
+    public event Action InventoryManipulated;
 }

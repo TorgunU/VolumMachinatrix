@@ -59,9 +59,9 @@ public class Player : MonoBehaviour
 
         _inventoryManipulationEvents.FirstSlotItemsPressed += _inventory.OnFirstItemSlotPressed;
 
-        _inventory.FirstSlotItems.OnAdded += _inventoryPanel.OnFirstSlotSetted;
-        _inventory.FirstSlotItems.OnUpdated += _inventoryPanel.OnFirstSlotUpdated;
-        _inventory.FirstSlotItems.OnEmpty += _inventoryPanel.OnFirstSlotResseted;
+        //_inventory.FirstSlotItems.OnAdded += _inventoryPanel.OnFirstSlotSetted;
+        //_inventory.FirstSlotItems.OnUpdated += _inventoryPanel.OnFirstSlotUpdated;
+        //_inventory.FirstSlotItems.OnEmpty += _inventoryPanel.OnFirstSlotResseted;
     }
 
     private void OnDisable()
@@ -76,9 +76,12 @@ public class Player : MonoBehaviour
         _interaction.OnItemInRangeSelected -= _itemInteractionDisplay.OnSelected;
         _interaction.OnItemInRangeDeselected -= _itemInteractionDisplay.OnDeselected;
 
+        _inventory.InventoryManipulated -= _inventoryPanel.OnInventoryPressed;
         _inventory.FirstSlotItems.OnAdded -= _inventoryPanel.OnFirstSlotSetted;
         _inventory.FirstSlotItems.OnUpdated -= _inventoryPanel.OnFirstSlotUpdated;
         _inventory.FirstSlotItems.OnEmpty -= _inventoryPanel.OnFirstSlotResseted;
+
+        _inventoryPanel.PanelFadedIn -= _inventory.OnFadedInventoryPanel;
     }
 
     private void Start()
@@ -97,9 +100,12 @@ public class Player : MonoBehaviour
                 rangeWeapon.RangeWeaponConfig);
         }
 
+        _inventory.InventoryManipulated += _inventoryPanel.OnInventoryPressed;
         _inventory.FirstSlotItems.OnAdded += _inventoryPanel.OnFirstSlotSetted;
         _inventory.FirstSlotItems.OnUpdated += _inventoryPanel.OnFirstSlotUpdated;
         _inventory.FirstSlotItems.OnEmpty += _inventoryPanel.OnFirstSlotResseted;
+
+        _inventoryPanel.PanelFadedIn += _inventory.OnFadedInventoryPanel;
 
         // OnRemove in inventory panel
     }
