@@ -20,6 +20,7 @@ public sealed class KeyboardMouseInput : PlayerInput
     public override event Action DropPressed;
     public override event Action SwitchPressed;
     public override event Action FirstSlotItemsPressed;
+    public override event Action FirstWeaponSlotPressed;
 
     protected override void RaiseMovementDirection(InputAction.CallbackContext movementContext)
     {
@@ -111,6 +112,14 @@ public sealed class KeyboardMouseInput : PlayerInput
         if(selectContext.performed)
         {
             FirstSlotItemsPressed?.Invoke();
+        }
+    }
+
+    protected override void RaiseFirstWeaponSlotPressed(InputAction.CallbackContext selectContext)
+    {
+        if(selectContext.performed)
+        {
+            FirstWeaponSlotPressed?.Invoke();
         }
     }
 }

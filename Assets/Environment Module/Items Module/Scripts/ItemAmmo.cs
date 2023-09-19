@@ -9,8 +9,8 @@ public class ItemAmmo : Item
         gameObject.SetActive(false);
     }
 
-    public override void Use()
+    public void LoadInSelectedWeapon()
     {
-        //
+
     }
 }

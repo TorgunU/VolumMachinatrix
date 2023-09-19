@@ -7,11 +7,11 @@ using UnityEngine;
 [Serializable]
 public class SlotItems
 {
-    [SerializeField] protected List<Item> ItemsSlot;
+    [SerializeField] protected List<Item> Items;
 
     public SlotItems(int slotCapacity)
     {
-        ItemsSlot = new List<Item>(slotCapacity);
+        Items = new List<Item>(slotCapacity);
     }
 
     public bool TryAddItem(Item item)
@@ -22,15 +22,15 @@ public class SlotItems
             return false;
         }
 
-        ItemsSlot.Add(item);
+        Items.Add(item);
 
-        if (ItemsSlot.Count == 1)
+        if (Items.Count == 1)
         {
-            OnAdded?.Invoke(item.GetComponent<SpriteRenderer>().sprite, ItemsSlot.Count);
+            OnAdded?.Invoke(item.Sprite, Items.Count);
         }
         else
         {
-            OnUpdated?.Invoke(ItemsSlot.Count);
+            OnUpdated?.Invoke(Items.Count);
         }
 
         return true;
@@ -46,13 +46,13 @@ public class SlotItems
             return false;
         }
 
-        droppableItem = ItemsSlot[ItemsSlot.Count - 1];
+        droppableItem = Items[Items.Count - 1];
 
-        ItemsSlot.RemoveAt(ItemsSlot.Count - 1);
+        Items.RemoveAt(Items.Count - 1);
 
-        if (ItemsSlot.Count > 0)
+        if (Items.Count > 0)
         {
-            OnUpdated?.Invoke(ItemsSlot.Count);
+            OnUpdated?.Invoke(Items.Count);
         }
         else
         {
@@ -64,24 +64,24 @@ public class SlotItems
 
     public bool TryGetItem(int itemIndex, out Item item)
     {
-        if (itemIndex > ItemsSlot.Count)
+        if (itemIndex > Items.Count)
         {
             item = null;
             return false;
         }
 
-        item = ItemsSlot[itemIndex];
+        item = Items[itemIndex];
         return true;
     }
 
     private bool IsSlotReachedMax()
     {
-        return ItemsSlot.Count == ItemsSlot.Capacity;
+        return Items.Count == Items.Capacity;
     }
 
     private bool IsSlotEmpty()
     {
-        return ItemsSlot.Count == 0;
+        return Items.Count == 0;
     }
 
     public event Action<Sprite, int> OnAdded;

@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemWeapon : MonoBehaviour
+public class ItemWeapon : Item
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //
 
-    // Update is called once per frame
-    void Update()
+    public override void Pickup()
     {
-        
+        // some events to take in ammo bar and change player weapon
+        gameObject.SetActive(false);
     }
 }

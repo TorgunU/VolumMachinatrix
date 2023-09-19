@@ -1,67 +1,81 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInventory : Inventory
 {
-    [SerializeField] private Item _secondWeapon;
+    [SerializeField] private bool _isItemSlotSelected;
+    [SerializeField] private bool _isWeaponSlotSelected;
 
+    private SlotWeapon _currentWeapon;
     private SlotItems _currentSlotItems;
-    private bool _isCurrentSlotSelected;
 
     protected override void Awake()
     {
         SlotItemsCapacity = 2;
         FirstSlotItems = new SlotItems(SlotItemsCapacity);
 
-        _isCurrentSlotSelected = false;
-        _currentSlotItems = FirstSlotItems;
+        _isItemSlotSelected = false;
+        _currentSlotItems = null;
+
+        FirstWeaponSlot = new SlotWeapon();
+        _currentWeapon = null;
+
+        _isWeaponSlotSelected = false;
     }
 
     public void OnFirstItemSlotPressed()
     {
-        SetCurrentSlotFlag();
+        SetSlotItemsFlag();
 
-        if (_isCurrentSlotSelected == false)
-        {            
+        if(IsItemSlotSelected() == false)
+        {
             _currentSlotItems = null;
             return;
         }
 
         _currentSlotItems = FirstSlotItems;
+    }
 
-        // some selected panel effects
+    public void OnFirstWeaponSlotPressed()
+    {
+        SetCurrentSlotWeaponFlag();
+
+        if(IsWeaponSelected() == false)
+        {
+            _currentWeapon = null;
+            return;
+        }
+
+        _currentWeapon = FirstWeaponSlot;
     }
 
     public override bool TryAddItem(Item item)
     {
-        if (_isCurrentSlotSelected == false)
-        {
-            // fade in slot panel
-
-            return false;
-        }
+        //if (_isCurrentItemSlotSelected == false)
+        //{
+        //    return false;
+        //}
 
         switch (item.ItemType)
         {
             case ItemType.Weapon:
 
-                break;
+                if (IsWeaponSelected() == false)
+                    return false;
+
+                return _currentWeapon.TryAddItem(item);
 
             case ItemType.Ammo:
 
+                //
                 break;
 
             case ItemType.Useable:
 
-                if (_currentSlotItems.TryAddItem(item))
-                {
-                    return true;
-                }
+                if (IsItemSlotSelected() == false)
+                    return false;
 
-                break;
+                return _currentSlotItems.TryAddItem(item);
         }
 
         return false;
@@ -69,10 +83,8 @@ public class PlayerInventory : Inventory
 
     public override Item RemoveItem()
     {
-        if (_isCurrentSlotSelected == false)
+        if (_isItemSlotSelected == false)
         {
-            // fade in slot panel
-
             return null;
         }
 
@@ -88,14 +100,41 @@ public class PlayerInventory : Inventory
 
     public void OnFadedInventoryPanel()
     {
-        _isCurrentSlotSelected = false;
+        _isItemSlotSelected = false;
     }
 
-    private void SetCurrentSlotFlag()
+    private void SetSlotItemsFlag()
     {
-        _isCurrentSlotSelected = !_isCurrentSlotSelected;
+        _isItemSlotSelected = !_isItemSlotSelected;
 
         InventoryManipulated?.Invoke();
+    }
+
+    private bool IsItemSlotSelected()
+    {
+        if (_isItemSlotSelected)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void SetCurrentSlotWeaponFlag()
+    {
+        _isWeaponSlotSelected = !_isWeaponSlotSelected;
+
+        InventoryManipulated?.Invoke();
+    }
+
+    private bool IsWeaponSelected()
+    {
+        if (_isWeaponSlotSelected)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public event Action InventoryManipulated;

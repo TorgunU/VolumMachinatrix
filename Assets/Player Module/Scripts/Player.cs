@@ -47,21 +47,20 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         _attacksInput.AttackPressed += _attack.Attack;
+
         _reloadInput.ReloadPressed += _attack.Reload;
+
         _itemInteractionEvents.PickupPressed += _interaction.TakeItem;
         _itemInteractionEvents.DropPressed += _interaction.DropItemFromInventory;
         _itemInteractionEvents.SwitchPressed += _interaction.SwitchItem;
+
+        _inventoryManipulationEvents.FirstSlotItemsPressed += _inventory.OnFirstItemSlotPressed;
+        _inventoryManipulationEvents.FirstWeaponSlotPressed += _inventory.OnFirstWeaponSlotPressed;
 
         _interaction.OnItemInRangeSelected += _itemInteractionDisplay.OnSelected;
         _interaction.OnItemInRangeDeselected += _itemInteractionDisplay.OnDeselected;
         _interaction.OnTryingAddedItemInRange += _inventory.TryAddItem;
         _interaction.OnTryingRemoveItemFromInventory += _inventory.RemoveItem;
-
-        _inventoryManipulationEvents.FirstSlotItemsPressed += _inventory.OnFirstItemSlotPressed;
-
-        //_inventory.FirstSlotItems.OnAdded += _inventoryPanel.OnFirstSlotSetted;
-        //_inventory.FirstSlotItems.OnUpdated += _inventoryPanel.OnFirstSlotUpdated;
-        //_inventory.FirstSlotItems.OnEmpty += _inventoryPanel.OnFirstSlotResseted;
     }
 
     private void OnDisable()
@@ -76,10 +75,15 @@ public class Player : MonoBehaviour
         _interaction.OnItemInRangeSelected -= _itemInteractionDisplay.OnSelected;
         _interaction.OnItemInRangeDeselected -= _itemInteractionDisplay.OnDeselected;
 
+        _inventoryManipulationEvents.FirstSlotItemsPressed -= _inventory.OnFirstItemSlotPressed;
+        _inventoryManipulationEvents.FirstWeaponSlotPressed -= _inventory.OnFirstWeaponSlotPressed;
+
         _inventory.InventoryManipulated -= _inventoryPanel.OnInventoryPressed;
-        _inventory.FirstSlotItems.OnAdded -= _inventoryPanel.OnFirstSlotSetted;
-        _inventory.FirstSlotItems.OnUpdated -= _inventoryPanel.OnFirstSlotUpdated;
-        _inventory.FirstSlotItems.OnEmpty -= _inventoryPanel.OnFirstSlotResseted;
+        _inventory.FirstSlotItems.OnAdded -= _inventoryPanel.OnFirstItemSlotSetted;
+        _inventory.FirstSlotItems.OnUpdated -= _inventoryPanel.OnFirstItemSlotUpdated;
+        _inventory.FirstSlotItems.OnEmpty -= _inventoryPanel.OnFirstItemSlotResseted;
+        _inventory.FirstWeaponSlot.OnAdded -= _inventoryPanel.OnFirstWeaponSlotSetted;
+        _inventory.FirstWeaponSlot.OnRemoved -= _inventoryPanel.OnFirstWeaponSlotResetted;
 
         _inventoryPanel.PanelFadedIn -= _inventory.OnFadedInventoryPanel;
     }
@@ -101,9 +105,11 @@ public class Player : MonoBehaviour
         }
 
         _inventory.InventoryManipulated += _inventoryPanel.OnInventoryPressed;
-        _inventory.FirstSlotItems.OnAdded += _inventoryPanel.OnFirstSlotSetted;
-        _inventory.FirstSlotItems.OnUpdated += _inventoryPanel.OnFirstSlotUpdated;
-        _inventory.FirstSlotItems.OnEmpty += _inventoryPanel.OnFirstSlotResseted;
+        _inventory.FirstSlotItems.OnAdded += _inventoryPanel.OnFirstItemSlotSetted;
+        _inventory.FirstSlotItems.OnUpdated += _inventoryPanel.OnFirstItemSlotUpdated;
+        _inventory.FirstSlotItems.OnEmpty += _inventoryPanel.OnFirstItemSlotResseted;
+        _inventory.FirstWeaponSlot.OnAdded += _inventoryPanel.OnFirstWeaponSlotSetted;
+        _inventory.FirstWeaponSlot.OnRemoved += _inventoryPanel.OnFirstWeaponSlotResetted;
 
         _inventoryPanel.PanelFadedIn += _inventory.OnFadedInventoryPanel;
 

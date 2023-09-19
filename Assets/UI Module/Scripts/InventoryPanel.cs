@@ -7,9 +7,9 @@ using UnityEngine.UI;
 
 public class InventoryPanel : MonoBehaviour
 {
-    [SerializeField] private ItemViewer _firstItemViewer;
-    // weapon slot
-    // other slots items
+    [SerializeField] private ItemSlotViewer _firstItemSlotViewer;
+    [SerializeField] private ItemViewer _firstWeaponSlotViewer;
+    
     [SerializeField] private float _displayTime = 2f;
     [SerializeField] private Image _inventoryImage;
 
@@ -17,7 +17,7 @@ public class InventoryPanel : MonoBehaviour
     [SerializeField] private float _fadeInDuration = 5.0f;
     [SerializeField] private float _elapsedTime = 0.0f;
 
-    private Coroutine _displayingCorutine;
+    private Coroutine _fadingCorutine;
     private Color _startColor;
     private Color _targetColor;
     private Coroutine _waitingCorutine;
@@ -31,67 +31,110 @@ public class InventoryPanel : MonoBehaviour
             _inventoryImage.color.b,
             0);
 
-        StartFadingCorutine();
+        StartWaitingCorutine();
     }
 
-    public void OnFirstSlotSetted(Sprite itemSprite, int itemsCount)
+    public void OnFirstItemSlotSetted(Sprite itemSprite, int itemsCount)
     {
-        _firstItemViewer.SetViewer(itemSprite, itemsCount);
+        _firstItemSlotViewer.SetViewer(itemSprite, itemsCount);
 
         OnInventoryPressed();
     }
 
-    public void OnFirstSlotUpdated(int itemsCount)
+    public void OnFirstItemSlotUpdated(int itemsCount)
     {
-        _firstItemViewer.UpdateViewer(itemsCount);
+        _firstItemSlotViewer.UpdateViewer(itemsCount);
 
         OnInventoryPressed();
     }
 
-    public void OnFirstSlotResseted()
+    public void OnFirstItemSlotResseted()
     {
-        _firstItemViewer.ResetViewer();
+        _firstItemSlotViewer.ResetViewer();
+
+        OnInventoryPressed();
+    }
+
+    public void OnFirstWeaponSlotSetted(Sprite weaponItemSprite)
+    {
+        _firstWeaponSlotViewer.SetViewer(weaponItemSprite);
+
+        OnInventoryPressed();
+    }
+
+    public void OnFirstWeaponSlotResetted()
+    {
+        _firstWeaponSlotViewer.ResetViewer();
 
         OnInventoryPressed();
     }
 
     public void OnInventoryPressed()
     {
-        SetStartColor();
-        StartFadingCorutine();
+        SetPanelColor(_startColor);
+        SetViewersColor(_startColor);
+        StartWaitingCorutine();
     }
 
-    private void SetStartColor()
+    private void SetViewersColor(Color color)
     {
-        _inventoryImage.color = _startColor;
-
-        _firstItemViewer.SetViewerColors(_startColor);
+        _firstItemSlotViewer.SetViewerColors(color);
+        _firstWeaponSlotViewer.SetViewerColors(color);
     }
 
-    private void StartFadingCorutine()
+    private void SetPanelColor(Color color)
     {
-        if (_displayingCorutine != null)
+        _inventoryImage.color = color;
+    }
+
+    private void StartWaitingCorutine()
+    {
+        if (_waitingCorutine != null)
         {
-            StopCoroutine(_displayingCorutine);
+            StopWaitingCorutine();
         }
 
-        _displayingCorutine = StartCoroutine(FadingInPanelColor());
+        _waitingCorutine = StartCoroutine(WaitingActions());
+
+        //_displayingCorutine = StartCoroutine(FadingInPanelColor());
+    }
+
+    private void StopWaitingCorutine()
+    {
+        StopCoroutine(_waitingCorutine);
+
+        if(_fadingCorutine != null)
+        {
+            StopCoroutine(_fadingCorutine);
+        }
+    }
+
+    private IEnumerator WaitingActions()
+    {
+        _elapsedTime = 0;
+
+        while (_elapsedTime < _waitingActionTime)
+        {
+            _elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        _elapsedTime = 0;
     }
 
     private IEnumerator FadingInPanelColor()
     {
-        yield return StartCoroutine(WaitingActions());
-
         Debug.Log("Waited");
 
         while (_elapsedTime < _fadeInDuration)
         {
-            _inventoryImage.color = Color.Lerp(
+            Color fadingColor = Color.Lerp(
                 _startColor, 
                 _targetColor, 
                 _elapsedTime / _fadeInDuration);
 
-            _firstItemViewer.SetViewerColors(_inventoryImage.color);
+            SetPanelColor(fadingColor);
+            SetViewersColor(fadingColor);
 
             _elapsedTime += Time.deltaTime;
 
@@ -103,17 +146,6 @@ public class InventoryPanel : MonoBehaviour
         _inventoryImage.color = _targetColor;
 
         PanelFadedIn?.Invoke();
-    }
-
-    private IEnumerator WaitingActions()
-    {
-        while (_elapsedTime < _waitingActionTime)
-        {
-            _elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        _elapsedTime = 0;
     }
 
     public event Action PanelFadedIn;

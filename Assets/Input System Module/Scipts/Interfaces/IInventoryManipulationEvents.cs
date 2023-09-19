@@ -5,5 +5,6 @@ using UnityEngine;
 
 public interface IInventoryManipulationEvents
 {
+    public event Action FirstWeaponSlotPressed;
     public event Action FirstSlotItemsPressed;
 }

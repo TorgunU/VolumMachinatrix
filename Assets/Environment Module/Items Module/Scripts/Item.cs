@@ -7,8 +7,10 @@ public abstract class Item : MonoBehaviour
 {
     [SerializeField] private ItemConfig _itemConfig;
 
-    protected bool IsStackable;
     protected SpriteRenderer SpriteRenderer;
+
+    private Sprite _sprite;
+    private bool _isStackable;
     private string _label;
     private ItemType _itemType;
 
@@ -17,13 +19,15 @@ public abstract class Item : MonoBehaviour
         SpriteRenderer = GetComponent<SpriteRenderer>();
         SpriteRenderer.sprite = _itemConfig.Sprite;
 
-        IsStackable = _itemConfig.IsStackable;
+        _sprite = _itemConfig.Sprite;
+
+        _isStackable = _itemConfig.IsStackable;
         _itemType = _itemConfig.ItemType;
         _label = _itemConfig.Label;
     }
 
-    public abstract void Use();
     public abstract void Pickup();
 
     public ItemType ItemType { get => _itemType; }
+    public Sprite Sprite { get => _sprite; }
 }

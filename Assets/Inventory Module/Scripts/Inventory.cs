@@ -5,8 +5,7 @@ using UnityEngine;
 
 public abstract class Inventory : MonoBehaviour
 {
-    [SerializeField] protected Item FirstWeapon;
-
+    [SerializeField] private SlotWeapon _firstWeaponSlot;
     [SerializeField] private SlotItems _firstSlotItems;
 
     protected int SlotItemsCapacity;
@@ -20,5 +19,11 @@ public abstract class Inventory : MonoBehaviour
     { 
         get => _firstSlotItems; 
         protected set => _firstSlotItems = value; 
+    }
+
+    public SlotWeapon FirstWeaponSlot
+    {
+        get => _firstWeaponSlot;
+        protected set => _firstWeaponSlot = value;
     }
 }

@@ -143,6 +143,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FirstWeaponSlot"",
+                    ""type"": ""Button"",
+                    ""id"": ""99ea4b2e-f55e-497c-9a1a-6366857088e7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -332,6 +341,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""DropItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""38d879ab-4103-4a64-8d77-b92917b5ca0e"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""FirstWeaponSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -370,6 +390,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_KeyboardMouse_UseItem = m_KeyboardMouse.FindAction("UseItem", throwIfNotFound: true);
         m_KeyboardMouse_FirstItemSlot = m_KeyboardMouse.FindAction("FirstItemSlot", throwIfNotFound: true);
         m_KeyboardMouse_DropItem = m_KeyboardMouse.FindAction("DropItem", throwIfNotFound: true);
+        m_KeyboardMouse_FirstWeaponSlot = m_KeyboardMouse.FindAction("FirstWeaponSlot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -444,6 +465,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_KeyboardMouse_UseItem;
     private readonly InputAction m_KeyboardMouse_FirstItemSlot;
     private readonly InputAction m_KeyboardMouse_DropItem;
+    private readonly InputAction m_KeyboardMouse_FirstWeaponSlot;
     public struct KeyboardMouseActions
     {
         private @InputActions m_Wrapper;
@@ -461,6 +483,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @UseItem => m_Wrapper.m_KeyboardMouse_UseItem;
         public InputAction @FirstItemSlot => m_Wrapper.m_KeyboardMouse_FirstItemSlot;
         public InputAction @DropItem => m_Wrapper.m_KeyboardMouse_DropItem;
+        public InputAction @FirstWeaponSlot => m_Wrapper.m_KeyboardMouse_FirstWeaponSlot;
         public InputActionMap Get() { return m_Wrapper.m_KeyboardMouse; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -509,6 +532,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @DropItem.started += instance.OnDropItem;
             @DropItem.performed += instance.OnDropItem;
             @DropItem.canceled += instance.OnDropItem;
+            @FirstWeaponSlot.started += instance.OnFirstWeaponSlot;
+            @FirstWeaponSlot.performed += instance.OnFirstWeaponSlot;
+            @FirstWeaponSlot.canceled += instance.OnFirstWeaponSlot;
         }
 
         private void UnregisterCallbacks(IKeyboardMouseActions instance)
@@ -552,6 +578,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @DropItem.started -= instance.OnDropItem;
             @DropItem.performed -= instance.OnDropItem;
             @DropItem.canceled -= instance.OnDropItem;
+            @FirstWeaponSlot.started -= instance.OnFirstWeaponSlot;
+            @FirstWeaponSlot.performed -= instance.OnFirstWeaponSlot;
+            @FirstWeaponSlot.canceled -= instance.OnFirstWeaponSlot;
         }
 
         public void RemoveCallbacks(IKeyboardMouseActions instance)
@@ -593,5 +622,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnUseItem(InputAction.CallbackContext context);
         void OnFirstItemSlot(InputAction.CallbackContext context);
         void OnDropItem(InputAction.CallbackContext context);
+        void OnFirstWeaponSlot(InputAction.CallbackContext context);
     }
 }
