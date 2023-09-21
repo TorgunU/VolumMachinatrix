@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Diagnostics.Eventing.Reader;
@@ -9,27 +10,21 @@ public class InventoryPanel : MonoBehaviour
 {
     [SerializeField] private ItemSlotViewer _firstItemSlotViewer;
     [SerializeField] private ItemViewer _firstWeaponSlotViewer;
-    
-    [SerializeField] private float _displayTime = 2f;
-    [SerializeField] private Image _inventoryImage;
+    [SerializeField] private float _waitingActionTime = 1.5f;
+    [SerializeField] private float _fadingTime = 2.0f;
 
-    [SerializeField] private float _waitingActionTime = 3f;
-    [SerializeField] private float _fadeInDuration = 5.0f;
-    [SerializeField] private float _elapsedTime = 0.0f;
-
+    private Image _panelImage;
     private Coroutine _fadingCorutine;
-    private Color _startColor;
-    private Color _targetColor;
     private Coroutine _waitingCorutine;
+    private Tween _fadeTween;
+    private ItemViewer _currentIHighlightedItemViewer;
+    private ItemViewer _currentHighlightedWeaponItemViewer;
 
     private void Awake()
     {
-        _startColor = _inventoryImage.color;
-        _targetColor = new Color(
-            _inventoryImage.color.r,
-            _inventoryImage.color.g,
-            _inventoryImage.color.b,
-            0);
+        _waitingActionTime = 1.5f;
+        _fadingTime = 2.0f;
+        _panelImage = GetComponent<Image>();
 
         StartWaitingCorutine();
     }
@@ -71,20 +66,91 @@ public class InventoryPanel : MonoBehaviour
 
     public void OnInventoryPressed()
     {
-        SetPanelColor(_startColor);
-        SetViewersColor(_startColor);
+        FadeOut();
         StartWaitingCorutine();
     }
 
-    private void SetViewersColor(Color color)
+    public void OnItemSlotSelected(int slotItemsNumber)
     {
-        _firstItemSlotViewer.SetViewerColors(color);
-        _firstWeaponSlotViewer.SetViewerColors(color);
+        switch (slotItemsNumber)
+        {
+            case 1:
+                HighlightItemViewer(_firstItemSlotViewer);
+                break;
+            default:
+                return;
+        }
     }
 
-    private void SetPanelColor(Color color)
+    public void OnRemovedHighlightItemViewer()
     {
-        _inventoryImage.color = color;
+        if (_currentIHighlightedItemViewer == null)
+        {
+            return;
+        }
+
+        _currentIHighlightedItemViewer.RemoveHighlight();
+        _currentIHighlightedItemViewer = null;
+    }
+
+    public void OnWeaponlotSelected(int slotWeaponNumber)
+    {
+        switch (slotWeaponNumber)
+        {
+            case 1:
+                HighlightWeaponViewer(_firstWeaponSlotViewer);
+                break;
+            default:
+                return;
+        }
+    }
+
+    public void OnRemovedHighlightWeaponViewer()
+    {
+        if (_currentHighlightedWeaponItemViewer == null)
+        {
+            return;
+        }
+
+        _currentHighlightedWeaponItemViewer.RemoveHighlight();
+        _currentHighlightedWeaponItemViewer = null;
+    }
+
+    private void HighlightItemViewer(ItemViewer itemViewer)
+    {
+        _currentIHighlightedItemViewer = itemViewer;
+        _currentIHighlightedItemViewer.Highlight();
+    }
+
+    private void HighlightWeaponViewer(ItemViewer itemViewer)
+    {
+        _currentHighlightedWeaponItemViewer = itemViewer;
+        _currentHighlightedWeaponItemViewer.Highlight();
+    }
+
+    private void FadeOut()
+    {
+        FadePanel(0.8f, 0);
+
+        _firstItemSlotViewer.SetStartViewerAlpha();
+        _firstWeaponSlotViewer.SetStartViewerAlpha();
+    }
+
+    private void FadeViewers(float targetAlpha, float duration)
+    {
+        _firstItemSlotViewer.SetViewerAlpha(targetAlpha, duration);
+        _firstWeaponSlotViewer.SetViewerAlpha(targetAlpha, duration);
+    }
+
+    private void FadePanel(float targetAlpha, float duration)
+    {
+        if(_fadeTween.IsActive() || _fadeTween == null)
+        {
+            _fadeTween.Kill();
+        }
+
+        _fadeTween = _panelImage.DOFade(targetAlpha, duration)
+            .SetLink(gameObject);
     }
 
     private void StartWaitingCorutine()
@@ -95,8 +161,6 @@ public class InventoryPanel : MonoBehaviour
         }
 
         _waitingCorutine = StartCoroutine(WaitingActions());
-
-        //_displayingCorutine = StartCoroutine(FadingInPanelColor());
     }
 
     private void StopWaitingCorutine()
@@ -111,42 +175,22 @@ public class InventoryPanel : MonoBehaviour
 
     private IEnumerator WaitingActions()
     {
-        _elapsedTime = 0;
+        yield return new WaitForSeconds(_waitingActionTime);
 
-        while (_elapsedTime < _waitingActionTime)
-        {
-            _elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        _elapsedTime = 0;
+        _fadingCorutine = StartCoroutine(FadingInPanelColor());
     }
 
     private IEnumerator FadingInPanelColor()
     {
-        Debug.Log("Waited");
+        FadePanel(0, _fadingTime);
+        FadeViewers(0, _fadingTime);
 
-        while (_elapsedTime < _fadeInDuration)
-        {
-            Color fadingColor = Color.Lerp(
-                _startColor, 
-                _targetColor, 
-                _elapsedTime / _fadeInDuration);
+        yield return new WaitForSeconds(_fadingTime);
 
-            SetPanelColor(fadingColor);
-            SetViewersColor(fadingColor);
+        PanelFaded?.Invoke();
 
-            _elapsedTime += Time.deltaTime;
-
-            yield return null;
-        }
-
-        _elapsedTime = 0;
-
-        _inventoryImage.color = _targetColor;
-
-        PanelFadedIn?.Invoke();
+        yield return null;
     }
 
-    public event Action PanelFadedIn;
+    public event Action PanelFaded;
 }

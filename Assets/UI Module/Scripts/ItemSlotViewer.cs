@@ -1,9 +1,13 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
 public class ItemSlotViewer : ItemViewer
 {
     [SerializeField] protected TMP_Text TextCount;
+
+    private Tween _textCountFadeTween;
+    private float _startTextCountFade = 1f;
 
     public void SetViewer(Sprite sprite, int itemCount)
     {
@@ -24,10 +28,21 @@ public class ItemSlotViewer : ItemViewer
         TextCount.text = "0";
     }
 
-    public override void SetViewerColors(Color currentFadeColor)
+    public override void SetStartViewerAlpha()
     {
-        base.SetViewerColors(currentFadeColor);
+        base.SetStartViewerAlpha();
 
-        TextCount.color = currentFadeColor;
+        StopFadeTween(_textCountFadeTween);
+        _textCountFadeTween = TextCount.DOFade(_startTextCountFade, 0)
+            .SetLink(gameObject);
+    }
+
+    public override void SetViewerAlpha(float targetAlpha, float duration)
+    {
+        base.SetViewerAlpha(targetAlpha, duration);
+
+        StopFadeTween(_textCountFadeTween);
+        _textCountFadeTween = TextCount.DOFade(targetAlpha, duration)
+            .SetLink(gameObject);
     }
 }

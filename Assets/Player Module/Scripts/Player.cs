@@ -79,13 +79,15 @@ public class Player : MonoBehaviour
         _inventoryManipulationEvents.FirstWeaponSlotPressed -= _inventory.OnFirstWeaponSlotPressed;
 
         _inventory.InventoryManipulated -= _inventoryPanel.OnInventoryPressed;
+        _inventory.ItemSlotSelected -= _inventoryPanel.OnItemSlotSelected;
+        _inventory.ItemSlotUnselected -= _inventoryPanel.OnRemovedHighlightItemViewer;
         _inventory.FirstSlotItems.OnAdded -= _inventoryPanel.OnFirstItemSlotSetted;
         _inventory.FirstSlotItems.OnUpdated -= _inventoryPanel.OnFirstItemSlotUpdated;
         _inventory.FirstSlotItems.OnEmpty -= _inventoryPanel.OnFirstItemSlotResseted;
         _inventory.FirstWeaponSlot.OnAdded -= _inventoryPanel.OnFirstWeaponSlotSetted;
         _inventory.FirstWeaponSlot.OnRemoved -= _inventoryPanel.OnFirstWeaponSlotResetted;
 
-        _inventoryPanel.PanelFadedIn -= _inventory.OnFadedInventoryPanel;
+        _inventoryPanel.PanelFaded -= _inventory.OnFadedInventoryPanel;
     }
 
     private void Start()
@@ -105,13 +107,21 @@ public class Player : MonoBehaviour
         }
 
         _inventory.InventoryManipulated += _inventoryPanel.OnInventoryPressed;
+
+        _inventory.ItemSlotSelected += _inventoryPanel.OnItemSlotSelected;
+        _inventory.ItemSlotUnselected += _inventoryPanel.OnRemovedHighlightItemViewer;
+
         _inventory.FirstSlotItems.OnAdded += _inventoryPanel.OnFirstItemSlotSetted;
         _inventory.FirstSlotItems.OnUpdated += _inventoryPanel.OnFirstItemSlotUpdated;
         _inventory.FirstSlotItems.OnEmpty += _inventoryPanel.OnFirstItemSlotResseted;
+
         _inventory.FirstWeaponSlot.OnAdded += _inventoryPanel.OnFirstWeaponSlotSetted;
         _inventory.FirstWeaponSlot.OnRemoved += _inventoryPanel.OnFirstWeaponSlotResetted;
+        _inventory.WeaponSlotSelected += _inventoryPanel.OnWeaponlotSelected;
+        _inventory.WeaponSlotSUnselected += _inventoryPanel.OnRemovedHighlightWeaponViewer;
 
-        _inventoryPanel.PanelFadedIn += _inventory.OnFadedInventoryPanel;
+
+        _inventoryPanel.PanelFaded += _inventory.OnFadedInventoryPanel;
 
         // OnRemove in inventory panel
     }

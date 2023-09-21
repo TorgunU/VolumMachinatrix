@@ -25,36 +25,20 @@ public class PlayerInventory : Inventory
 
     public void OnFirstItemSlotPressed()
     {
-        SetSlotItemsFlag();
-
-        if(IsItemSlotSelected() == false)
-        {
-            _currentSlotItems = null;
-            return;
-        }
-
-        _currentSlotItems = FirstSlotItems;
+        SelectItemSlot(1);
     }
 
     public void OnFirstWeaponSlotPressed()
     {
-        SetCurrentSlotWeaponFlag();
-
-        if(IsWeaponSelected() == false)
-        {
-            _currentWeapon = null;
-            return;
-        }
-
-        _currentWeapon = FirstWeaponSlot;
+        SelectWeaponSlot(1);
     }
 
     public override bool TryAddItem(Item item)
     {
-        //if (_isCurrentItemSlotSelected == false)
-        //{
-        //    return false;
-        //}
+        if (item == null)
+        {
+            return false;
+        }
 
         switch (item.ItemType)
         {
@@ -103,7 +87,63 @@ public class PlayerInventory : Inventory
         _isItemSlotSelected = false;
     }
 
-    private void SetSlotItemsFlag()
+    private void SelectItemSlot(int slotItemsNumber)
+    {
+        ToggleIsSlotItemsSelected();
+
+        ItemSlotSelected?.Invoke(slotItemsNumber);
+
+        if (IsItemSlotSelected() == false)
+        {
+            ItemSlotUnselected?.Invoke();
+            _currentSlotItems = null;
+            return;
+        }
+
+        switch (slotItemsNumber)
+        {
+            case 1:
+                SetCurrentItemSlot(FirstSlotItems);
+                break;
+            default:
+                return;
+        }
+    }
+
+    private void SelectWeaponSlot(int slotWeaponNumber)
+    {
+        ToggleIsSlotIWeaponSelected();
+
+        WeaponSlotSelected?.Invoke(slotWeaponNumber);
+
+        if (IsWeaponSelected() == false)
+        {
+            WeaponSlotSUnselected?.Invoke();
+            _currentSlotItems = null;
+            return;
+        }
+
+        switch (slotWeaponNumber)
+        {
+            case 1:
+                SetCurrentWeaponSlot(FirstWeaponSlot);
+                break;
+            default:
+                return;
+        }
+    }
+
+    private void SetCurrentItemSlot(SlotItems selectedSlotItems)
+    {
+        _currentSlotItems = selectedSlotItems;
+    }
+
+    private void SetCurrentWeaponSlot(SlotWeapon selectedSlotWeapon)
+    {
+        _currentWeapon = selectedSlotWeapon;
+    }
+
+    private void ToggleIsSlotItemsSelected()
     {
         _isItemSlotSelected = !_isItemSlotSelected;
 
@@ -120,7 +160,7 @@ public class PlayerInventory : Inventory
         return false;
     }
 
-    private void SetCurrentSlotWeaponFlag()
+    private void ToggleIsSlotIWeaponSelected()
     {
         _isWeaponSlotSelected = !_isWeaponSlotSelected;
 
@@ -138,4 +178,8 @@ public class PlayerInventory : Inventory
     }
 
     public event Action InventoryManipulated;
+    public event Action<int> ItemSlotSelected;
+    public event Action ItemSlotUnselected;
+    public event Action<int> WeaponSlotSelected;
+    public event Action WeaponSlotSUnselected;
 }
