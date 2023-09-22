@@ -1222,6 +1222,37 @@ MonoBehaviour:
     m_FrequencyGain: 1
     m_Duration: 1
     m_NoiseOffsets: {x: 0, y: 0, z: 0}
+--- !u!1 &627328841
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 627328842}
+  m_Layer: 0
+  m_Name: PoolBullets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &627328842
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627328841}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7679955625430038962}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &646551792
 GameObject:
   m_ObjectHideFlags: 0
@@ -1638,7 +1669,7 @@ Transform:
   m_GameObject: {fileID: 715491338}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.37, y: 2.04, z: 0}
+  m_LocalPosition: {x: 0.54, y: 2.46, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5792,6 +5823,7 @@ Transform:
   - {fileID: 8064773471309083783}
   - {fileID: 8037137332519192100}
   - {fileID: 1687245058764698066}
+  - {fileID: 627328842}
   m_Father: {fileID: 715491342}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &8037137332519192100
@@ -5876,7 +5908,7 @@ MonoBehaviour:
   ImpulseSource: {fileID: 5972575286778005568}
   _impulseForce: 5
   WeaponConfig: {fileID: 11400000, guid: 626cc1c02d3930f47957cbc12e6abe70, type: 2}
-  HierarchyPoolBullet: {fileID: 0}
+  HierarchyPoolBullet: {fileID: 627328842}
 --- !u!212 &8676282641334367310
 SpriteRenderer:
   m_ObjectHideFlags: 0
