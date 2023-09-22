@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: TestWeaponItemConfig
   m_EditorClassIdentifier: 
   _label: Weapon
-  _sprite: {fileID: 21300000, guid: 4182fed1de7cf53439cbd5991493b1c6, type: 3}
+  _sprite: {fileID: 21300000, guid: 01f47dbe80a58274394c9840198d368c, type: 3}
   _itemType: 0
   _stackable: 0

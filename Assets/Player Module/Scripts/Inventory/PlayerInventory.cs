@@ -1,12 +1,15 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInventory : Inventory
 {
-    [SerializeField] private bool _isItemSlotSelected;
-    [SerializeField] private bool _isWeaponSlotSelected;
+    [SerializeField] private Transform _firstWeaponSlotTransofrm;
 
-    private SlotWeapon _currentWeapon;
+    protected bool IsItemSlotSelected;
+    protected bool IsWeaponSlotSelected;
+
+    private SlotWeapon _currentSlotWeapon;
     private SlotItems _currentSlotItems;
 
     protected override void Awake()
@@ -14,13 +17,11 @@ public class PlayerInventory : Inventory
         SlotItemsCapacity = 2;
         FirstSlotItems = new SlotItems(SlotItemsCapacity);
 
-        _isItemSlotSelected = false;
-        _currentSlotItems = null;
+        IsItemSlotSelected = false;
 
-        FirstWeaponSlot = new SlotWeapon();
-        _currentWeapon = null;
+        FirstWeaponSlot = new SlotWeapon(_firstWeaponSlotTransofrm);
 
-        _isWeaponSlotSelected = false;
+        IsWeaponSlotSelected = false;
     }
 
     public void OnFirstItemSlotPressed()
@@ -44,10 +45,10 @@ public class PlayerInventory : Inventory
         {
             case ItemType.Weapon:
 
-                if (IsWeaponSelected() == false)
+                if (IsWeaponSlotSelected == false)
                     return false;
 
-                return _currentWeapon.TryAddItem(item);
+                return CurrentSlotWeapon.TryAddItem(item);
 
             case ItemType.Ammo:
 
@@ -56,10 +57,10 @@ public class PlayerInventory : Inventory
 
             case ItemType.Useable:
 
-                if (IsItemSlotSelected() == false)
+                if(IsItemSlotSelected == false)
                     return false;
 
-                return _currentSlotItems.TryAddItem(item);
+                return CurrentSlotItems.TryAddItem(item);
         }
 
         return false;
@@ -67,36 +68,47 @@ public class PlayerInventory : Inventory
 
     public override Item RemoveItem()
     {
-        if (_isItemSlotSelected == false)
+        if (IsItemSlotSelected && IsWeaponSlotSelected)
         {
             return null;
         }
 
-        if (_currentSlotItems.TryRemoveLastItem(out Item dropableItem) == false)
+        if (IsItemSlotSelected)
         {
-            // play effect can't get item
-
-            return null;
+            if(CurrentSlotItems.TryRemoveItem(out Item dropableItem))
+                return dropableItem;
+        }
+        else if(IsWeaponSlotSelected)
+        {
+            if(CurrentSlotWeapon.TryRemoveItem(out Item dropableWeapon))
+                return dropableWeapon;
         }
 
-        return dropableItem;
+        return null;
     }
 
     public void OnFadedInventoryPanel()
     {
-        _isItemSlotSelected = false;
+        IsItemSlotSelected = false;
+    }
+
+    private void BindWeaponToPlayer()
+    {
+        //CurrentSlotWeapon
     }
 
     private void SelectItemSlot(int slotItemsNumber)
     {
-        ToggleIsSlotItemsSelected();
+        ToggleIsItemSlotSelected();
 
-        ItemSlotSelected?.Invoke(slotItemsNumber);
-
-        if (IsItemSlotSelected() == false)
+        if (IsItemSlotSelected)
         {
-            ItemSlotUnselected?.Invoke();
-            _currentSlotItems = null;
+            OnItemSlotSelected?.Invoke(slotItemsNumber);
+        }
+        else if (IsItemSlotSelected == false)
+        {
+            OnItemSlotUnselected?.Invoke();
+            CurrentSlotItems = null;
             return;
         }
 
@@ -112,14 +124,16 @@ public class PlayerInventory : Inventory
 
     private void SelectWeaponSlot(int slotWeaponNumber)
     {
-        ToggleIsSlotIWeaponSelected();
+        ToggleIsWeaponSlotSelected();
 
-        WeaponSlotSelected?.Invoke(slotWeaponNumber);
-
-        if (IsWeaponSelected() == false)
+        if (IsWeaponSlotSelected)
         {
-            WeaponSlotSUnselected?.Invoke();
-            _currentSlotItems = null;
+            OnWeaponSlotSelected?.Invoke(slotWeaponNumber);
+        }
+        else if (IsWeaponSlotSelected == false)
+        {
+            OnWeaponSlotUnselected?.Invoke();
+            CurrentSlotWeapon = null;
             return;
         }
 
@@ -135,51 +149,41 @@ public class PlayerInventory : Inventory
 
     private void SetCurrentItemSlot(SlotItems selectedSlotItems)
     {
-        _currentSlotItems = selectedSlotItems;
+        CurrentSlotItems = selectedSlotItems;
     }
 
     private void SetCurrentWeaponSlot(SlotWeapon selectedSlotWeapon)
     {
-        _currentWeapon = selectedSlotWeapon;
+        CurrentSlotWeapon = selectedSlotWeapon;
     }
 
-    private void ToggleIsSlotItemsSelected()
+    private void ToggleIsItemSlotSelected()
     {
-        _isItemSlotSelected = !_isItemSlotSelected;
-
-        InventoryManipulated?.Invoke();
+        IsItemSlotSelected = !IsItemSlotSelected;
+        OnInventoryManipulated?.Invoke();
     }
 
-    private bool IsItemSlotSelected()
+    private void ToggleIsWeaponSlotSelected()
     {
-        if (_isItemSlotSelected)
-        {
-            return true;
-        }
-
-        return false;
+        IsWeaponSlotSelected = !IsWeaponSlotSelected;
+        OnInventoryManipulated?.Invoke();
     }
 
-    private void ToggleIsSlotIWeaponSelected()
+    public SlotWeapon CurrentSlotWeapon
     {
-        _isWeaponSlotSelected = !_isWeaponSlotSelected;
-
-        InventoryManipulated?.Invoke();
+        get => _currentSlotWeapon;
+        protected set => _currentSlotWeapon = value;
     }
 
-    private bool IsWeaponSelected()
+    public SlotItems CurrentSlotItems
     {
-        if (_isWeaponSlotSelected)
-        {
-            return true;
-        }
-
-        return false;
+        get => _currentSlotItems;
+        protected set => _currentSlotItems = value;
     }
 
-    public event Action InventoryManipulated;
-    public event Action<int> ItemSlotSelected;
-    public event Action ItemSlotUnselected;
-    public event Action<int> WeaponSlotSelected;
-    public event Action WeaponSlotSUnselected;
+    public event Action OnInventoryManipulated;
+    public event Action OnItemSlotUnselected;
+    public event Action OnWeaponSlotUnselected;
+    public event Action<int> OnItemSlotSelected;
+    public event Action<int> OnWeaponSlotSelected;
 }

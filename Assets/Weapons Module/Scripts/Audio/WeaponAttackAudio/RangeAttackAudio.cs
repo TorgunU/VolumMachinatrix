@@ -7,10 +7,12 @@ public class RangeAttackAudio : WeaponAttackAudio
 {
     protected IEnumerator WaitingEndClip()
     {
+        float currentPlayingTime;
 
         yield return new WaitWhile(() =>
         {
-            return AudioSource.isPlaying;
+            currentPlayingTime = Time.deltaTime;
+            return AudioSource.isPlaying || currentPlayingTime >= MaxPlayingTime;
         });
 
         FinishedPlaying?.Invoke(this);

@@ -5,10 +5,11 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private ItemInteractionDisplay _itemInteractionDisplay;
     [SerializeField] private InventoryPanel _inventoryPanel;
-
     [SerializeField] private PlayerAttack _attack;
-    [SerializeField] private PlayerRangeAiming _playerRangeAiming;
+    [SerializeField] private PlayerRangeAiming _rangeAiming;
     [SerializeField] private PlayerInventory _inventory;
+    [SerializeField] private BodyRotation _bodyRotation;
+    [SerializeField] private Transform _bulletsPool;
 
     private IMovementDirection _movementsInput;
     private IMovementStateEvents _movementStateEvents;
@@ -20,9 +21,9 @@ public class Player : MonoBehaviour
     private IInventoryManipulationEvents _inventoryManipulationEvents;
     private Rigidbody2D _rigidbody2D;
     private PlayerMovement _movement;
-    private Weapon _weapon;
     private Crosshair _crosshair;
     private PlayerInteraction _interaction;
+    private WeaponInjector _weaponInjector;
 
     private void Awake()
     {
@@ -37,19 +38,12 @@ public class Player : MonoBehaviour
         _inventoryManipulationEvents = GetComponent<PlayerInput>();
 
         _movement = GetComponentInChildren<PlayerMovement>();
-        _weapon = GetComponentInChildren<Weapon>();
         _crosshair = GetComponentInChildren<Crosshair>();
         _interaction = GetComponentInChildren<PlayerInteraction>();
-
-        _attack = new PlayerAttack(_weapon);
     }
 
     private void OnEnable()
     {
-        _attacksInput.AttackPressed += _attack.Attack;
-
-        _reloadInput.ReloadPressed += _attack.Reload;
-
         _itemInteractionEvents.PickupPressed += _interaction.TakeItem;
         _itemInteractionEvents.DropPressed += _interaction.DropItemFromInventory;
         _itemInteractionEvents.SwitchPressed += _interaction.SwitchItem;
@@ -74,20 +68,21 @@ public class Player : MonoBehaviour
 
         _interaction.OnItemInRangeSelected -= _itemInteractionDisplay.OnSelected;
         _interaction.OnItemInRangeDeselected -= _itemInteractionDisplay.OnDeselected;
+        _interaction.OnTryingRemoveItemFromInventory -= _inventory.RemoveItem;
 
         _inventoryManipulationEvents.FirstSlotItemsPressed -= _inventory.OnFirstItemSlotPressed;
         _inventoryManipulationEvents.FirstWeaponSlotPressed -= _inventory.OnFirstWeaponSlotPressed;
 
-        _inventory.InventoryManipulated -= _inventoryPanel.OnInventoryPressed;
-        _inventory.ItemSlotSelected -= _inventoryPanel.OnItemSlotSelected;
-        _inventory.ItemSlotUnselected -= _inventoryPanel.OnRemovedHighlightItemViewer;
+        _inventory.OnInventoryManipulated -= _inventoryPanel.OnInventoryPressed;
+        _inventory.OnItemSlotSelected -= _inventoryPanel.OnItemSlotSelected;
+        _inventory.OnItemSlotUnselected -= _inventoryPanel.OnRemovedHighlightItemViewer;
         _inventory.FirstSlotItems.OnAdded -= _inventoryPanel.OnFirstItemSlotSetted;
         _inventory.FirstSlotItems.OnUpdated -= _inventoryPanel.OnFirstItemSlotUpdated;
         _inventory.FirstSlotItems.OnEmpty -= _inventoryPanel.OnFirstItemSlotResseted;
-        _inventory.FirstWeaponSlot.OnAdded -= _inventoryPanel.OnFirstWeaponSlotSetted;
-        _inventory.FirstWeaponSlot.OnRemoved -= _inventoryPanel.OnFirstWeaponSlotResetted;
-
-        _inventoryPanel.PanelFaded -= _inventory.OnFadedInventoryPanel;
+        _inventory.FirstWeaponSlot.OnItemAdded -= _inventoryPanel.OnFirstWeaponSlotSetted;
+        _inventory.FirstWeaponSlot.OnEmpty -= _inventoryPanel.OnFirstWeaponSlotResetted;
+        _inventory.OnWeaponSlotSelected -= _inventoryPanel.OnWeaponlotSelected;
+        _inventory.OnWeaponSlotUnselected -= _inventoryPanel.OnRemovedHighlightWeaponViewer;
     }
 
     private void Start()
@@ -97,32 +92,36 @@ public class Player : MonoBehaviour
             _movementsInput,
             _movementStateEvents);
 
-        if (_weapon is RangeWeapon rangeWeapon)
-        {
-            _playerRangeAiming = new PlayerRangeAiming(
-                _crosshair,
-                _aimingInput,
-                _movement.PlayerSpeed,
-                rangeWeapon.RangeWeaponConfig);
-        }
+        _rangeAiming = new PlayerRangeAiming(_crosshair, _aimingInput, _movement.PlayerSpeed);
 
-        _inventory.InventoryManipulated += _inventoryPanel.OnInventoryPressed;
+        _attack = new PlayerAttack();
 
-        _inventory.ItemSlotSelected += _inventoryPanel.OnItemSlotSelected;
-        _inventory.ItemSlotUnselected += _inventoryPanel.OnRemovedHighlightItemViewer;
+        _weaponInjector = new WeaponInjector(_attack, _crosshair, _bulletsPool, _rangeAiming);
+
+        _inventory.OnInventoryManipulated += _inventoryPanel.OnInventoryPressed;
+
+        _inventory.OnItemSlotSelected += _inventoryPanel.OnItemSlotSelected;
+        _inventory.OnItemSlotUnselected += _inventoryPanel.OnRemovedHighlightItemViewer;
 
         _inventory.FirstSlotItems.OnAdded += _inventoryPanel.OnFirstItemSlotSetted;
         _inventory.FirstSlotItems.OnUpdated += _inventoryPanel.OnFirstItemSlotUpdated;
         _inventory.FirstSlotItems.OnEmpty += _inventoryPanel.OnFirstItemSlotResseted;
 
-        _inventory.FirstWeaponSlot.OnAdded += _inventoryPanel.OnFirstWeaponSlotSetted;
-        _inventory.FirstWeaponSlot.OnRemoved += _inventoryPanel.OnFirstWeaponSlotResetted;
-        _inventory.WeaponSlotSelected += _inventoryPanel.OnWeaponlotSelected;
-        _inventory.WeaponSlotSUnselected += _inventoryPanel.OnRemovedHighlightWeaponViewer;
+        _inventory.FirstWeaponSlot.OnItemAdded += _inventoryPanel.OnFirstWeaponSlotSetted;
+        _inventory.FirstWeaponSlot.OnEmpty += _inventoryPanel.OnFirstWeaponSlotResetted;
+        _inventory.OnWeaponSlotSelected += _inventoryPanel.OnWeaponlotSelected;
+        _inventory.OnWeaponSlotUnselected += _inventoryPanel.OnRemovedHighlightWeaponViewer;
 
-
-        _inventoryPanel.PanelFaded += _inventory.OnFadedInventoryPanel;
+        _inventory.FirstWeaponSlot.OnWeaponEquipped += WeaponEquippedInFirstSlotHandle;
 
         // OnRemove in inventory panel
+    }
+
+    private void WeaponEquippedInFirstSlotHandle(GameObject weapon)
+    {
+        _attacksInput.AttackPressed += _attack.Attack;
+        _reloadInput.ReloadPressed += _attack.Reload;
+
+        _weaponInjector.Init(weapon.GetComponent<Weapon>());
     }
 }

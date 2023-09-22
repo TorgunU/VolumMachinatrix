@@ -1,12 +1,20 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
-public class SlotWeapon
+public class SlotWeapon : ISlotItem
 {
     protected ItemWeapon ItemWeapon;
+    protected Transform WeaponTransform;
+
+    public SlotWeapon(Transform slotTransform)
+    {
+        WeaponTransform = slotTransform;
+    }
+
+    public void RaiseOnEmpty()
+    {
+        OnEmpty?.Invoke();
+    }
 
     public bool TryAddItem(Item item)
     {
@@ -17,7 +25,9 @@ public class SlotWeapon
 
         ItemWeapon = (ItemWeapon)item;
 
-        OnAdded?.Invoke(ItemWeapon.Sprite);
+        SetWeaponToSlot();
+
+        OnItemAdded?.Invoke(ItemWeapon.Sprite);
 
         return true;
     }
@@ -30,18 +40,42 @@ public class SlotWeapon
             return false;
         }
 
+        SetWeaponFromSlot();
+
         item = ItemWeapon;
 
-        OnRemoved?.Invoke();
+        ItemWeapon = null;
+
+        OnEmpty?.Invoke();
 
         return true;
     }
 
-    private bool IsSlotEmpty()
+    public bool IsSlotEmpty()
     {
         return ItemWeapon == null;
     }
 
-    public event Action<Sprite> OnAdded;
-    public event Action OnRemoved;
+    private void SetWeaponFromSlot()
+    {
+        WeaponTransform.GetChild(0).SetParent(ItemWeapon.transform);
+
+        ItemWeapon.transform.GetChild(0).gameObject.SetActive(false);
+    }
+
+    private void SetWeaponToSlot()
+    {
+        ItemWeapon.transform.GetChild(0).SetParent(WeaponTransform);
+
+        GameObject weapon = WeaponTransform.GetChild(0).gameObject;
+        weapon.transform.position = WeaponTransform.position;
+        weapon.SetActive(true);
+
+        OnWeaponEquipped?.Invoke(weapon);
+    }
+
+    public event Action OnEmpty;
+    public event Action<Sprite> OnItemAdded;
+    public event Action<GameObject> OnWeaponEquipped;
+    //public event Action
 }

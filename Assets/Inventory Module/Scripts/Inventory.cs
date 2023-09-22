@@ -14,6 +14,7 @@ public abstract class Inventory : MonoBehaviour
 
     public abstract bool TryAddItem(Item item);
     public abstract Item RemoveItem();
+    //public abstract Item RemoveWeapon();
 
     public SlotItems FirstSlotItems 
     { 

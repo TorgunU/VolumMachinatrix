@@ -103,7 +103,7 @@ public class PlayerInteraction : ItemInteraction, IItemSwitchable
             transform.position.y,
             item.transform.position.z);
 
-        item.gameObject.gameObject.SetActive(true);
+        item.gameObject.SetActive(true);
     }
 
     private bool IsOtherItemsInRange()

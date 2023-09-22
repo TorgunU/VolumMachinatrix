@@ -5,13 +5,18 @@ using System.Reflection;
 using UnityEngine;
 
 [Serializable]
-public class SlotItems
+public class SlotItems : ISlotItem
 {
     [SerializeField] protected List<Item> Items;
 
     public SlotItems(int slotCapacity)
     {
         Items = new List<Item>(slotCapacity);
+    }
+
+    public void RaiseOnEmpty()
+    {
+        OnEmpty?.Invoke();
     }
 
     public bool TryAddItem(Item item)
@@ -33,10 +38,12 @@ public class SlotItems
             OnUpdated?.Invoke(Items.Count);
         }
 
+
+
         return true;
     }
 
-    public virtual bool TryRemoveLastItem(out Item droppableItem)
+    public bool TryRemoveItem(out Item droppableItem)
     {
         if (IsSlotEmpty())
         {
@@ -74,17 +81,17 @@ public class SlotItems
         return true;
     }
 
+    public bool IsSlotEmpty()
+    {
+        return Items.Count == 0;
+    }
+
     private bool IsSlotReachedMax()
     {
         return Items.Count == Items.Capacity;
     }
 
-    private bool IsSlotEmpty()
-    {
-        return Items.Count == 0;
-    }
-
+    public event Action OnEmpty;
     public event Action<Sprite, int> OnAdded;
     public event Action<int> OnUpdated;
-    public event Action OnEmpty;
 }

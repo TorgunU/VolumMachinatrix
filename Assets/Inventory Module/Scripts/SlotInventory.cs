@@ -1,18 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlotInventory : MonoBehaviour
+public abstract class SlotInventory : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] protected bool IsSlotSelected;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    protected abstract void Awake();
+
+    public abstract void SelectSlot(int slotNumber);
+
+    protected abstract void OnFirstSlotSelected();
+
+    public event Action<int> SlotSelected;
+    public event Action SlotUnselected;
 }

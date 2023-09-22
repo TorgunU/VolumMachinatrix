@@ -18,7 +18,7 @@ MonoBehaviour:
   _name: Pistol
   _minRecoil: 0.2
   _maxRecoil: 0.64
-  _minSpreadAngle: 8.6
+  _minSpreadAngle: 1
   _maxSpreadAngle: 40.6
   _aimModifier: 0
   _magazineConfig: {fileID: 11400000, guid: 3441d08c5f78cbb498cd239936e8fb0c, type: 2}
