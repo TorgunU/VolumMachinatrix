@@ -61,6 +61,8 @@ public class SlotWeapon : ISlotItem
         WeaponTransform.GetChild(0).SetParent(ItemWeapon.transform);
 
         ItemWeapon.transform.GetChild(0).gameObject.SetActive(false);
+
+        OnWeaponUnequipped?.Invoke();
     }
 
     private void SetWeaponToSlot()
@@ -77,5 +79,6 @@ public class SlotWeapon : ISlotItem
     public event Action OnEmpty;
     public event Action<Sprite> OnItemAdded;
     public event Action<GameObject> OnWeaponEquipped;
+    public event Action OnWeaponUnequipped;
     //public event Action
 }

@@ -113,6 +113,7 @@ public class Player : MonoBehaviour
         _inventory.OnWeaponSlotUnselected += _inventoryPanel.OnRemovedHighlightWeaponViewer;
 
         _inventory.FirstWeaponSlot.OnWeaponEquipped += WeaponEquippedInFirstSlotHandle;
+        _inventory.FirstWeaponSlot.OnWeaponUnequipped += WeaponUnequippedInFirstSlotHandle;
 
         // OnRemove in inventory panel
     }
@@ -123,5 +124,13 @@ public class Player : MonoBehaviour
         _reloadInput.ReloadPressed += _attack.Reload;
 
         _weaponInjector.Init(weapon.GetComponent<Weapon>());
+    }
+
+    private void WeaponUnequippedInFirstSlotHandle()
+    {
+        _attacksInput.AttackPressed -= _attack.Attack;
+        _reloadInput.ReloadPressed -= _attack.Reload;
+
+        _attack.PlayerWeapon.ResetWeapon();
     }
 }

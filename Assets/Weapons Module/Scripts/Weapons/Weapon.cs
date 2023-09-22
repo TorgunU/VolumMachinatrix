@@ -11,7 +11,7 @@ public abstract class Weapon : MonoBehaviour, IWeaponAttackable
     protected bool IsAttackCanceled = false;
     protected bool IsAttackCooldowned = true;
 
-    private Coroutine _attackDelayCorutine;
+    protected Coroutine AttackDelayCorutine;
 
     public void Attack()
     {
@@ -35,7 +35,18 @@ public abstract class Weapon : MonoBehaviour, IWeaponAttackable
 
         IsAttackCooldowned = false;
 
-        _attackDelayCorutine = StartCoroutine(CalculatingAttackDelay());
+        AttackDelayCorutine = StartCoroutine(CalculatingAttackDelay());
+    }
+
+    protected virtual void OnDisable()
+    {
+        if (AttackDelayCorutine != null)
+        {
+            StopCoroutine(AttackDelayCorutine);
+        }
+
+        IsAttackCooldowned = true;
+        IsAttackCanceled = false;
     }
 
     public abstract IEnumerator CalculatingAttackDelay();

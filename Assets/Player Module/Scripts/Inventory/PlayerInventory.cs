@@ -92,11 +92,6 @@ public class PlayerInventory : Inventory
         IsItemSlotSelected = false;
     }
 
-    private void BindWeaponToPlayer()
-    {
-        //CurrentSlotWeapon
-    }
-
     private void SelectItemSlot(int slotItemsNumber)
     {
         ToggleIsItemSlotSelected();

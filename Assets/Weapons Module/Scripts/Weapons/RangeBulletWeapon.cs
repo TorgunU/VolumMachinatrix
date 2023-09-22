@@ -15,15 +15,21 @@ public abstract class RangeBulletWeapon : RangeWeapon
     protected const string IdleState = "Idle";
     protected const string ShootState = "Shoot";
 
-    public void Inject(Crosshair crosshair, Transform hierarchyPoolBullet)
+    protected override void Awake()
     {
-        Crosshair = crosshair;
-        HierarchyPoolBullet = hierarchyPoolBullet;
+        base.Awake();
 
         Magazine = new PistolMagazine(
             WeaponConfig.MagazineConfig.Capacity,
             WeaponConfig.BulletConfig,
             HierarchyPoolBullet);
+    }
+
+    public void Inject(Crosshair crosshair, Transform hierarchyPoolBullet)
+    {
+        Crosshair = crosshair;
+
+        HierarchyPoolBullet.SetParent(hierarchyPoolBullet);
     }
 
     protected virtual void Start()

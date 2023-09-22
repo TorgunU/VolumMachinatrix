@@ -11,5 +11,10 @@ public class PlayerWeapon
         CurrentWeapon = weapon;
     }
 
+    public void ResetWeapon()
+    {
+        _currentWeapon = null;
+    }
+
     public Weapon CurrentWeapon { get => _currentWeapon; protected set => _currentWeapon = value; }
 }

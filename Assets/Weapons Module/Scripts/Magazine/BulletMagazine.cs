@@ -11,14 +11,16 @@ public abstract class BulletMagazine : WeaponMagazine
 
     private Transform _hierarchyPool;
 
-    public BulletMagazine(int magazineSize, BulletConfig bulletConfig, Transform hierarchyPool) : base(magazineSize)
+    public BulletMagazine(int magazineSize, BulletConfig bulletConfig, Transform hierarchyPool) 
+        : base(magazineSize)
     {
         BulletConfig = bulletConfig;
         _hierarchyPool = hierarchyPool;
 
         int minPoolSize = magazineSize / 2;
 
-        PoolBullets = new PoolBullet<Bullet>(BulletConfig.Bullet, minPoolSize, MagazineSize, _hierarchyPool,
+        PoolBullets = new PoolBullet<Bullet>(BulletConfig.Bullet, 
+            minPoolSize, MagazineSize, _hierarchyPool,
             true, 20);
     }
 
