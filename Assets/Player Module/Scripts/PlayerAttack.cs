@@ -4,34 +4,31 @@ using UnityEngine;
 [Serializable]
 public class PlayerAttack : IAttackeable, IReloadable
 {
-    protected Weapon Weapon;
+    private PlayerWeapon _playerWeapon;
 
-    public PlayerAttack(Weapon weapon)
+    public PlayerAttack()
     {
-        Weapon = weapon;
-    }
-
-    public void InjectWeapon(Weapon weapon)
-    {
-        Weapon = weapon;
+        _playerWeapon = new PlayerWeapon();
     }
 
     public void Attack()
     {
-        if (Weapon == null)
+        if (_playerWeapon.CurrentWeapon == null)
             return;
 
-        Weapon.Attack();
+        _playerWeapon.CurrentWeapon.Attack();
     }
 
     public void Reload()
     {
-        if (Weapon == null) 
+        if (_playerWeapon.CurrentWeapon == null) 
             return;
 
-        if (Weapon is RangeWeapon rangeWeapon == false)
+        if (_playerWeapon.CurrentWeapon is RangeWeapon rangeWeapon == false)
             return;
 
         rangeWeapon.Reload();
     }
+
+    public PlayerWeapon PlayerWeapon { get => _playerWeapon; protected set => _playerWeapon = value; }
 }

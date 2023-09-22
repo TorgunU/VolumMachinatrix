@@ -23,8 +23,8 @@ public class PlayerMovement : MonoBehaviour, IMoveable
         _rigidbody2D.gravityScale = 0;
 
         _inputEvents.MovementDirectionUpdated += SetDirection;
-        _movementStateEvents.WalkStateChanged += _playerSpeed.SetWalkState;
-        _movementStateEvents.RunStateChanged += _playerSpeed.SetRunState;
+        _movementStateEvents.WalkStateChanged += SetWalkState;
+        _movementStateEvents.RunStateChanged += SetRunState;
     }
 
     private void Awake()
@@ -48,8 +48,8 @@ public class PlayerMovement : MonoBehaviour, IMoveable
     {
         _inputEvents.MovementDirectionUpdated -= SetDirection;
 
-        _movementStateEvents.WalkStateChanged -= _playerSpeed.SetWalkState;
-        _movementStateEvents.RunStateChanged -= _playerSpeed.SetRunState;
+        _movementStateEvents.WalkStateChanged -= SetWalkState;
+        _movementStateEvents.RunStateChanged -= SetRunState;
 
         _playerSpeed.SpeedChanged -= OnSpeedChanged;
     }
@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour, IMoveable
     {
         _moveDirection = moveDirection;
 
-        if (_moveDirection == Vector2.zero)
+        if (IsMoveDirectionZero())
         {
             _playerSpeed.ResetSpeeding();
         }
@@ -73,6 +73,33 @@ public class PlayerMovement : MonoBehaviour, IMoveable
         {
             _playerSpeed.StartMoving();
         }
+    }
+
+    private void SetWalkState(bool isWalking)
+    {
+        if (IsMoveDirectionZero())
+        {
+            Debug.Log("Cant set walk state!");
+            return;
+        }
+
+        _playerSpeed.SetWalkState(isWalking);
+    }
+
+    private void SetRunState(bool isRunning)
+    {
+        if (IsMoveDirectionZero())
+        {
+            Debug.Log("Cant set run state!");
+            return;
+        }
+
+        _playerSpeed.SetRunState(isRunning);
+    }
+
+    private bool IsMoveDirectionZero()
+    {
+        return _moveDirection == Vector2.zero;
     }
 
     private void OnSpeedChanged(float speed)

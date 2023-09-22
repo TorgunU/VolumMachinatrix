@@ -19,14 +19,13 @@ public abstract class PlayerInput : MonoBehaviour,
     public abstract event Action<Vector2> MovementDirectionUpdated;
     public abstract event Action<bool> AimHolded;
     public abstract event Action ReloadPressed;
-    public abstract event Action Interacted;
+    public abstract event Action Interacted; // like open door, interact with trigger
     public abstract event Action PickupPressed;
     public abstract event Action UsePressed;
     public abstract event Action SwitchPressed;
-    public abstract event Action InventoryItemSelected;
-    public abstract event Action InventoryItemUnselected;
-
-    //public abstract event Action<Vector2> LookDirectionUpdated;
+    public abstract event Action FirstSlotItemsPressed;
+    public abstract event Action FirstWeaponSlotPressed;
+    public abstract event Action DropPressed;
 
     protected virtual void Awake()
     {
@@ -60,6 +59,8 @@ public abstract class PlayerInput : MonoBehaviour,
 
         InputActions.KeyboardMouse.PickupItem.performed += pickupItemContext =>
         RaisePickupPressed(pickupItemContext);
+        InputActions.KeyboardMouse.DropItem.performed += dropContext =>
+        RaiseDropPressed(dropContext);
         InputActions.KeyboardMouse.UseItem.performed += useItemContext =>
         RaiseUsePressed(useItemContext);
         InputActions.KeyboardMouse.SwitchItem.performed += switchItemContext =>
@@ -69,7 +70,10 @@ public abstract class PlayerInput : MonoBehaviour,
         RaiseInteractionPressed(interactionContext);
 
         InputActions.KeyboardMouse.FirstItemSlot.performed += firstItemSlotContext =>
-        RaiseItemSelected(firstItemSlotContext);
+        RaiseFirstItemSlotPressed(firstItemSlotContext);
+
+        InputActions.KeyboardMouse.FirstWeaponSlot.performed += firstWeaponSlotContext =>
+        RaiseFirstWeaponSlotPressed(firstWeaponSlotContext);
     }
 
     protected virtual void OnEnable()
@@ -90,8 +94,9 @@ public abstract class PlayerInput : MonoBehaviour,
     protected abstract void RaiseReloadPressed(InputAction.CallbackContext walkContext);
     protected abstract void RaiseInteractionPressed(InputAction.CallbackContext interactionContext);
     protected abstract void RaisePickupPressed(InputAction.CallbackContext pickupContext);
+    protected abstract void RaiseDropPressed(InputAction.CallbackContext dropContext);
     protected abstract void RaiseUsePressed(InputAction.CallbackContext useContext);
     protected abstract void RaiseSwitchPressed(InputAction.CallbackContext switchContext);
-    protected abstract void RaiseItemSelected(InputAction.CallbackContext selectContext);
-    protected abstract void RaiseItemUnselected(InputAction.CallbackContext unselectContext);
+    protected abstract void RaiseFirstWeaponSlotPressed(InputAction.CallbackContext selectContext);
+    protected abstract void RaiseFirstItemSlotPressed(InputAction.CallbackContext selectContext);
 }

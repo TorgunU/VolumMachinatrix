@@ -8,4 +8,5 @@ public interface IItemInteractionEvents
     public abstract event Action PickupPressed;
     public abstract event Action UsePressed;
     public abstract event Action SwitchPressed;
+    public abstract event Action DropPressed;
 }

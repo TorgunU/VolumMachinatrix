@@ -19,6 +19,7 @@ public class PoolWeaponAudio : WeaponAudio
         if (PoolAttackAudio.TryGetElement(out RangeAttackAudio audioSource) == false)
         {
             Debug.LogError("RangeAttackAudio is null");
+            return;
         }
 
         audioSource.Play();

@@ -13,7 +13,6 @@ public abstract class RangeWeapon : Weapon, IWeaponShootable, IWeaponReloadable
 
     [SerializeField] private float _impulseForce = 5;
 
-
     private Quaternion _defaultRotation = new Quaternion(0,0,0,0);
     private float _angle;
 

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -9,6 +8,10 @@ public class ItemInteractableTextDisplay : MonoBehaviour
     [SerializeField] private TMP_Text _pickupText;
     [SerializeField] private float _distantBetweenTexts;
 
+    private Transform _itemTranform;
+    private Coroutine _displayCorutine;
+    private bool _isDisplaying;
+
     private void Awake()
     {
         _distantBetweenTexts = 1.5f;
@@ -16,27 +19,35 @@ public class ItemInteractableTextDisplay : MonoBehaviour
 
     public void Select(Transform itemTransform)
     {
-        ChangePosition(itemTransform);
+        _itemTranform = itemTransform;
+        _isDisplaying = true;
 
         gameObject.SetActive(true);
+        _displayCorutine = StartCoroutine(ChangingPosition());
     }
 
     public void Deselect()
     {
+        _isDisplaying = false;
+        StopCoroutine(_displayCorutine);
         gameObject.SetActive(false);
     }
 
-    private void ChangePosition(Transform itemTransform)
+    private IEnumerator ChangingPosition()
     {
-        _pickupText.rectTransform.position = itemTransform.position + new Vector3(_distantBetweenTexts, 0, 0);
-        _useText.rectTransform.position = itemTransform.position + new Vector3(-_distantBetweenTexts, 0, 0);
+        if (_itemTranform == null)
+        {
+            yield return null;
+        }
 
-        //Vector3 screenPosition = Camera.main.WorldToScreenPoint(itemTransform.position);
+        yield return new WaitWhile(() =>
+        {
+            _pickupText.rectTransform.position = _itemTranform.position
+                + new Vector3(_distantBetweenTexts, 0, 0);
+            _useText.rectTransform.position = _itemTranform.position
+                + new Vector3(-_distantBetweenTexts, 0, 0);
 
-        //Vector3 pickupTextPosition = screenPosition + new Vector3(_distantBetweenTexts,0,0);
-        //Vector3 useTextPosition = screenPosition + new Vector3(-_distantBetweenTexts, 0, 0);
-
-        //_pickupText.rectTransform.position = Camera.main.ScreenToWorldPoint(pickupTextPosition);
-        //_useText.rectTransform.position = Camera.main.ScreenToWorldPoint(useTextPosition);
+            return _isDisplaying;
+        });
     }
 }

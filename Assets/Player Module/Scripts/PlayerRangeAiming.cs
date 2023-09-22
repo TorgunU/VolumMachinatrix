@@ -17,8 +17,21 @@ public class PlayerRangeAiming : IAimable, IDisposable
     private PlayerSpeed _playerSpeed;
     private bool _disposed = false;
 
-    public PlayerRangeAiming(Crosshair crosshair, IAimingEvents aimingInput,
-        PlayerSpeed playerSpeed, RangeWeaponConfig rangeWeaponConfig)
+    public PlayerRangeAiming(Crosshair crosshair, IAimingEvents aimingInput, 
+        PlayerSpeed playerSpeed)
+    {
+        _crosshair = crosshair;
+        _aimingInput = aimingInput;
+        _playerSpeed = playerSpeed;
+
+        _aimingInput.AimHolded += ChangeAimState;
+        _playerSpeed.SpeedChanged += OnSpeedChanged;
+
+        _movementModifier = _stayingBuff;
+    }
+
+    public PlayerRangeAiming(Crosshair crosshair, IAimingEvents aimingInput, PlayerSpeed playerSpeed,
+        RangeWeaponConfig rangeWeaponConfig)
     {
         _crosshair = crosshair;
         _aimingInput = aimingInput;
@@ -90,7 +103,15 @@ public class PlayerRangeAiming : IAimable, IDisposable
 
     private void CalculateAimModifier()
     {
-        _crosshair.AimModifier = _movementModifier + _rangeWeaponConfig.AimModifier;
+        if(_rangeWeaponConfig != null)
+        {
+            _crosshair.AimModifier = _movementModifier + _rangeWeaponConfig.AimModifier;
+        }
+        else
+        {
+            _crosshair.AimModifier = _movementModifier;
+        }
+
     }
 
     protected virtual void Dispose(bool disposing)
